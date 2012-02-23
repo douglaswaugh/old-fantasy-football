@@ -22,42 +22,26 @@ namespace DW.FantasyFootball.Console
 
                     IEnumerable<HtmlNode> fixtureRows = GetFixtureRows(document);
 
-                    GamesWeek gamesWeek = BuildGamesWeekData(fixtureRows);
+                    Gamesweek gamesweek = BuildGamesWeekData(fixtureRows);
 
-                    fixtureList.Add(gamesWeek);
+                    fixtureList.Add(gamesweek);
 
                     System.Console.WriteLine(string.Format("Processed gamesweek {0}", weekNumber));
                 }
 
                 var league = new League(fixtureList);
 
-                var leaguePrinter = new LeaguePrinter(league);
+                // get a team
+                // work out the next fixture
+                // calculate the last score of opponent
+                // work out the probability of opponent not scoring using poisson
 
-                // which team had the most clean sheets at home
-
-                // which team conceeded the fewest goals at home
-
-                leaguePrinter.ByHomeGoalsConceededAsc();
-
-                leaguePrinter.ByAwayGoalsScoredDesc();
-
-                leaguePrinter.ByAwayGoalsConceeded();
-
-                leaguePrinter.ByHomeGoalsScoredDesc();
-
-                var calc = new StrengthCalculator();
-
-                foreach (var teamData in league)
+                foreach(var teamData in league)
                 {
-                    teamData.Key.HomeDefenceMultiplier = teamData.Value.HomeGoalsAgainst;
+                    var nextFixture = fixtureList.GetNextFixture(teamData.Key);
 
-                    // what I want to do is:
-                    // get a team
-                    // calculate the next fixture for that team
-                    // 
+                    var lastFixture = fixtureList.GetLastGame(teamData.Key);
                 }
-
-                // need to take goals and assists in to account (but who were goals and assists scored against?)
             }
             catch (Exception ex)
             {
@@ -74,16 +58,24 @@ namespace DW.FantasyFootball.Console
             return GetDocument(response);
         }
 
-        private static GamesWeek BuildGamesWeekData(IEnumerable<HtmlNode> fixtureRows)
+        private static Gamesweek BuildGamesWeekData(IEnumerable<HtmlNode> fixtureRows)
         {
-            var gamesWeek = new GamesWeek();
+            var gamesWeek = new Gamesweek();
+
+            var completed = true;
 
             foreach (var row in fixtureRows)
             {
                 Fixture fixture = GetFixture(row);
 
                 gamesWeek.AddFixture(fixture);
+
+                if (!fixture.Played)
+                    completed = false;
             }
+
+            gamesWeek.Completed = completed;
+
             return gamesWeek;
         }
 

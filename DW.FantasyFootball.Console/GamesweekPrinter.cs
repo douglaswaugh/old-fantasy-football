@@ -2,11 +2,11 @@
 {
     public class GamesweekPrinter
     {
-        public GamesWeek Gamesweek;
+        public Gamesweek Gamesweek;
 
-        public GamesweekPrinter(GamesWeek gamesWeek)
+        public GamesweekPrinter(Gamesweek gamesweek)
         {
-            Gamesweek = gamesWeek;
+            Gamesweek = gamesweek;
         }
 
         public void Print()

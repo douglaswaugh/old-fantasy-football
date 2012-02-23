@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace DW.FantasyFootball.Console
 {
-    public class FixtureList : IEnumerable<GamesWeek>
+    public class FixtureList : IEnumerable<Gamesweek>
     {
-        private readonly List<GamesWeek> _gamesweeks;
+        private readonly List<Gamesweek> _gamesweeks;
 
         public FixtureList()
         {
-            _gamesweeks = new List<GamesWeek>();
+            _gamesweeks = new List<Gamesweek>();
         }
 
-        public IEnumerator<GamesWeek> GetEnumerator()
+        public IEnumerator<Gamesweek> GetEnumerator()
         {
             return _gamesweeks.GetEnumerator();
         }
@@ -22,9 +22,25 @@ namespace DW.FantasyFootball.Console
             return GetEnumerator();
         }
 
-        public void Add(GamesWeek gamesWeek)
+        public void Add(Gamesweek gamesweek)
         {
-            _gamesweeks.Add(gamesWeek);
+            _gamesweeks.Add(gamesweek);
+        }
+
+        public Fixture GetNextFixture(Team team)
+        {
+            foreach(var gamesweek in _gamesweeks)
+            {
+                if (!gamesweek.Completed)
+                {
+                    if (!gamesweek.TeamHasPlayed(team))
+                    {
+                        return gamesweek.GetFixtureForTeam(team);
+                    }
+                }
+            }
+
+            throw new SeasonFinishedException();
         }
     }
 }

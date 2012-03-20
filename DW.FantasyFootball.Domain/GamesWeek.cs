@@ -55,7 +55,7 @@ namespace DW.FantasyFootball.Domain
 
         public Fixture GetFixtureForTeam(Team team)
         {
-            return _fixtures.OrderBy(x => x.Date).First(f => f.AwayTeam == team || f.HomeTeam == team);
+            return _fixtures.OrderBy(x => x.Date).FirstOrDefault(f => f.AwayTeam == team || f.HomeTeam == team);
         }
 
         public bool HasGame(Team team)
@@ -65,7 +65,7 @@ namespace DW.FantasyFootball.Domain
 
         public bool HasPlayed(Team team)
         {
-            return GetFixtureForTeam(team).Played == true;
+            return GetFixtureForTeam(team) != null ? GetFixtureForTeam(team).Played = true : false;
         }
 
         public bool HasNotPlayed(Team team)

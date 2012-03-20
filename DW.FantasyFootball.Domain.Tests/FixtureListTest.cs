@@ -34,8 +34,12 @@ namespace DW.FantasyFootball.Domain.Tests
                                           HomeGoals = 2,
                                           HomeTeam = _team1,
                                           Date = DateTime.Now.AddDays(-7),
-                                          Played = true
+                                          Played = true                                         
                                       });
+
+            gamesweek1.Started = true;
+
+            gamesweek1.Completed = true;
 
             gamesweek2.AddFixture(new Fixture
                                       {
@@ -45,7 +49,11 @@ namespace DW.FantasyFootball.Domain.Tests
                                           HomeTeam = _team1,
                                           Date = DateTime.Now,
                                           Played = true
-                                      }); 
+                                      });
+
+            gamesweek2.Started = true;
+
+            gamesweek2.Completed = true;
             
             gamesweek3.AddFixture(new Fixture
                                       {

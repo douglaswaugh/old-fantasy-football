@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using DW.FantasyFootball.Domain;
 using log4net;
 using NUnit.Framework;
@@ -56,6 +57,8 @@ namespace Dw.FantasyFootball.Domain.Scenarios.StepDefinitions
         private Gamesweek _gamesweek1;
         private Fixture _wigansNextFixture;
         private Fixture _wigansSecondFixture;
+        private Fixture _sunderlandsLastHomeFixture;
+        private Gamesweek _gamesweek2;
 
         [Given(@"a fixture list has one games week")]
         public void GivenAFixtureListHasOneGamesWeek()
@@ -116,7 +119,7 @@ namespace Dw.FantasyFootball.Domain.Scenarios.StepDefinitions
             _gamesweek1.AddFixture(new Fixture { HomeTeam = _fulham, AwayTeam = _wolves, Date = new DateTime(2012, 2, 25) });
             _gamesweek1.AddFixture(new Fixture { HomeTeam = _tottenham, AwayTeam = _manUtd, Date = new DateTime(2012, 2, 25) });
 
-            var _gamesweek2 = new Gamesweek();
+            _gamesweek2 = new Gamesweek();
 
             _firstFixture = new Fixture { HomeTeam = _sunderland, AwayTeam = _liverpool, Date = new DateTime(2012, 3, 10) };
 
@@ -158,29 +161,42 @@ namespace Dw.FantasyFootball.Domain.Scenarios.StepDefinitions
             _wigansNextFixture = _fixtureList.GetNextGamesweeksFixture(_wigan, logger);
         }
 
-        [Then(@"the gamesweek from the second gamesweek should be selected")]
-        public void ThenTheGamesweekFromTheSecondGamesweekShouldBeSelected()
+        [Then(@"Wigan's fixture from the second games week should be selected")]
+        public void ThenWiganSFixtureFromTheSecondGamesWeekShouldBeSelected()
         {
             Assert.That(_wigansNextFixture, Is.EqualTo(_wigansSecondFixture));
         }
 
-        [Given(@"Liverpool have played the fixture in the first week")]
-        public void GivenLiverpoolHavePlayedTheFixtureInTheFirstWeek()
+        [Given(@"Sunderland did not play in the first games week")]
+        public void GivenSunderlandDidNotPlayInTheFirstGamesWeek()
         {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Given(@"some teams have yet to play the fixture in the first week")]
-        public void GivenSomeTeamsHaveYetToPlayTheFixtureInTheFirstWeek()
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"Liverpool's next fixture should be in")]
-        public void ThenLiverpoolSNextFixtureShouldBeIn()
-        {
-            ScenarioContext.Current.Pending();
+            _gamesweek1._fixtures.Remove(_gamesweek1.GetFixtureForTeam(_sunderland));
         }
 
+        [Given(@"All the games have been played")]
+        public void AllTheGamesHaveBeenPlayed()
+        {
+            foreach(var gamesweek in _fixtureList)
+            {
+                foreach(var fixture in gamesweek)
+                {
+                    fixture.HomeGoals = 1;
+                    fixture.AwayGoals = 2;
+                    fixture.Played = true;
+                }
+            }
+        }
+
+        [When(@"I get Sunderland's next fixture")]
+        public void WhenIGetSunderlandSNextFixture()
+        {
+            _sunderlandsLastHomeFixture = _fixtureList.GetLastHomeFixture(_sunderland);
+        }
+
+        [Then(@"Sunderland's fixture from the second games week should be selected")]
+        public void ThenSunderlandSFixtureFromTheSecondGamesWeekShouldBeSelected()
+        {
+            Assert.That(_sunderlandsLastHomeFixture.AwayTeam, Is.EqualTo(_liverpool));
+        }
     }
 }

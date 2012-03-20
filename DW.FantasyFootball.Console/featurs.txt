@@ -1,0 +1,4 @@
+calculate points for next gamesweek based on last gamesweek
+calculate points for next n gamesweeks based on last n gamesweeks
+calculate points for next n gamesweeks based on last n gamesweeks when team has double gamesweek
+calculate points for next n gamesweeks based on last n gamesweeks when team has missing gamesweek

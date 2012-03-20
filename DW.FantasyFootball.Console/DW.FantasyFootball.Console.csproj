@@ -11,7 +11,8 @@
     <RootNamespace>DW.FantasyFootball.Console</RootNamespace>
     <AssemblyName>DW.FantasyFootball.Console</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,8 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="HtmlAgilityPack">
-      <HintPath>..\packages\HtmlAgilityPack.1.4.3\lib\HtmlAgilityPack.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.11.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,24 +48,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Fixture.cs" />
-    <Compile Include="FixtureList.cs" />
-    <Compile Include="FixtureListPrinter.cs" />
-    <Compile Include="GamesWeek.cs" />
-    <Compile Include="GamesweekPrinter.cs" />
-    <Compile Include="League.cs" />
-    <Compile Include="LeagueData.cs" />
-    <Compile Include="LeaguePrinter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SeasonFinishedException.cs" />
-    <Compile Include="Team.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Responses\justTheDiv.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DW.FantasyFootball.Domain\DW.FantasyFootball.Domain.csproj">
+      <Project>{528FA96E-E479-4BD2-AD28-6F3FD9538769}</Project>
+      <Name>DW.FantasyFootball.Domain</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

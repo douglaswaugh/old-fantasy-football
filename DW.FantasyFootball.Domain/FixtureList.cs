@@ -37,26 +37,6 @@ namespace DW.FantasyFootball.Domain
                 var gw = _gamesweeks.FirstOrDefault(g => g.Started == false);
 
                 return gw.GetFixtureForTeam(team);
-
-                //foreach (var gw in _gamesweeks)
-                //{
-                //    if (!gw.Completed)
-                //    {
-                        
-                //    }
-
-                //    if (gw.HasGame(team))
-                //    {
-                //        if (logger.IsDebugEnabled)
-                //        {
-                //            logger.Debug(team + " " + gw);
-                //        }
-                //        if (gw.GetFixtureForTeam(team).Played != true)
-                //        {
-                //            return gw.GetFixtureForTeam(team);
-                //        }
-                //    }
-                //}
             }
             catch(Exception e)
             {

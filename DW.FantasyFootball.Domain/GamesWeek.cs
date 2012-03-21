@@ -65,7 +65,14 @@ namespace DW.FantasyFootball.Domain
 
         public bool HasPlayed(Team team)
         {
-            return GetFixtureForTeam(team) != null ? GetFixtureForTeam(team).Played = true : false;
+            var hasPlayed = false;
+
+            if (GetFixtureForTeam(team) != null)
+            {
+                hasPlayed = GetFixtureForTeam(team).Played == true;
+            }
+
+            return hasPlayed;
         }
 
         public bool HasNotPlayed(Team team)

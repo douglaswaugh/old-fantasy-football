@@ -24,6 +24,7 @@ namespace DW.FantasyFootball.Console
                 {
                     var nextFixture = league.FixtureList.GetNextGamesweeksFixture(teamData.Key, _logger);
 
+                    // 
                     decimal expectedHomeGoals;
                         
                     decimal expectedAwayGoals;
@@ -62,6 +63,8 @@ namespace DW.FantasyFootball.Console
             {
                 System.Console.WriteLine("Error: {0}", ex.Message);
             }
+
+            System.Console.ReadKey(true);
         }
     }
 

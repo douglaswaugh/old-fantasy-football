@@ -109,11 +109,11 @@ this.ScenarioSetup(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Getting a team\'s last fixture when they did not play in all games weeks")]
+        [NUnit.Framework.DescriptionAttribute("Getting a team\'s last home fixture when they did not play in all games weeks")]
         [NUnit.Framework.CategoryAttribute("nextFixture")]
-        public virtual void GettingATeamSLastFixtureWhenTheyDidNotPlayInAllGamesWeeks()
+        public virtual void GettingATeamSLastHomeFixtureWhenTheyDidNotPlayInAllGamesWeeks()
         {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s last fixture when they did not play in all games weeks", new string[] {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s last home fixture when they did not play in all games weeks", new string[] {
                         "nextFixture"});
 #line 21
 this.ScenarioSetup(scenarioInfo);
@@ -122,9 +122,51 @@ this.ScenarioSetup(scenarioInfo);
 #line 23
  testRunner.And("Sunderland did not play in the first games week");
 #line 24
- testRunner.When("I get Sunderland\'s next fixture");
+ testRunner.And("All the games have been played");
 #line 25
+ testRunner.When("I get Sunderland\'s last home fixture");
+#line 26
  testRunner.Then("Sunderland\'s fixture from the second games week should be selected");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Getting a team\'s next fixture when there is more than one games week to play")]
+        [NUnit.Framework.CategoryAttribute("nextFixture")]
+        public virtual void GettingATeamSNextFixtureWhenThereIsMoreThanOneGamesWeekToPlay()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s next fixture when there is more than one games week to play", new string[] {
+                        "nextFixture"});
+#line 29
+this.ScenarioSetup(scenarioInfo);
+#line 30
+ testRunner.Given("a fixture list has two games weeks");
+#line 31
+ testRunner.When("I get Sunderland\'s next fixture");
+#line 32
+ testRunner.Then("Sunderland\'s fixture from the first games week should be selected");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Getting a team\'s last home fixture when there are more games to play")]
+        [NUnit.Framework.CategoryAttribute("nextFixture")]
+        public virtual void GettingATeamSLastHomeFixtureWhenThereAreMoreGamesToPlay()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s last home fixture when there are more games to play", new string[] {
+                        "nextFixture"});
+#line 35
+this.ScenarioSetup(scenarioInfo);
+#line 36
+ testRunner.Given("a fixture list has two games weeks");
+#line 37
+ testRunner.And("The first games week has been completed");
+#line 38
+ testRunner.When("I get Arsenal\'s last home fixture");
+#line 39
+ testRunner.Then("Arsenal\'s fixture from the first games week should be selected");
 #line hidden
             this.ScenarioCleanup();
         }

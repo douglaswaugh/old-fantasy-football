@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using DW.FantasyFootball.Domain;
 using log4net;
 
@@ -6,8 +8,6 @@ namespace DW.FantasyFootball.Console
 {
     class Program
     {
-
-
         static void Main(string[] args)
         {
             try
@@ -20,44 +20,46 @@ namespace DW.FantasyFootball.Console
 
                 var league = new League(fixtureList, _logger);
 
+                var stats = new Stats();
+
                 foreach(var teamData in league)
                 {
                     var nextFixture = league.FixtureList.GetNextGamesweeksFixture(teamData.Key, _logger);
-
-                    // 
-                    decimal expectedHomeGoals;
+ 
+                    decimal expectedTeamGoals;
                         
-                    decimal expectedAwayGoals;
+                    decimal expectedOpponentGoals;
 
                     if (nextFixture == null)
                         break;
 
                     if (nextFixture.HomeTeam == teamData.Key)
                     {
-                        var homeFixture = league.FixtureList.GetLastHomeFixture(teamData.Key);
+                        var homeFixtures = league.FixtureList.GetLastXHomeFixturesForTeam(teamData.Key, 6);
                         
-                        var awayFixture = league.FixtureList.GetLastAwayFixture(nextFixture.AwayTeam);
+                        var awayFixtures = league.FixtureList.GetLastXAwayFixturesForTeam(nextFixture.AwayTeam, 6);
 
-                        expectedHomeGoals = (homeFixture.HomeGoals + awayFixture.HomeGoals)/2m;
+                        expectedTeamGoals = (homeFixtures.Average(f => (decimal)f.HomeGoals) + awayFixtures.Average(f => (decimal)f.HomeGoals)) / 2m;
 
-                        expectedAwayGoals = (awayFixture.AwayGoals + homeFixture.AwayGoals)/2m;
+                        expectedOpponentGoals = (awayFixtures.Average(f => (decimal)f.AwayGoals) + homeFixtures.Average(f => (decimal)f.AwayGoals))/2m;
                     }
                     else
                     {
-                        var homeFixture = league.FixtureList.GetLastHomeFixture(nextFixture.HomeTeam);
+                        var awayFixtures = league.FixtureList.GetLastXAwayFixturesForTeam(teamData.Key, 6);
 
-                        var awayFixture = league.FixtureList.GetLastAwayFixture(teamData.Key);
+                        var homeFixtures = league.FixtureList.GetLastXHomeFixturesForTeam(nextFixture.HomeTeam, 6);
 
-                        expectedHomeGoals = (homeFixture.HomeGoals + awayFixture.HomeGoals) / 2m;
+                        expectedOpponentGoals = (homeFixtures.Average(f => (decimal)f.HomeGoals) + awayFixtures.Average(f => (decimal)f.HomeGoals)) / 2m;
 
-                        expectedAwayGoals = (awayFixture.AwayGoals + homeFixture.AwayGoals) / 2m;
-                        
+                        expectedTeamGoals = (awayFixtures.Average(f => (decimal)f.AwayGoals) + homeFixtures.Average(f => (decimal)f.AwayGoals)) / 2m;
                     }
 
-                    System.Console.WriteLine(string.Format("{0} {1} - {2} {3}", nextFixture.HomeTeam, expectedHomeGoals, expectedAwayGoals, nextFixture.AwayTeam));
+                    stats.AddFutureFixture(teamData.Key, new StatFixture(expectedTeamGoals, expectedOpponentGoals));
 
-                    // work out poisson on averages 
+                    System.Console.WriteLine(string.Format("{0} v {1} for {2} against {3}", teamData.Key,  expectedTeamGoals.ToString("{0.00}"), expectedOpponentGoals.ToString("{0.00}")));
                 }
+
+                System.Console.ReadKey(true);
             }
             catch (Exception ex)
             {
@@ -65,6 +67,38 @@ namespace DW.FantasyFootball.Console
             }
 
             System.Console.ReadKey(true);
+        }
+    }
+
+    public class StatFixture
+    {
+        private readonly decimal _expectedTeamGoals;
+        private readonly decimal _expectedOpponentGoals;
+
+        public StatFixture(decimal expectedTeamGoals, decimal expectedOpponentGoals)
+        {
+            _expectedTeamGoals = expectedTeamGoals;
+            _expectedOpponentGoals = expectedOpponentGoals;
+        }
+    }
+
+    public class Stats
+    {
+        private Dictionary<Team, List<StatFixture>> _stats;
+
+        public void AddFutureFixture(Team team, StatFixture statFixture)
+        {
+            if (_stats == null)
+            {
+                _stats = new Dictionary<Team, List<StatFixture>>();
+            }
+
+            if (!_stats.ContainsKey(team))
+            {
+                _stats.Add(team, new List<StatFixture>());
+            }
+
+            _stats[team].Add(statFixture);
         }
     }
 

@@ -56,7 +56,7 @@ namespace DW.FantasyFootball.Domain
             return GetFixture(team, nextGamesweek);
         }
 
-        private Fixture GetFixture(Team team, Gamesweek nextGamesweek)
+        private Fixture GetFixture(Team team, Gamesweek nextGamesweek)  
         {
             var nextGamesweekIndex = _gamesweeks.IndexOf(nextGamesweek);
 
@@ -82,6 +82,24 @@ namespace DW.FantasyFootball.Domain
         public override string ToString()
         {
             return string.Format("Gamesweeks: {0}", _gamesweeks);
+        }
+
+        public IEnumerable<Fixture> GetLastXHomeFixturesForTeam(Team team, int fixtureCount)
+        {
+            var homeGames = _gamesweeks
+                .Where(x => x.HasPlayed(team) && x.HasHomeGame(team))
+                .Select(g => g.GetFixtureForTeam(team));
+
+            return homeGames.Skip(homeGames.Count() - fixtureCount);
+        }
+
+        public IEnumerable<Fixture> GetLastXAwayFixturesForTeam(Team team, int fixtureCount)
+        {
+            var awayGames = _gamesweeks
+                .Where(x => x.HasPlayed(team) && x.HasAwayGame(team))
+                .Select(g => g.GetFixtureForTeam(team));
+
+            return awayGames.Skip(awayGames.Count() - fixtureCount);
         }
     }
 }

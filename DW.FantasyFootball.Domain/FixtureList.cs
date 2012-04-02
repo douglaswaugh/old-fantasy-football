@@ -34,9 +34,7 @@ namespace DW.FantasyFootball.Domain
         {
             try
             {
-                var gw = _gamesweeks.FirstOrDefault(g => g.Started == false);
-
-                return gw.GetFixtureForTeam(team);
+                return NextGamesweek().GetFixtureForTeam(team);
             }
             catch(Exception e)
             {
@@ -47,6 +45,11 @@ namespace DW.FantasyFootball.Domain
                 
                 throw new SeasonFinishedException();
             }
+        }
+
+        private Gamesweek NextGamesweek()
+        {
+            return _gamesweeks.FirstOrDefault(g => g.Started == false);
         }
 
         public Fixture GetLastFixture(Team team)
@@ -100,6 +103,14 @@ namespace DW.FantasyFootball.Domain
                 .Select(g => g.GetFixtureForTeam(team));
 
             return awayGames.Skip(awayGames.Count() - fixtureCount);
+        }
+
+        public IEnumerable<Fixture> GetNextFixtures(Team team, int fixtureCount)
+        {
+            return _gamesweeks
+                .Skip(_gamesweeks.IndexOf(NextGamesweek()))
+                .Take(fixtureCount)
+                .Select(g => g.GetFixtureForTeam(team));
         }
     }
 }

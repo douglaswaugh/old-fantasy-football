@@ -69,6 +69,27 @@ namespace DW.FantasyFootball.Console
                     System.Console.WriteLine(stat.Key.Name + " " + stat.Value.ProbabilityOfAtLeastOneCleanSheet);
                 }
 
+                System.Console.WriteLine("\nOffensive Stats Total");
+
+                foreach (var stat in stats.OrderedByOffensivePointsTotal())
+                {
+                    System.Console.WriteLine(stat.Key.Name + " " + stat.Value.OffensivePointsTotal);
+                }
+
+                System.Console.WriteLine("\nOffensive Stats Average");
+
+                foreach (var stat in stats.OrderedByOffensivePointsAverage())
+                {
+                    System.Console.WriteLine(stat.Key.Name + " " + stat.Value.OffensivePointsAverage);
+                }
+
+                System.Console.WriteLine("\nGames Remaining");
+
+                foreach (var stat in stats)
+                {
+                    System.Console.WriteLine(stat.Key.Name + " " + stat.Value.Count());
+                }
+
                 System.Console.ReadKey(true);
             }
             catch (Exception ex)
@@ -126,12 +147,12 @@ namespace DW.FantasyFootball.Console
             _statFixtures.Add(statFixture);
         }
 
-        public decimal DefensivePoints
+        public decimal DefensivePointsAverage
         {
             get { return _statFixtures.Average(s => s.GoalsAgainst); }
         }
 
-        public decimal OffensivePoints
+        public decimal OffensivePointsAverage
         {
             get { return _statFixtures.Average(s => s.GoalsFor); }
         }
@@ -139,6 +160,11 @@ namespace DW.FantasyFootball.Console
         public double ProbabilityOfAtLeastOneCleanSheet
         {
             get { return 1.0 - _statFixtures.Aggregate(1.0, (x, y) => x * (1.0 - y.ProbabilityOfCleanSheet)); }
+        }
+
+        public decimal OffensivePointsTotal
+        {
+            get { return _statFixtures.Sum(s => s.GoalsFor); }
         }
 
         public IEnumerator<StatFixture> GetEnumerator()
@@ -185,14 +211,14 @@ namespace DW.FantasyFootball.Console
         {
             return _stats
                 .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderBy(s => s.Value.DefensivePoints);
+                .OrderBy(s => s.Value.DefensivePointsAverage);
         }
 
-        public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByOffensivePoints()
+        public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByOffensivePointsAverage()
         {
             return _stats
                 .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderByDescending(s => s.Value.OffensivePoints);
+                .OrderByDescending(s => s.Value.OffensivePointsAverage);
         }
 
         public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByProbabilityOfAtLeastOneCleanSheet()
@@ -200,6 +226,13 @@ namespace DW.FantasyFootball.Console
             return _stats
                 .OfType<KeyValuePair<Team, StatFixtureList>>()
                 .OrderByDescending(s => s.Value.ProbabilityOfAtLeastOneCleanSheet);
+        }
+
+        public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByOffensivePointsTotal()
+        {
+            return _stats
+                .OfType<KeyValuePair<Team, StatFixtureList>>()
+                .OrderByDescending(s => s.Value.OffensivePointsTotal);
         }
     }
 

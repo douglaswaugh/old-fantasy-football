@@ -67,42 +67,21 @@ namespace Dw.FantasyFootball.Domain.Scenarios
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Getting a team\'s next fixture when a team has two games in one gamesweek")]
-        [NUnit.Framework.CategoryAttribute("nextFixture")]
-        public virtual void GettingATeamSNextFixtureWhenATeamHasTwoGamesInOneGamesweek()
-        {
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s next fixture when a team has two games in one gamesweek", new string[] {
-                        "nextFixture"});
-#line 7
-this.ScenarioSetup(scenarioInfo);
-#line 8
- testRunner.Given("a fixture list has one gamesweek");
-#line 9
- testRunner.And("Liverpool have two fixtures in the gamesweek");
-#line 10
- testRunner.When("I get Liverpool\'s next fixture");
-#line 11
- testRunner.Then("the first fixture should be selected");
-#line hidden
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Getting a team\'s next fixture when a gamesweek is in progress")]
         [NUnit.Framework.CategoryAttribute("nextFixture")]
         public virtual void GettingATeamSNextFixtureWhenAGamesweekIsInProgress()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s next fixture when a gamesweek is in progress", new string[] {
                         "nextFixture"});
-#line 14
+#line 7
 this.ScenarioSetup(scenarioInfo);
-#line 15
+#line 8
  testRunner.Given("a fixture list has two gamesweeks");
-#line 16
+#line 9
  testRunner.And("the first gamesweek is in progress");
-#line 17
- testRunner.When("I get Wigan\'s next fixture");
-#line 18
+#line 10
+ testRunner.When("I get Wigan\'s next fixture from the next gamesweek");
+#line 11
  testRunner.Then("Wigan\'s fixture from the second gamesweek should be selected");
 #line hidden
             this.ScenarioCleanup();
@@ -115,17 +94,17 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s last home fixture when they did not play in all gamesweeks", new string[] {
                         "nextFixture"});
-#line 21
+#line 14
 this.ScenarioSetup(scenarioInfo);
-#line 22
+#line 15
  testRunner.Given("a fixture list has two gamesweeks");
-#line 23
+#line 16
  testRunner.And("Sunderland did not play in the first gamesweek");
-#line 24
+#line 17
  testRunner.And("all the games have been played");
-#line 25
+#line 18
  testRunner.When("I get Sunderland\'s last home fixture");
-#line 26
+#line 19
  testRunner.Then("Sunderland\'s fixture from the second gamesweek should be selected");
 #line hidden
             this.ScenarioCleanup();
@@ -138,13 +117,13 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s next fixture when there is more than one gamesweek to play", new string[] {
                         "nextFixture"});
-#line 29
+#line 22
 this.ScenarioSetup(scenarioInfo);
-#line 30
+#line 23
  testRunner.Given("a fixture list has two gamesweeks");
-#line 31
+#line 24
  testRunner.When("I get Sunderland\'s next fixture");
-#line 32
+#line 25
  testRunner.Then("Sunderland\'s fixture from the first gamesweek should be selected");
 #line hidden
             this.ScenarioCleanup();
@@ -157,15 +136,15 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s last home fixture when there are more games to play", new string[] {
                         "nextFixture"});
-#line 35
+#line 28
 this.ScenarioSetup(scenarioInfo);
-#line 36
+#line 29
  testRunner.Given("a fixture list has two gamesweeks");
-#line 37
+#line 30
  testRunner.And("the first gamesweek has been completed");
-#line 38
+#line 31
  testRunner.When("I get Arsenal\'s last home fixture");
-#line 39
+#line 32
  testRunner.Then("Arsenal\'s fixture from the first gamesweek should be selected");
 #line hidden
             this.ScenarioCleanup();
@@ -178,20 +157,72 @@ this.ScenarioSetup(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s last 2 home fixtures", new string[] {
                         "nextFixture"});
-#line 42
+#line 35
 this.ScenarioSetup(scenarioInfo);
-#line 43
+#line 36
  testRunner.Given("a fixture list has two gamesweeks");
-#line 44
+#line 37
  testRunner.And("all the games have been played");
-#line 45
+#line 38
  testRunner.When("I get Arsenal\'s last two home fixtures");
-#line 46
+#line 39
  testRunner.Then("Arsenal\'s fixture from the first gamesweek should be selected");
-#line 47
+#line 40
  testRunner.And("Arsenal\'s fixture from the second gamesweek should be selected");
-#line 48
+#line 41
  testRunner.And("two fixtures should be selected");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Getting a team\'s next two fixtures when they don\'t have a fixture in the second g" +
+            "amesweek")]
+        [NUnit.Framework.CategoryAttribute("nextFixture")]
+        public virtual void GettingATeamSNextTwoFixturesWhenTheyDonTHaveAFixtureInTheSecondGamesweek()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s next two fixtures when they don\'t have a fixture in the second g" +
+                    "amesweek", new string[] {
+                        "nextFixture"});
+#line 44
+this.ScenarioSetup(scenarioInfo);
+#line 45
+ testRunner.Given("a fixture list has three gamesweeks");
+#line 46
+ testRunner.And("Wigan do not have a fixture in the second gamesweek");
+#line 47
+ testRunner.When("I get Wigan\'s next two fixtures");
+#line 48
+ testRunner.Then("Wigan\'s fixture from the first gamesweek should be returned");
+#line 49
+ testRunner.And("Wigan\'s fixture from the third gamesweek should be returned");
+#line 50
+ testRunner.And("two fixtures should be returned");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Getting a team\'s fixtures for a double gamesweek")]
+        [NUnit.Framework.CategoryAttribute("nextFixture")]
+        public virtual void GettingATeamSFixturesForADoubleGamesweek()
+        {
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Getting a team\'s fixtures for a double gamesweek", new string[] {
+                        "nextFixture"});
+#line 53
+this.ScenarioSetup(scenarioInfo);
+#line 54
+ testRunner.Given("a fixture list has one gamesweek");
+#line 55
+ testRunner.And("Stoke have two fixtures in the gamesweek");
+#line 56
+ testRunner.When("I get Stoke\'s fixtures for the gamesweek");
+#line 57
+ testRunner.Then("two fixtures should be returned");
+#line 58
+ testRunner.And("Stoke\'s first fixture from the gamesweek should be returned");
+#line 59
+ testRunner.And("Stoke\'s second fixture from the second gamesweek should be returned");
 #line hidden
             this.ScenarioCleanup();
         }

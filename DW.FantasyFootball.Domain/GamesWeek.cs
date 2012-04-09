@@ -52,9 +52,15 @@ namespace DW.FantasyFootball.Domain
             return GetEnumerator();
         }
 
+        [Obsolete("Use GetFixturesForTeam instead.")]
         public Fixture GetFixtureForTeam(Team team)
         {
             return _fixtures.OrderBy(x => x.Date).FirstOrDefault(f => f.AwayTeam == team || f.HomeTeam == team);
+        }
+
+        public IEnumerable<Fixture> GetFixturesForTeam(Team team)
+        {
+            return _fixtures.OrderBy(x => x.Date).Where(f => f.AwayTeam == team || f.HomeTeam == team);
         }
 
         public bool HasGame(Team team)
@@ -66,27 +72,12 @@ namespace DW.FantasyFootball.Domain
         {
             var hasPlayed = false;
 
-            if (GetFixtureForTeam(team) != null)
+            if (GetFixturesForTeam(team).Any())
             {
-                hasPlayed = GetFixtureForTeam(team).Played == true;
+                hasPlayed = GetFixturesForTeam(team).All(f => f.Played);
             }
 
             return hasPlayed;
-        }
-
-        public bool HasNotPlayed(Team team)
-        {
-            return GetFixtureForTeam(team).Played == false;
-        }
-
-        public bool HasHomeGame(Team team)
-        {
-            return GetFixtureForTeam(team).HomeTeam == team;
-        }
-
-        public bool HasAwayGame(Team team)
-        {
-            return GetFixtureForTeam(team).AwayTeam == team;
         }
 
         public Fixture GetNextFixtureForTeam(Team team)

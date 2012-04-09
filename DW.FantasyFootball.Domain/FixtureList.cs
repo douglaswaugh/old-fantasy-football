@@ -30,56 +30,9 @@ namespace DW.FantasyFootball.Domain
             _gamesweeks.Add(gamesweek);
         }
 
-        public Fixture GetNextGamesweeksFixture(Team team, ILog logger)
-        {
-            try
-            {
-                return NextGamesweek().GetFixtureForTeam(team);
-            }
-            catch(Exception e)
-            {
-                if(logger.IsDebugEnabled)
-                {
-                    logger.Debug(e.Message);
-                }
-                
-                throw new SeasonFinishedException();
-            }
-        }
-
         private Gamesweek NextGamesweek()
         {
             return _gamesweeks.FirstOrDefault(g => g.Started == false);
-        }
-
-        public Fixture GetLastFixture(Team team)
-        {
-            var nextGamesweek = _gamesweeks.Last(x => x.HasPlayed(team));
-
-            return GetFixture(team, nextGamesweek);
-        }
-
-        private Fixture GetFixture(Team team, Gamesweek nextGamesweek)  
-        {
-            var nextGamesweekIndex = _gamesweeks.IndexOf(nextGamesweek);
-
-            var lastGamesweek = _gamesweeks.Skip(nextGamesweekIndex - 1).Take(1).First();
-
-            return lastGamesweek.GetFixtureForTeam(team);
-        }
-
-        public Fixture GetLastHomeFixture(Team team)
-        {
-            var gamesweek = _gamesweeks.Last(x => x.HasPlayed(team) && x.HasHomeGame(team));
-
-            return gamesweek.GetFixtureForTeam(team);
-        }
-
-        public Fixture GetLastAwayFixture(Team team)
-        {
-            var gamesweek = _gamesweeks.Last(x => x.HasPlayed(team) && x.HasAwayGame(team));
-
-            return gamesweek.GetFixtureForTeam(team);
         }
 
         public override string ToString()
@@ -90,8 +43,9 @@ namespace DW.FantasyFootball.Domain
         public IEnumerable<Fixture> GetLastXHomeFixturesForTeam(Team team, int fixtureCount)
         {
             var homeGames = _gamesweeks
-                .Where(x => x.HasPlayed(team) && x.HasHomeGame(team))
-                .Select(g => g.GetFixtureForTeam(team));
+                .Where(g => g.Completed)
+                .SelectMany(c => c.GetFixturesForTeam(team))
+                .Where(f => f.HomeTeam == team);
 
             return homeGames.Skip(homeGames.Count() - fixtureCount);
         }
@@ -99,18 +53,20 @@ namespace DW.FantasyFootball.Domain
         public IEnumerable<Fixture> GetLastXAwayFixturesForTeam(Team team, int fixtureCount)
         {
             var awayGames = _gamesweeks
-                .Where(x => x.HasPlayed(team) && x.HasAwayGame(team))
-                .Select(g => g.GetFixtureForTeam(team));
+                .Where(g => g.Completed)
+                .SelectMany(c => c.GetFixturesForTeam(team))
+                .Where(f => f.AwayTeam == team);
 
             return awayGames.Skip(awayGames.Count() - fixtureCount);
         }
 
-        public IEnumerable<Fixture> GetNextFixtures(Team team, int fixtureCount)
+        public IEnumerable<Fixture> GetNextFixtures(Team team, int numberOfGamesweeks)
         {
             return _gamesweeks
                 .Skip(_gamesweeks.IndexOf(NextGamesweek()))
-                .Take(fixtureCount)
-                .Select(g => g.GetFixtureForTeam(team));
+                .Take(numberOfGamesweeks)
+                .Where(g => g.GetFixturesForTeam(team).Any())
+                .SelectMany(g => g.GetFixturesForTeam(team));
         }
     }
 }

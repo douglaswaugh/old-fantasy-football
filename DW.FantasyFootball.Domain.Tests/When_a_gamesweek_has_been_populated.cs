@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Xunit;
 
 namespace DW.FantasyFootball.Domain.Tests
@@ -73,7 +74,7 @@ namespace DW.FantasyFootball.Domain.Tests
         [Fact]
         public void Then_a_team_with_two_fixtures_should_play_earliest_unplayed_game_first()
         {
-            Assert.Equal(_team4, _gamesweek1.GetNextFixtureForTeam(_team2).HomeTeam);
+            Assert.Equal(_team4, _gamesweek1.GetFixturesForTeam(_team2).First().HomeTeam);
         }
     }
 }

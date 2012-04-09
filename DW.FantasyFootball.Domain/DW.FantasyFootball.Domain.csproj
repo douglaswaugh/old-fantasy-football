@@ -51,7 +51,7 @@
     <Compile Include="FixtureList.cs" />
     <Compile Include="FixtureListPrinter.cs" />
     <Compile Include="FixtureScrapper.cs" />
-    <Compile Include="GamesWeek.cs" />
+    <Compile Include="Gamesweek.cs" />
     <Compile Include="GamesweekPrinter.cs" />
     <Compile Include="League.cs" />
     <Compile Include="LeagueData.cs" />

@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Xunit;
 
 namespace DW.FantasyFootball.Domain.Tests
@@ -71,13 +72,13 @@ namespace DW.FantasyFootball.Domain.Tests
         [Fact]
         public void The_last_home_game_for_team_1_should_be_against_team_2()
         {
-            Assert.Equal(_team3, _list.GetLastHomeFixture(_team1).AwayTeam);
+            Assert.Equal(_team3, _list.GetLastXHomeFixturesForTeam(_team1, 1).Single().AwayTeam);
         }
 
         [Fact]
         public void The_next_fixture_for_team_3_should_be_away_to_team_1()
         {
-            Assert.Equal(_list.GetNextGamesweeksFixture(_team3, null).HomeTeam, _team1);
+            Assert.Equal(_list.GetNextFixtures(_team3, 1).Single().HomeTeam, _team1);
         }
     }
 }

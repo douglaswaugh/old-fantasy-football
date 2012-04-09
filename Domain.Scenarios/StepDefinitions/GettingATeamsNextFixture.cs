@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using DW.FantasyFootball.Domain;
-using log4net;
 using NUnit.Framework;
-using Rhino.Mocks;
 using TechTalk.SpecFlow;
 
 namespace Dw.FantasyFootball.Domain.Scenarios.StepDefinitions

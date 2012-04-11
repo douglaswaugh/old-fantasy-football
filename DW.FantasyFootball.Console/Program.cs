@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using DW.FantasyFootball.Domain;
+using HtmlAgilityPack;
 using log4net;
-using MathNet.Numerics.Distributions;
 
 namespace DW.FantasyFootball.Console
 {
@@ -18,79 +18,16 @@ namespace DW.FantasyFootball.Console
 
                 ILog _logger = LogManager.GetLogger("logger");
 
-                var fixtureList = FixtureScrapper.GetLeague();
+                var option = System.Console.ReadKey();
 
-                var league = new League(fixtureList, _logger);
-
-                var stats = new Stats();
-
-                foreach(var teamData in league)
+                if (option.KeyChar == 's')
                 {
-                    var nextFixtures = league.FixtureList.GetNextFixtures(teamData.Key, 11);
-
-                    foreach (var nextFixture in nextFixtures)
-                    {
-                        // nextFixture = league.FixtureList.GetNextGamesweeksFixture(teamData.Key, _logger);
-
-                        if (nextFixture == null)
-                            break;
-
-                        var homeFixtures = league.FixtureList.GetLastXHomeFixturesForTeam(nextFixture.HomeTeam, 6);
-
-                        var awayFixtures = league.FixtureList.GetLastXAwayFixturesForTeam(nextFixture.AwayTeam, 6);
-
-                        var expectedHomeGoals = (homeFixtures.Average(f => (decimal)f.HomeGoals) + awayFixtures.Average(f => (decimal)f.HomeGoals)) / 2m;
-
-                        var expectedAwayGoals = (awayFixtures.Average(f => (decimal)f.AwayGoals) + homeFixtures.Average(f => (decimal)f.AwayGoals)) / 2m;
-
-                        if (nextFixture.HomeTeam == teamData.Key)
-                        {
-                            stats.AddFutureFixture(nextFixture.HomeTeam, new StatFixture(expectedHomeGoals, expectedAwayGoals));
-                        }
-                        else
-                        {
-                            stats.AddFutureFixture(nextFixture.AwayTeam, new StatFixture(expectedAwayGoals, expectedHomeGoals));
-                        }
-
-                        /*System.Console.WriteLine(
-                            string.Format("{0} v {1} for {2} against {3}",
-                            nextFixture.HomeTeam,
-                            nextFixture.AwayTeam,
-                            expectedHomeGoals.ToString("{0.00}"),
-                            expectedAwayGoals.ToString("{0.00}"))
-                        );*/
-                    }
+                    DownloadPlayerStats();
                 }
-
-                System.Console.WriteLine("\nDefensive Stats");
-
-                foreach(var stat in stats.OrderedByProbabilityOfAtLeastOneCleanSheet())
+                else 
                 {
-                    System.Console.WriteLine(stat.Key.Name + " " + stat.Value.ProbabilityOfAtLeastOneCleanSheet);
+                    CalculateFixtureStrength(_logger);
                 }
-
-                System.Console.WriteLine("\nOffensive Stats Total");
-
-                foreach (var stat in stats.OrderedByOffensivePointsTotal())
-                {
-                    System.Console.WriteLine(stat.Key.Name + " " + stat.Value.OffensivePointsTotal);
-                }
-
-                System.Console.WriteLine("\nOffensive Stats Average");
-
-                foreach (var stat in stats.OrderedByOffensivePointsAverage())
-                {
-                    System.Console.WriteLine(stat.Key.Name + " " + stat.Value.OffensivePointsAverage);
-                }
-
-                System.Console.WriteLine("\nGames Remaining");
-
-                foreach (var stat in stats)
-                {
-                    System.Console.WriteLine(stat.Key.Name + " " + stat.Value.Count());
-                }
-
-                System.Console.ReadKey(true);
             }
             catch (Exception ex)
             {
@@ -99,144 +36,117 @@ namespace DW.FantasyFootball.Console
 
             System.Console.ReadKey(true);
         }
-    }
 
-    public class StatFixture
-    {
-        private readonly decimal _goalsFor;
-        private readonly decimal _goalsAgainst;
-
-        public StatFixture(decimal goalsFor, decimal goalsAgainst)
+        private static void DownloadPlayerStats()
         {
-            _goalsFor = goalsFor;
-            _goalsAgainst = goalsAgainst;
+            var request = BuildPlayerRequest(1);
+
+            var response = request.GetResponse() as HttpWebResponse;
+
+            WriteResponseToFile(response, @"c:\apps\DW.FantasyFootball\data\playerStats\");
         }
 
-        public decimal GoalsAgainst
+        public static void WriteResponseToFile(HttpWebResponse response, string path)
         {
-            get { return _goalsAgainst; }
-        }
-
-        public decimal GoalsFor
-        {
-            get { return _goalsFor; }
-        }
-
-        public double ProbabilityOfCleanSheet
-        {
-            get
+            using (Stream responseStream = response.GetResponseStream())
             {
-                var poisson = new Poisson(Decimal.ToDouble(_goalsAgainst));
-
-                return poisson.Probability(0);
+                using (var file = File.Create(path + "1.json"))
+                {
+                    responseStream.CopyTo(file);
+                }
             }
         }
-    }
 
-    public class StatFixtureList : IEnumerable<StatFixture>
-    {
-        private List<StatFixture> _statFixtures;
-
-        public void Add(StatFixture statFixture)
+        private static HttpWebRequest BuildPlayerRequest(int playerId)
         {
-            if (_statFixtures == null)
+            var request = WebRequest.Create(new Uri(string.Format("http://fantasy.premierleague.com/web/api/elements/{0}/", playerId))) as HttpWebRequest;
+
+            request.Method = "GET";
+            request.Host = "fantasy.premierleague.com";
+            request.Headers.Add("X-Requested-With: XMLHttpRequest");
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.46 Safari/535.11";
+            request.Accept = "tetxt/html";
+            request.Referer = "http://fantasy.premierleague.com/fixtures/";
+            request.Headers.Add("Accept-Language: en-GB,en-US;q=0.8,en;q=0.6");
+            request.Headers.Add("Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3");
+            request.Headers.Add("Cache-Control: max-age=0");
+
+            return request;
+        }
+
+        private static void CalculateFixtureStrength(ILog _logger)
+        {
+            var fixtureList = FixtureScrapper.GetLeague();
+
+            var league = new League(fixtureList, _logger);
+
+            var stats = new Stats();
+
+            foreach(var teamData in league)
             {
-                _statFixtures = new List<StatFixture>();
+                var nextFixtures = league.FixtureList.GetNextFixtures(teamData.Key, 11);
+
+                foreach (var nextFixture in nextFixtures)
+                {
+                    // nextFixture = league.FixtureList.GetNextGamesweeksFixture(teamData.Key, _logger);
+
+                    if (nextFixture == null)
+                        break;
+
+                    var homeFixtures = league.FixtureList.GetLastXHomeFixturesForTeam(nextFixture.HomeTeam, 6);
+
+                    var awayFixtures = league.FixtureList.GetLastXAwayFixturesForTeam(nextFixture.AwayTeam, 6);
+
+                    var expectedHomeGoals = (homeFixtures.Average(f => (decimal)f.HomeGoals) + awayFixtures.Average(f => (decimal)f.HomeGoals)) / 2m;
+
+                    var expectedAwayGoals = (awayFixtures.Average(f => (decimal)f.AwayGoals) + homeFixtures.Average(f => (decimal)f.AwayGoals)) / 2m;
+
+                    if (nextFixture.HomeTeam == teamData.Key)
+                    {
+                        stats.AddFutureFixture(nextFixture.HomeTeam, new StatFixture(expectedHomeGoals, expectedAwayGoals));
+                    }
+                    else
+                    {
+                        stats.AddFutureFixture(nextFixture.AwayTeam, new StatFixture(expectedAwayGoals, expectedHomeGoals));
+                    }
+
+                    /*System.Console.WriteLine(
+                            string.Format("{0} v {1} for {2} against {3}",
+                            nextFixture.HomeTeam,
+                            nextFixture.AwayTeam,
+                            expectedHomeGoals.ToString("{0.00}"),
+                            expectedAwayGoals.ToString("{0.00}"))
+                        );*/
+                }
             }
 
-            _statFixtures.Add(statFixture);
-        }
+            System.Console.WriteLine("\nDefensive Stats");
 
-        public decimal DefensivePointsAverage
-        {
-            get { return _statFixtures.Average(s => s.GoalsAgainst); }
-        }
-
-        public decimal OffensivePointsAverage
-        {
-            get { return _statFixtures.Average(s => s.GoalsFor); }
-        }
-
-        public double ProbabilityOfAtLeastOneCleanSheet
-        {
-            get { return 1.0 - _statFixtures.Aggregate(1.0, (x, y) => x * (1.0 - y.ProbabilityOfCleanSheet)); }
-        }
-
-        public decimal OffensivePointsTotal
-        {
-            get { return _statFixtures.Sum(s => s.GoalsFor); }
-        }
-
-        public IEnumerator<StatFixture> GetEnumerator()
-        {
-            return _statFixtures.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-    }
-
-    public class Stats : IEnumerable<KeyValuePair<Team, StatFixtureList>>
-    {
-        private Dictionary<Team, StatFixtureList> _stats;
-
-        public void AddFutureFixture(Team team, StatFixture statFixture)
-        {
-            if (_stats == null)
+            foreach(var stat in stats.OrderedByProbabilityOfAtLeastOneCleanSheet())
             {
-                _stats = new Dictionary<Team, StatFixtureList>();
+                System.Console.WriteLine(stat.Key.Name + " " + stat.Value.ProbabilityOfAtLeastOneCleanSheet);
             }
 
-            if (!_stats.ContainsKey(team))
+            System.Console.WriteLine("\nOffensive Stats Total");
+
+            foreach (var stat in stats.OrderedByOffensivePointsTotal())
             {
-                _stats.Add(team, new StatFixtureList());
+                System.Console.WriteLine(stat.Key.Name + " " + stat.Value.OffensivePointsTotal);
             }
 
-            _stats[team].Add(statFixture);
-        }
+            System.Console.WriteLine("\nOffensive Stats Average");
 
-        public IEnumerator<KeyValuePair<Team, StatFixtureList>> GetEnumerator()
-        {
-            return _stats.GetEnumerator();
-        }
+            foreach (var stat in stats.OrderedByOffensivePointsAverage())
+            {
+                System.Console.WriteLine(stat.Key.Name + " " + stat.Value.OffensivePointsAverage);
+            }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+            System.Console.WriteLine("\nGames Remaining");
 
-        public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByDefensivePoints()
-        {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderBy(s => s.Value.DefensivePointsAverage);
+            foreach (var stat in stats)
+            {
+                System.Console.WriteLine(stat.Key.Name + " " + stat.Value.Count());
+            }
         }
-
-        public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByOffensivePointsAverage()
-        {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderByDescending(s => s.Value.OffensivePointsAverage);
-        }
-
-        public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByProbabilityOfAtLeastOneCleanSheet()
-        {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderByDescending(s => s.Value.ProbabilityOfAtLeastOneCleanSheet);
-        }
-
-        public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByOffensivePointsTotal()
-        {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderByDescending(s => s.Value.OffensivePointsTotal);
-        }
-    }
-
-    public class StrengthCalculator
-    {
     }
 }

@@ -79,6 +79,7 @@ namespace DW.FantasyFootball.Domain
             var document = new HtmlDocument();
 
             document.LoadHtml(responseString);
+
             return document;
         }
 
@@ -118,19 +119,18 @@ namespace DW.FantasyFootball.Domain
 
         public static HttpWebRequest GetRequest(int i)
         {
-            var request =
-                WebRequest.Create(new Uri(string.Format("http://fantasy.premierleague.com/fixtures/{0}/", i))) as HttpWebRequest;
+            var request = WebRequest.Create(new Uri(string.Format("http://fantasy.premierleague.com/fixtures/{0}/", i))) as HttpWebRequest;
 
             request.Method = "GET";
             request.Host = "fantasy.premierleague.com";
             request.Headers.Add("X-Requested-With: XMLHttpRequest");
-            request.UserAgent =
-                "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.46 Safari/535.11";
+            request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.46 Safari/535.11";
             request.Accept = "tetxt/html";
             request.Referer = "http://fantasy.premierleague.com/fixtures/";
             request.Headers.Add("Accept-Language: en-GB,en-US;q=0.8,en;q=0.6");
             request.Headers.Add("Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3");
             request.Headers.Add("Cache-Control: max-age=0");
+
             return request;
         }
 

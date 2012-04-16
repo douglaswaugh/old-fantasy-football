@@ -8,7 +8,7 @@ namespace DW.FantasyFootball.Domain
 {
     public class FixtureScrapper
     {
-        public static FixtureList GetLeague()
+        public FixtureList GetLeague()
         {
             var fixtureList = new FixtureList();
 
@@ -28,7 +28,7 @@ namespace DW.FantasyFootball.Domain
             return fixtureList;
         }
 
-        public static HtmlDocument GetFixturesFromWebsite(int i)
+        private HtmlDocument GetFixturesFromWebsite(int i)
         {
             HttpWebRequest request = GetRequest(i);
 
@@ -37,7 +37,7 @@ namespace DW.FantasyFootball.Domain
             return GetDocument(response);
         }
 
-        public static Gamesweek BuildGamesWeekData(IEnumerable<HtmlNode> fixtureRows)
+        private Gamesweek BuildGamesWeekData(IEnumerable<HtmlNode> fixtureRows)
         {
             var gamesWeek = new Gamesweek();
 
@@ -65,7 +65,7 @@ namespace DW.FantasyFootball.Domain
             return gamesWeek;
         }
 
-        public static HtmlDocument GetDocument(HttpWebResponse response)
+        private HtmlDocument GetDocument(HttpWebResponse response)
         {
             string responseString;
 
@@ -83,14 +83,14 @@ namespace DW.FantasyFootball.Domain
             return document;
         }
 
-        public static IEnumerable<HtmlNode> GetFixtureRows(HtmlDocument document)
+        private IEnumerable<HtmlNode> GetFixtureRows(HtmlDocument document)
         {
             var fixtureRows = document.DocumentNode.SelectNodes("//tr[@class=\"ismFixture\"] | //tr[@class=\"ismFixture ismResult\"] | //tr[@class=\"ismResult\"]");
 
             return fixtureRows;
         }
 
-        public static Fixture GetFixture(HtmlNode row)
+        private Fixture GetFixture(HtmlNode row)
         {
             var fixture = new Fixture();
 
@@ -107,17 +107,17 @@ namespace DW.FantasyFootball.Domain
             return fixture;
         }
 
-        public static int GetAwayScore(string innerText)
+        private int GetAwayScore(string innerText)
         {
             return Int32.Parse(innerText.Split(' ')[2]);
         }
 
-        public static int GetHomeScore(string innerText)
+        private int GetHomeScore(string innerText)
         {
             return Int32.Parse(innerText.Split(' ')[0]);
         }
 
-        public static HttpWebRequest GetRequest(int i)
+        private HttpWebRequest GetRequest(int i)
         {
             var request = WebRequest.Create(new Uri(string.Format("http://fantasy.premierleague.com/fixtures/{0}/", i))) as HttpWebRequest;
 
@@ -134,7 +134,7 @@ namespace DW.FantasyFootball.Domain
             return request;
         }
 
-        public static DateTime GetDateFromText(string innerText)
+        private DateTime GetDateFromText(string innerText)
         {
             string[] date = innerText.Split(' ');
 

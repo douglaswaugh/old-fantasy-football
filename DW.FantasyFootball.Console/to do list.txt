@@ -1,0 +1,8 @@
+﻿download all player data from website
+download gamesweek data from website
+load all player data from files
+load in current team
+analyse which players to sell
+analyse which players to buy
+calculate best team to play
+calculate best captain

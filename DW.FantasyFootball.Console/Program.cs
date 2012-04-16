@@ -2,8 +2,8 @@
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Runtime.Serialization.Json;
 using DW.FantasyFootball.Domain;
-using HtmlAgilityPack;
 using log4net;
 
 namespace DW.FantasyFootball.Console
@@ -20,11 +20,15 @@ namespace DW.FantasyFootball.Console
 
                 var option = System.Console.ReadKey();
 
-                if (option.KeyChar == 's')
+                if (option.KeyChar == 'p')
                 {
                     DownloadPlayerStats();
                 }
-                else 
+                if (option.KeyChar == 'f')
+                {
+                    DownloadFixtures();
+                }
+                else
                 {
                     CalculateFixtureStrength(_logger);
                 }
@@ -37,23 +41,63 @@ namespace DW.FantasyFootball.Console
             System.Console.ReadKey(true);
         }
 
-        private static void DownloadPlayerStats()
+        private static void DownloadFixtures()
         {
-            var request = BuildPlayerRequest(1);
+            var fixtureScrapper = new FixtureScrapper();
 
-            var response = request.GetResponse() as HttpWebResponse;
+            var fixtureList = fixtureScrapper.GetLeague();
 
-            WriteResponseToFile(response, @"c:\apps\DW.FantasyFootball\data\playerStats\");
+            var serializer = new DataContractJsonSerializer(typeof(Gamesweek));
+            
+            var directory = Directory.CreateDirectory(string.Format(@"c:\apps\DW.FantasyFootball\data\fixtures\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
+
+            var i = 1;
+
+            foreach (var gamesweek in fixtureList)
+            {
+                using (var file = File.Create(Path.Combine(directory.FullName, fixtureList + ".txt")))
+                {
+                    serializer.WriteObject(file, gamesweek);
+                }
+
+                i++;
+            }
         }
 
-        public static void WriteResponseToFile(HttpWebResponse response, string path)
+        private static void DownloadPlayerStats()
         {
-            using (Stream responseStream = response.GetResponseStream())
+            var directory = Directory.CreateDirectory(string.Format(@"c:\apps\DW.FantasyFootball\data\playerStats\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
+
+            for (int i = 1; i < 700; i++)
             {
-                using (var file = File.Create(path + "1.json"))
+                var request = BuildPlayerRequest(i);
+
+                try
                 {
-                    responseStream.CopyTo(file);
+                    var response = request.GetResponse() as HttpWebResponse;
+
+                    if (response.StatusCode == HttpStatusCode.OK)
+                    {
+                        using (Stream responseStream = response.GetResponseStream())
+                        {
+                            WriteResponseToFile(responseStream, Path.Combine(directory.FullName, i + ".txt"));
+                        }
+                    }
                 }
+                catch
+                {
+                    System.Console.WriteLine(string.Format("No player found with id {0}", i));
+                }
+            }
+        }
+
+        public static void WriteResponseToFile(Stream stream, string filePath)
+        {
+            using (var file = File.Create(filePath))
+            {
+                stream.CopyTo(file);
+
+                System.Console.WriteLine(string.Format("Player {0} downloaded", filePath));
             }
         }
 
@@ -76,13 +120,15 @@ namespace DW.FantasyFootball.Console
 
         private static void CalculateFixtureStrength(ILog _logger)
         {
-            var fixtureList = FixtureScrapper.GetLeague();
+            var fixtureScrapper = new FixtureScrapper();
+
+            var fixtureList = fixtureScrapper.GetLeague();
 
             var league = new League(fixtureList, _logger);
 
             var stats = new Stats();
 
-            foreach(var teamData in league)
+            foreach (var teamData in league)
             {
                 var nextFixtures = league.FixtureList.GetNextFixtures(teamData.Key, 11);
 
@@ -122,7 +168,7 @@ namespace DW.FantasyFootball.Console
 
             System.Console.WriteLine("\nDefensive Stats");
 
-            foreach(var stat in stats.OrderedByProbabilityOfAtLeastOneCleanSheet())
+            foreach (var stat in stats.OrderedByProbabilityOfAtLeastOneCleanSheet())
             {
                 System.Console.WriteLine(stat.Key.Name + " " + stat.Value.ProbabilityOfAtLeastOneCleanSheet);
             }

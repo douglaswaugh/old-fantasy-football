@@ -153,7 +153,7 @@ namespace Dw.FantasyFootball.Domain.Scenarios.StepDefinitions
         [Given(@"Sunderland did not play in the first gamesweek")]
         public void GivenSunderlandDidNotPlayInTheFirstGamesWeek()
         {
-            _gamesweek1._fixtures.Remove(_gamesweek1.GetFixturesForTeam(_sunderland).Single());
+            _gamesweek1.Fixtures.Remove(_gamesweek1.GetFixturesForTeam(_sunderland).Single());
         }
 
         [Given(@"all the games have been played")]
@@ -249,7 +249,7 @@ namespace Dw.FantasyFootball.Domain.Scenarios.StepDefinitions
         [Given(@"Wigan do not have a fixture in the second gamesweek")]
         public void GivenWiganDoNotHaveAFixtureInTheSecondGamesweek()
         {
-            _gamesweek2._fixtures.Remove(_gamesweek2.GetFixtureForTeam(_wigan));
+            _gamesweek2.Fixtures.Remove(_gamesweek2.GetFixtureForTeam(_wigan));
         }
 
         [When(@"I get Wigan's next two fixtures")]

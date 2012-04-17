@@ -8,34 +8,21 @@ namespace DW.FantasyFootball.Domain
 {
     public class Gamesweek : IEnumerable<Fixture>
     {
-        public readonly List<Fixture> _fixtures;
-        private bool _completed;
-        private bool _started;
+        private readonly List<Fixture> _fixtures;
 
         public Gamesweek()
         {
             _fixtures = new List<Fixture>();
         }
 
-        public bool Completed
+        public List<Fixture> Fixtures
         {
-            get {
-                return _completed;
-            }
-            set {
-                _completed = value;
-            }
+            get { return _fixtures; }
         }
 
-        public bool Started
-        {
-            get {
-                return _started;
-            }
-            set {
-                _started = value;
-            }
-        }
+        public bool Completed { get; set; }
+
+        public bool Started { get; set; }
 
         public void AddFixture(Fixture fixture)
         {

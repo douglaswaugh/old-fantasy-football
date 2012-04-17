@@ -20,17 +20,17 @@ namespace DW.FantasyFootball.Console
 
                 var option = System.Console.ReadKey();
 
-                if (option.KeyChar == 'p')
+                switch (option.KeyChar)
                 {
-                    DownloadPlayerStats();
-                }
-                if (option.KeyChar == 'f')
-                {
-                    DownloadFixtures();
-                }
-                else
-                {
-                    CalculateFixtureStrength(_logger);
+                    case 'p':
+                        DownloadPlayerStats();
+                        break;
+                    case 'f':
+                        DownloadFixtures();
+                        break;
+                    default:
+                        CalculateFixtureStrength(_logger);
+                        break;
                 }
             }
             catch (Exception ex)
@@ -45,9 +45,12 @@ namespace DW.FantasyFootball.Console
         {
             var fixtureScrapper = new FixtureScrapper();
 
-            var fixtureList = fixtureScrapper.GetLeague();
-
-            var serializer = new DataContractJsonSerializer(typeof(Gamesweek));
+            var fixtureList = fixtureScrapper.GetLeague().Select(gamesweek => new Domain.DataContracts.Gamesweek
+            {
+                Completed = gamesweek.Completed,
+                Fixtures = gamesweek.Fixtures,
+                Started = gamesweek.Started
+            });
             
             var directory = Directory.CreateDirectory(string.Format(@"c:\apps\DW.FantasyFootball\data\fixtures\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
 
@@ -55,7 +58,9 @@ namespace DW.FantasyFootball.Console
 
             foreach (var gamesweek in fixtureList)
             {
-                using (var file = File.Create(Path.Combine(directory.FullName, fixtureList + ".txt")))
+                var serializer = new DataContractJsonSerializer(typeof(Domain.DataContracts.Gamesweek));
+
+                using (var file = File.Create(Path.Combine(directory.FullName, i + ".txt")))
                 {
                     serializer.WriteObject(file, gamesweek);
                 }
@@ -80,7 +85,7 @@ namespace DW.FantasyFootball.Console
                     {
                         using (Stream responseStream = response.GetResponseStream())
                         {
-                            WriteResponseToFile(responseStream, Path.Combine(directory.FullName, i + ".txt"));
+                            WriteResponseToFile(responseStream, Path.Combine(directory.FullName, i + ".txt"), i);
                         }
                     }
                 }
@@ -91,13 +96,13 @@ namespace DW.FantasyFootball.Console
             }
         }
 
-        public static void WriteResponseToFile(Stream stream, string filePath)
+        public static void WriteResponseToFile(Stream stream, string filePath, int playerId)
         {
             using (var file = File.Create(filePath))
             {
                 stream.CopyTo(file);
 
-                System.Console.WriteLine(string.Format("Player {0} downloaded", filePath));
+                System.Console.WriteLine(string.Format("Player {0} downloaded", playerId));
             }
         }
 

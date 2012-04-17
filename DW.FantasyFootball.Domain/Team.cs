@@ -1,5 +1,8 @@
-﻿namespace DW.FantasyFootball.Domain
+﻿using System.Runtime.Serialization;
+
+namespace DW.FantasyFootball.Domain
 {
+    [DataContract]
     public class Team
     {
         public Team(string teamName)
@@ -7,6 +10,7 @@
             Name = teamName;
         }
 
+        [DataMember(Name = "name")]
         public string Name { get; set; }
 
         public bool Equals(Team other)

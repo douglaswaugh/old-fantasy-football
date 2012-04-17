@@ -1,0 +1,291 @@
+{
+    "transfers_out": 273, 
+    "code": 375696, 
+    "event_total": -2, 
+    "event_points": -2, 
+    "transfers_balance": 332, 
+    "last_season_points": 0, 
+    "event_cost": 40, 
+    "news_added": null, 
+    "web_name": "Ryan Bennett", 
+    "in_dreamteam": false, 
+    "team_code": 375696, 
+    "id": 659, 
+    "shirt_image_url": "http://cdn.ismfg.net/static/plfpl/img/shirts/shirt_12.png", 
+    "first_name": "Ryan", 
+    "transfers_out_event": 24, 
+    "element_type_id": 2, 
+    "max_cost": 40, 
+    "event_explain": [
+        [
+            "Yellow cards", 
+            1, 
+            -1
+        ], 
+        [
+            "Minutes played", 
+            90, 
+            2
+        ], 
+        [
+            "Goals conceded", 
+            6, 
+            -3
+        ]
+    ], 
+    "selected": 1027, 
+    "min_cost": 40, 
+    "fixtures": {
+        "all": [
+            [
+                "21 Apr", 
+                "Gameweek 35", 
+                "Blackburn (A)"
+            ], 
+            [
+                "28 Apr", 
+                "Gameweek 36", 
+                "Liverpool (H)"
+            ], 
+            [
+                "05 May", 
+                "Gameweek 37", 
+                "Arsenal (A)"
+            ], 
+            [
+                "13 May", 
+                "Gameweek 38", 
+                "Aston Villa (H)"
+            ]
+        ], 
+        "summary": [
+            [
+                35, 
+                "BLA (A)", 
+                "21 Apr"
+            ], 
+            [
+                36, 
+                "LIV (H)", 
+                "28 Apr"
+            ], 
+            [
+                37, 
+                "ARS (A)", 
+                "05 May"
+            ]
+        ]
+    }, 
+    "season_history": [], 
+    "total_points": 2, 
+    "type_name": "Defender", 
+    "transfers_in": 1047, 
+    "team_name": "Norwich", 
+    "status": "a", 
+    "added": "2012-03-03T17:23:20 UTC+0000", 
+    "form": 0.4, 
+    "shirt_mobile_image_url": "http://cdn.ismfg.net/static/plfpl/img/shirts/mobile/shirt_12.png", 
+    "current_fixture": "Man City (H)", 
+    "now_cost": 40, 
+    "points_per_game": 0.5, 
+    "news_updated": null, 
+    "squad_number": null, 
+    "news": "", 
+    "original_cost": 40, 
+    "news_return": null, 
+    "fixture_history": {
+        "all": [
+            [
+                "03 Mar", 
+                27, 
+                "STO(A) 0-1", 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                40, 
+                0
+            ], 
+            [
+                "11 Mar", 
+                28, 
+                "WIG(H) 1-1", 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                211, 
+                40, 
+                0
+            ], 
+            [
+                "18 Mar", 
+                29, 
+                "NEW(A) 0-1", 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                158, 
+                40, 
+                0
+            ], 
+            [
+                "24 Mar", 
+                30, 
+                "WOL(H) 2-1", 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                135, 
+                40, 
+                0
+            ], 
+            [
+                "31 Mar", 
+                31, 
+                "FUL(A) 1-2", 
+                90, 
+                0, 
+                0, 
+                0, 
+                2, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                1, 
+                166, 
+                40, 
+                1
+            ], 
+            [
+                "07 Apr", 
+                32, 
+                "EVE(H) 2-2", 
+                90, 
+                0, 
+                0, 
+                0, 
+                2, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                10, 
+                5, 
+                40, 
+                1
+            ], 
+            [
+                "09 Apr", 
+                33, 
+                "TOT(A) 2-1", 
+                90, 
+                0, 
+                0, 
+                0, 
+                1, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                0, 
+                17, 
+                4, 
+                40, 
+                2
+            ], 
+            [
+                "14 Apr", 
+                34, 
+                "MCI(H) 1-6", 
+                90, 
+                0, 
+                0, 
+                0, 
+                6, 
+                0, 
+                0, 
+                0, 
+                1, 
+                0, 
+                0, 
+                0, 
+                12, 
+                92, 
+                40, 
+                -2
+            ]
+        ], 
+        "summary": [
+            [
+                32, 
+                "EVE (H)", 
+                1
+            ], 
+            [
+                33, 
+                "TOT (A)", 
+                2
+            ], 
+            [
+                34, 
+                "MCI (H)", 
+                -2
+            ]
+        ]
+    }, 
+    "next_fixture": "Blackburn (A)", 
+    "transfers_in_event": 27, 
+    "selected_by": "0.0", 
+    "team_id": 12, 
+    "second_name": "Bennett", 
+    "photo_mobile_url": "http://cdn.ismfg.net/static/plfpl/img/shirts/photos/375696.jpg"
+}

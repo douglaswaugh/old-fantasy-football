@@ -1,52 +1,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using log4net;
 
 namespace DW.FantasyFootball.Domain
 {
     public class League : IEnumerable<KeyValuePair<Team, LeagueData>>
     {
-        private readonly FixtureList _fixtureList;
-        private readonly ILog _logger;
+        readonly Dictionary<Team, LeagueData> _league;
 
-        private Dictionary<Team, LeagueData> _league;
-
-        public League(FixtureList fixtureList, ILog logger)
+        public League(FixtureList fixtureList)
         {
-            _fixtureList = fixtureList;
-            _logger = logger;
-            _league = new Dictionary<Team, LeagueData>();
-
-            // not sure about this.  I think it might be a bit much in a constructor
-            Build();
+            _league = Build(fixtureList);
         }
 
-        public FixtureList FixtureList
+        public Dictionary<Team, LeagueData> Build(FixtureList fixtureList)
         {
-            get
-            {
-                return _fixtureList;
-            }
-        }
+            var league = new Dictionary<Team, LeagueData>();
 
-        private void Build()
-        {
-            foreach (var gamesweek in _fixtureList)
+            foreach (var gamesweek in fixtureList)
             {
                 foreach (var fixture in gamesweek)
                 {
-                    if (fixture.Played)
-                    {
-                        var homeData = GetLeagueData(fixture.HomeTeam);
+                    if (!fixture.Played) continue;
 
-                        homeData.UpdateHomeData(fixture);
+                    var homeData = GetLeagueData(fixture.HomeTeam);
 
-                        var awayData = GetLeagueData(fixture.AwayTeam);
+                    homeData.UpdateHomeData(fixture);
 
-                        awayData.UpdateAwayData(fixture);
-                    }
+                    var awayData = GetLeagueData(fixture.AwayTeam);
+
+                    awayData.UpdateAwayData(fixture);
                 }
             }
+
+            return league;
         }
 
         private LeagueData GetLeagueData(Team team)

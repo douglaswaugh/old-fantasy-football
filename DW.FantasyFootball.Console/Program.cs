@@ -28,8 +28,13 @@ namespace DW.FantasyFootball.Console
                     case 'f':
                         DownloadFixtures();
                         break;
+                    case 'b':
+                        SuggestPlayerToBuy();
+                        break;
                     default:
-                        CalculateFixtureStrength(_logger);
+                        var fixtureometer = new Fixtureometer(new FixtureScrapper());
+
+                        fixtureometer.CalculateFixtureStrength(_logger);
                         break;
                 }
             }
@@ -39,6 +44,12 @@ namespace DW.FantasyFootball.Console
             }
 
             System.Console.ReadKey(true);
+        }
+
+        private static void SuggestPlayerToBuy()
+        {
+            Player player = null;
+            System.Console.WriteLine("You should buy: {0}", player);
         }
 
         private static void DownloadFixtures()
@@ -122,31 +133,41 @@ namespace DW.FantasyFootball.Console
 
             return request;
         }
+    }
 
-        private static void CalculateFixtureStrength(ILog _logger)
+    public class Player
+    {
+    }
+
+    public class Fixtureometer
+    {
+        private readonly FixtureScrapper _fixtureScrapper;
+
+        public Fixtureometer(FixtureScrapper fixtureScrapper)
         {
-            var fixtureScrapper = new FixtureScrapper();
+            _fixtureScrapper = fixtureScrapper;
+        }
 
-            var fixtureList = fixtureScrapper.GetLeague();
+        public void CalculateFixtureStrength(ILog _logger)
+        {
+            var fixtureList = _fixtureScrapper.GetLeague();
 
-            var league = new League(fixtureList, _logger);
+            var league = new League(fixtureList);
 
             var stats = new Stats();
 
             foreach (var teamData in league)
             {
-                var nextFixtures = league.FixtureList.GetNextFixtures(teamData.Key, 11);
+                var nextFixtures = fixtureList.GetNextFixtures(teamData.Key, 11);
 
                 foreach (var nextFixture in nextFixtures)
                 {
-                    // nextFixture = league.FixtureList.GetNextGamesweeksFixture(teamData.Key, _logger);
-
                     if (nextFixture == null)
                         break;
 
-                    var homeFixtures = league.FixtureList.GetLastXHomeFixturesForTeam(nextFixture.HomeTeam, 6);
+                    var homeFixtures = fixtureList.GetLastXHomeFixturesForTeam(nextFixture.HomeTeam, 6);
 
-                    var awayFixtures = league.FixtureList.GetLastXAwayFixturesForTeam(nextFixture.AwayTeam, 6);
+                    var awayFixtures = fixtureList.GetLastXAwayFixturesForTeam(nextFixture.AwayTeam, 6);
 
                     var expectedHomeGoals = (homeFixtures.Average(f => (decimal)f.HomeGoals) + awayFixtures.Average(f => (decimal)f.HomeGoals)) / 2m;
 

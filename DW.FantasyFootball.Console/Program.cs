@@ -71,7 +71,7 @@ namespace DW.FantasyFootball.Console
             {
                 var serializer = new DataContractJsonSerializer(typeof(Domain.DataContracts.Gamesweek));
 
-                using (var file = File.Create(Path.Combine(directory.FullName, i + ".txt")))
+                using (var file = File.Create(Path.Combine(directory.FullName, i + ".json")))
                 {
                     serializer.WriteObject(file, gamesweek);
                 }
@@ -96,7 +96,7 @@ namespace DW.FantasyFootball.Console
                     {
                         using (Stream responseStream = response.GetResponseStream())
                         {
-                            WriteResponseToFile(responseStream, Path.Combine(directory.FullName, i + ".txt"), i);
+                            WriteResponseToFile(responseStream, Path.Combine(directory.FullName, i + ".json"), i);
                         }
                     }
                 }

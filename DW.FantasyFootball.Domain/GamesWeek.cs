@@ -39,7 +39,6 @@ namespace DW.FantasyFootball.Domain
             return GetEnumerator();
         }
 
-        [Obsolete("Use GetFixturesForTeam instead.")]
         public Fixture GetFixtureForTeam(Team team)
         {
             return _fixtures.OrderBy(x => x.Date).FirstOrDefault(f => f.AwayTeam == team || f.HomeTeam == team);

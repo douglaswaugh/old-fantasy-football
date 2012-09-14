@@ -18,6 +18,7 @@ namespace DW.FantasyFootball.Domain
 
                 IEnumerable<HtmlNode> fixtureRows = GetFixtureRows(document);
 
+                
                 Gamesweek gamesweek = BuildGamesWeekData(fixtureRows);
 
                 fixtureList.Add(gamesweek);
@@ -94,14 +95,14 @@ namespace DW.FantasyFootball.Domain
         {
             var fixture = new Fixture();
 
-            fixture.Date = GetDateFromText(row.ChildNodes[1].InnerText);
-            fixture.HomeTeam = new Team(row.ChildNodes[3].InnerText);
-            fixture.AwayTeam = new Team(row.ChildNodes[11].InnerText);
-            if (row.ChildNodes[7].InnerText != "v")
+            fixture.Date = GetDateFromText(row.ChildNodes[0].InnerText);
+            fixture.HomeTeam = new Team(row.ChildNodes[1].InnerText);
+            fixture.AwayTeam = new Team(row.ChildNodes[5].InnerText);
+            if (row.ChildNodes[3].InnerText != "v")
             {
                 fixture.Played = true;
-                fixture.HomeGoals = GetHomeScore(row.ChildNodes[7].InnerText);
-                fixture.AwayGoals = GetAwayScore(row.ChildNodes[7].InnerText);
+                fixture.HomeGoals = GetHomeScore(row.ChildNodes[3].InnerText);
+                fixture.AwayGoals = GetAwayScore(row.ChildNodes[3].InnerText);
             }
 
             return fixture;

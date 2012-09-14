@@ -59,7 +59,6 @@ namespace Dw.FantasyFootball.Domain.Scenarios.StepDefinitions
         private Fixture _sunderlandsNextFixture;
         private Fixture _arsenalsLastHomeFixture;
         private Fixture _arsenalsSecondLastHomeFixture;
-        private Fixture _returnedFixture;
         private IEnumerable<Fixture> _returnedFixtures;
 
         [Given(@"a fixture list has one gamesweek")]

@@ -136,12 +136,4 @@ namespace DW.FantasyFootball.Console
             return request;
         }
     }
-
-    public class PlayerSuggestor
-    {
-        public Player SuggestPlayerToBuy()
-        {
-            return new Player();
-        }
-    }
 }

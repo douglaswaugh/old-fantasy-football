@@ -52,9 +52,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\Gamesweek.cs" />
+    <Compile Include="DataContracts\Player.cs" />
     <Compile Include="Fixture.cs" />
     <Compile Include="FixtureList.cs" />
     <Compile Include="FixtureListPrinter.cs" />
+    <Compile Include="Fixtureometer.cs" />
     <Compile Include="FixtureScrapper.cs" />
     <Compile Include="Gamesweek.cs" />
     <Compile Include="GamesweekPrinter.cs" />
@@ -62,6 +64,7 @@
     <Compile Include="LeagueData.cs" />
     <Compile Include="LeaguePrinter.cs" />
     <Compile Include="LogWriter.cs" />
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SeasonFinishedException.cs" />
     <Compile Include="StatFixture.cs" />

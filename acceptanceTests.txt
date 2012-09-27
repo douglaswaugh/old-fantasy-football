@@ -1,0 +1,18 @@
+Acceptance tests
+
+Calculate expected points for goalkeeper
+
+single fixture in completed gamesweek, single fixture in gamesweek to play
+multiple fixtures in completed gamesweek
+multiple completed gamesweeks
+multiple fixtures in gamesweek to play
+multiple gamesweeks to play
+multiple seasons in completed gamesweeks
+
+Calculate expected points for defender
+
+Calculate expected points for midfielder
+
+Calculate expected points for striker
+
+Calculate which player buy/sell swap represents the best value

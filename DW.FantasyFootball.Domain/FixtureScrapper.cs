@@ -8,18 +8,13 @@ namespace DW.FantasyFootball.Domain
 {
     public class FixtureScrapper
     {
-        public FixtureList GetLeague()
+        public FixtureList GetFixtureList()
         {
             var fixtureList = new FixtureList();
 
             for (int weekNumber = 1; weekNumber <= 38; weekNumber++)
             {
-                HtmlDocument document = GetFixturesFromWebsite(weekNumber);
-
-                IEnumerable<HtmlNode> fixtureRows = GetFixtureRows(document);
-
-                
-                Gamesweek gamesweek = BuildGamesWeekData(fixtureRows);
+                var gamesweek = GetGamesweekFixtures(weekNumber);
 
                 fixtureList.Add(gamesweek);
 
@@ -27,6 +22,15 @@ namespace DW.FantasyFootball.Domain
             }
 
             return fixtureList;
+        }
+
+        private Gamesweek GetGamesweekFixtures(int weekNumber)
+        {
+            HtmlDocument document = GetFixturesFromWebsite(weekNumber);
+
+            IEnumerable<HtmlNode> fixtureRows = GetFixtureRows(document);
+                
+            return BuildGamesWeekData(fixtureRows);
         }
 
         private HtmlDocument GetFixturesFromWebsite(int i)

@@ -63,6 +63,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>SuggestNextPlayerToBuy.feature</DependentUpon>
     </Compile>
+    <Compile Include="Features\UsingPersistedData.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>UsingPersistedData.feature</DependentUpon>
+    </Compile>
     <Compile Include="Mothers\PlayerMother.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StepDefinitions\GettingATeamsNextFixture.cs" />
@@ -77,6 +82,10 @@
     <None Include="Features\SuggestNextPlayerToBuy.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>SuggestNextPlayerToBuy.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Features\UsingPersistedData.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>UsingPersistedData.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
   </ItemGroup>

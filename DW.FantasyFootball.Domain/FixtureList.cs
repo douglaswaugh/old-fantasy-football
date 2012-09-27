@@ -1,6 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 
 namespace DW.FantasyFootball.Domain
 {
@@ -35,7 +38,7 @@ namespace DW.FantasyFootball.Domain
 
         public override string ToString()
         {
-            return string.Format("Gamesweeks: {0}", _gamesweeks);
+            return String.Format("Gamesweeks: {0}", _gamesweeks);
         }
 
         public IEnumerable<Fixture> GetLastXHomeFixturesForTeam(Team team, int fixtureCount)
@@ -65,6 +68,37 @@ namespace DW.FantasyFootball.Domain
                 .Take(numberOfGamesweeks)
                 .Where(g => g.GetFixturesForTeam(team).Any())
                 .SelectMany(g => g.GetFixturesForTeam(team));
+        }
+
+        public void Save()
+        {
+            var dataContractFixtureList = _gamesweeks.Select(gamesweek => new DataContracts.Gamesweek
+            {
+                Completed = gamesweek.Completed,
+                Fixtures = gamesweek.Fixtures,
+                Started = gamesweek.Started
+            });
+            
+            var directory = Directory.CreateDirectory(String.Format(@"c:\apps\DW.FantasyFootball\data\fixtures\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
+
+            var i = 1;
+
+            foreach (var gamesweek in dataContractFixtureList)
+            {
+                var serializer = new DataContractJsonSerializer(typeof(DataContracts.Gamesweek));
+
+                using (var file = File.Create(Path.Combine(directory.FullName, i + ".json")))
+                {
+                    serializer.WriteObject(file, gamesweek);
+                }
+
+                i++;
+            }
+        }
+
+        public static FixtureList For(int gamesweek, int count, int year)
+        {
+            return new FixtureList();
         }
     }
 }

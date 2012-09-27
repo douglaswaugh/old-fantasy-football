@@ -1,0 +1,26 @@
+What are we going to do about this.
+
+Basically, the demonstrable behaviour is being told which pair of players to buy and to sell.
+
+We don't really have a server of anything to connect to.
+
+Well, I could make the entire system with dummy data.  Although that doesn't really sound very end to end.
+
+The other thing which I could build/have already built is a score predictor.
+
+It's either expected points or it's a mashup of points scored in past and fixture strength in future.  I'm going to have to work out what the expected points of a player in the future is going to be, or use some sort of modifier to create some sort of score.
+
+But I really don't want to work that out yet.  I much rather test what the right score coeffiecient is likely to be.
+
+So I need some algorithm to start off with.  Take a defensive player.  In fact goalkeepers are good, because they are generally only defensive.  Score given a certain strength of fixtures.  Work out relative score for strength of upcoming fixtures.  That dictates that all fixtures must be rated against 1, with 1 being the standard fixture (average points scored).  How do I work out average?  Is it average for the player, team, position?  Is there any way I can put that decision off until later?
+
+So perhaps I can calculate the likleness of all point affecting outcomes (this is going down the route of a precisely inaccurate prediction) and multiply the percentage of likelyhood by the number of points.  Then if a player has a 50% chance of keeping a clean sheet that's 2 points.  Points for playing, bonus points, yellow/red cards, penalties saved, could all be averages (or I could even ignore them for now, and add them in one at a time).  
+
+Would this work for goals scored/assits in the same way?  Well.  Goals scored/assists seems a bit more difficult.  Obviously the number of goals a player is likely to score is affected by the relative porosity of upcoming opponent.  So there are likehoods of the number of team goals, and there is the likely hood of one of the team goals being scored by a particular player.
+
+I wonder if there's a way I can build this program without understanding the algorithm.  Or perhaps this would all be part of understanding the problem.
+
+So perhaps I need to write a back tester for my algorithm before I can start writing my application?  Or alternatively I could start writing my application with a random algorithm (i.e., I could make the expected points engine plugable).
+
+Okay, so perhaps I could use the poisson distribution with the a rolling year of data, using the average minimum and maximum goals scored, home and away to work out relative strengths.  Seems good to me.
+

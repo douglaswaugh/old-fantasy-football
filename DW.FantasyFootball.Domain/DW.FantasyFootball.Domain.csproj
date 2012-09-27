@@ -60,6 +60,7 @@
     <Compile Include="FixtureScrapper.cs" />
     <Compile Include="Gamesweek.cs" />
     <Compile Include="GamesweekPrinter.cs" />
+    <Compile Include="IResultsStore.cs" />
     <Compile Include="League.cs" />
     <Compile Include="LeagueData.cs" />
     <Compile Include="LeaguePrinter.cs" />
@@ -67,11 +68,17 @@
     <Compile Include="Player.cs" />
     <Compile Include="PlayerSuggestor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Result.cs" />
+    <Compile Include="Results.cs" />
+    <Compile Include="ResultsRepository.cs" />
+    <Compile Include="SavedResults.cs" />
     <Compile Include="SeasonFinishedException.cs" />
+    <Compile Include="Squad.cs" />
     <Compile Include="StatFixture.cs" />
     <Compile Include="StatFixtureList.cs" />
     <Compile Include="Stats.cs" />
     <Compile Include="Team.cs" />
+    <Compile Include="TransferCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config">

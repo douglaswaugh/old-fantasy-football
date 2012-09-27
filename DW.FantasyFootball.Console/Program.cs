@@ -1,8 +1,6 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using System.Net;
-using System.Runtime.Serialization.Json;
 using DW.FantasyFootball.Domain;
 using log4net;
 
@@ -58,28 +56,9 @@ namespace DW.FantasyFootball.Console
         {
             var fixtureScrapper = new FixtureScrapper();
 
-            var fixtureList = fixtureScrapper.GetLeague().Select(gamesweek => new Domain.DataContracts.Gamesweek
-            {
-                Completed = gamesweek.Completed,
-                Fixtures = gamesweek.Fixtures,
-                Started = gamesweek.Started
-            });
+            var fixtureList = fixtureScrapper.GetFixtureList();
             
-            var directory = Directory.CreateDirectory(string.Format(@"c:\apps\DW.FantasyFootball\data\fixtures\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
-
-            var i = 1;
-
-            foreach (var gamesweek in fixtureList)
-            {
-                var serializer = new DataContractJsonSerializer(typeof(Domain.DataContracts.Gamesweek));
-
-                using (var file = File.Create(Path.Combine(directory.FullName, i + ".json")))
-                {
-                    serializer.WriteObject(file, gamesweek);
-                }
-
-                i++;
-            }
+            fixtureList.Save();
         }
 
         private static void DownloadPlayerStats()

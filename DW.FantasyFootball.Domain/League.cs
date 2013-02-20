@@ -5,17 +5,15 @@ namespace DW.FantasyFootball.Domain
 {
     public class League : IEnumerable<KeyValuePair<Team, LeagueData>>
     {
-        readonly Dictionary<Team, LeagueData> _league;
+        readonly Dictionary<Team, LeagueData> _league = new Dictionary<Team, LeagueData>();
 
         public League(FixtureList fixtureList)
         {
-            _league = Build(fixtureList);
+            Build(fixtureList);
         }
 
-        public Dictionary<Team, LeagueData> Build(FixtureList fixtureList)
+        public void Build(FixtureList fixtureList)
         {
-            var league = new Dictionary<Team, LeagueData>();
-
             foreach (var gamesweek in fixtureList)
             {
                 foreach (var fixture in gamesweek)
@@ -31,8 +29,6 @@ namespace DW.FantasyFootball.Domain
                     awayData.UpdateAwayData(fixture);
                 }
             }
-
-            return league;
         }
 
         private LeagueData GetLeagueData(Team team)

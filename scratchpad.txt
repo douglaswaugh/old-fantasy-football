@@ -1,0 +1,3 @@
+Calculate the algorithm that I want to use
+
+Work out expected points of players based on the probability of scores output by algorithm

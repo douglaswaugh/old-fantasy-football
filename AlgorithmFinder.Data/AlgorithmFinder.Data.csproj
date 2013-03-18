@@ -40,7 +40,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelLineResultParser.cs" />
+    <Compile Include="FileStreamer.cs" />
+    <Compile Include="IStreamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultsProvider.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlgorithmFinder.Application\AlgorithmFinder.Application.csproj">
+      <Project>{1fdef00b-c6c4-4e58-8503-f3b4c3e087ec}</Project>
+      <Name>AlgorithmFinder.Application</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

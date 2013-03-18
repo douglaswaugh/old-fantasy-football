@@ -1,16 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3213CBF1-48C6-47A6-9929-4E033A80EFD5}</ProjectGuid>
+    <ProjectGuid>{1CC8C2F1-FE42-4550-944F-3CCC1C68581D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>AlgorithimFinder.Scenarios</RootNamespace>
-    <AssemblyName>AlgorithimFinder.Scenarios</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <RootNamespace>AlgorithmFinder.Tests</RootNamespace>
+    <AssemblyName>AlgorithmFinder.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -31,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
     </Reference>
@@ -41,31 +43,25 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TechTalk.SpecFlow">
-      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayAccuracyOfProbabalisticModelSteps.cs" />
-    <Compile Include="DisplayingAccuracyOfProbabalisticModel.feature.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DisplayingAccuracyOfProbabalisticModel.feature</DependentUpon>
-    </Compile>
+    <Compile Include="ExcelLineResultParserRTests.cs" />
+    <Compile Include="FixtureTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResultPredictorTests.cs" />
+    <Compile Include="ResultsProviderTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="DisplayingAccuracyOfProbabalisticModel.feature">
-      <Generator>SpecFlowSingleFileGenerator</Generator>
-      <LastGenOutput>DisplayingAccuracyOfProbabalisticModel.feature.cs</LastGenOutput>
-    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AlgorithmFinder\AlgorithmFinder.ConsoleUI.csproj">
-      <Project>{5610A3AB-5ACF-4F1D-94D1-9FE76118669B}</Project>
-      <Name>AlgorithmFinder.ConsoleUI</Name>
+    <ProjectReference Include="..\AlgorithmFinder.Application\AlgorithmFinder.Application.csproj">
+      <Project>{1FDEF00B-C6C4-4E58-8503-F3B4C3E087EC}</Project>
+      <Name>AlgorithmFinder.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AlgorithmFinder.Data\AlgorithmFinder.Data.csproj">
+      <Project>{8C95B4EA-96E8-4CD4-B3D5-F3A927F3CE2D}</Project>
+      <Name>AlgorithmFinder.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

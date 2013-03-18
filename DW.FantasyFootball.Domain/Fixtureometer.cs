@@ -22,7 +22,7 @@ namespace DW.FantasyFootball.Domain
 
             foreach (var teamData in league)
             {
-                var nextFixtures = fixtureList.GetNextFixtures(teamData.Key, 3);
+                var nextFixtures = fixtureList.GetNextFixtures(teamData.Key, 11);
 
                 foreach (var nextFixture in nextFixtures)
                 {

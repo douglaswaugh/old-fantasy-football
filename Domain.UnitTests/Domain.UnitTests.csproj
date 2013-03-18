@@ -50,7 +50,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultsRespositoryTest.cs" />
     <Compile Include="ResultsTest.cs" />
-    <Compile Include="SavedResultStoreTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DW.FantasyFootball.Domain\DW.FantasyFootball.Domain.csproj">

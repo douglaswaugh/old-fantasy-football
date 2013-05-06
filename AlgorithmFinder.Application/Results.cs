@@ -1,23 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmFinder.Application
 {
-    public class Results : IEnumerable<Result>, IResults
+    public class Results : IEnumerable<Fixture>, ExpectedGoalsCalculator
     {
-        private readonly List<Result> _results = new List<Result>();
+        private readonly List<Fixture> _results = new List<Fixture>();
 
-        public Results(List<Result> results)
+        public Results(List<Fixture> results)
         {
             _results = results;
         }
 
-        public void Add(Result result)
+        public void Add(Fixture result)
         {
             _results.Add(result);
         }
 
-        public IEnumerator<Result> GetEnumerator()
+        public IEnumerator<Fixture> GetEnumerator()
         {
             return _results.GetEnumerator();
         }
@@ -27,42 +28,113 @@ namespace AlgorithmFinder.Application
             return GetEnumerator();
         }
 
-        public double ExpectedHomeGoals(Team homeTeam, Team awayTeam)
+        public ExpectedGoals ExpectedGoalsFor(Fixture fixture)
+        {
+            return new ExpectedGoals(ExpectedHomeGoals(fixture),
+                                     ExpectedAwayGoals(fixture));
+        }
+
+        public decimal ExpectedHomeGoals(Fixture fixture)
         {
             var homeGoalsBaseLine = HomeGoalsBaseLine();
-            var homeTeamAttackStrength = AttackStrengthOf(homeTeam);
-            var awayTeamDefenceWeakness = DefenceWeaknessOf(awayTeam);
+            var homeTeamAttackStrength = AttackStrengthOf(fixture.HomeTeam);
+            var awayTeamDefenceWeakness = DefenceWeaknessOf(fixture.AwayTeam);
 
             return homeTeamAttackStrength * awayTeamDefenceWeakness * homeGoalsBaseLine;
         }
 
-        public double ExpectedAwayGoals(Team homeTeam, Team awayTeam)
+        public decimal ExpectedAwayGoals(Fixture fixture)
         {
             var awayGoalsBaseLine = AwayGoalsBaseLine();
-            var homeTeamDefenceWeakness = DefenceWeaknessOf(homeTeam);
-            var awayTeamAttackStrength = AttackStrengthOf(awayTeam);
+            var homeTeamDefenceWeakness = DefenceWeaknessOf(fixture.HomeTeam);
+            var awayTeamAttackStrength = AttackStrengthOf(fixture.AwayTeam);
 
             return awayTeamAttackStrength * homeTeamDefenceWeakness * awayGoalsBaseLine;
         }
 
-        private double DefenceWeaknessOf(Team homeTeam)
+        private decimal DefenceWeaknessOf(Team team)
         {
-            return 0;
+            if (AverageGoalsConceded() == 0m)
+                return 0m;
+
+            return GoalsConcededPerGameBy(team)/AverageGoalsPerGame();
         }
 
-        private double AttackStrengthOf(Team homeTeam)
+        private decimal GoalsConcededPerGameBy(Team team)
         {
-            return 0;
+            return GoalsConcededBy(team)/NumberOfGamesPlayedBy(team);
         }
 
-        private double AwayGoalsBaseLine()
+        private decimal AttackStrengthOf(Team team)
         {
-            return 0;
+            if (AverageGoalsScored() == 0m)
+                return 0m;
+
+            return GoalsScoredPerGameBy(team) / AverageGoalsPerGame();
         }
 
-        private double HomeGoalsBaseLine()
+        private decimal GoalsScoredPerGameBy(Team team)
         {
-            return 0;
+            return GoalsScoredBy(team)/NumberOfGamesPlayedBy(team);
+        }
+
+        private decimal NumberOfGamesPlayedBy(Team team)
+        {
+            return _results.Count(result => result.HasTeam(team));
+        }
+
+        private decimal AverageGoalsPerGame()
+        {
+            return TotalGoalsScored()/(TotalGamesPlayed()*2);
+        }
+
+        private decimal TotalGamesPlayed()
+        {
+            return _results.Count();
+        }
+
+        private decimal TotalGoalsScored()
+        {
+            return _results.Sum(result => result.HomeGoals() + result.AwayGoals());
+        }
+
+        private int GoalsConcededBy(Team team)
+        {
+            return _results.Where(result => result.HasTeam(team)).Sum(result => result.GoalsConcededBy(team));
+        }
+
+        private int GoalsScoredBy(Team team)
+        {
+            return _results.Where(result => result.HasTeam(team)).Sum(result => result.GoalsScoredBy(team));
+        }
+
+        private decimal AverageGoalsConceded()
+        {
+            return AverageGoalsScored();
+        }
+
+        private decimal AverageGoalsScored()
+        {
+            return ((decimal)_results.Sum(result => result.GoalsScored())) / NumberOfTeamsInLeague();
+        }
+
+        private int NumberOfTeamsInLeague()
+        {
+            return _results.Select(r => r.HomeTeam).Union(_results.Select(s => s.AwayTeam)).Count();
+        }
+
+        private decimal AwayGoalsBaseLine()
+        {
+            decimal awayGoals = _results.Sum(result => result.AwayGoals());
+
+            return awayGoals / _results.Count();
+        }
+
+        private decimal HomeGoalsBaseLine()
+        {
+            decimal homeGoals = _results.Sum(result => result.HomeGoals());
+
+            return homeGoals / _results.Count();
         }
     }
 }

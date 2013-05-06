@@ -1,11 +1,13 @@
+using System;
+
 namespace AlgorithmFinder.Application
 {
     public interface ResultsProvider
     {
-        Results GetResults();
-        Fixture GetFixture();
-        Result GetComparisonResult();
-        Fixtures GetFixtures();
-        Score GetScore(Fixture fixture);
+        Results GetResultsBefore(DateTime before);
+
+        Fixtures GetFixturesAfter(DateTime date);
+
+        Fixtures GetFixturesAfter(DateTime predictAfter, int teamId);
     }
 }

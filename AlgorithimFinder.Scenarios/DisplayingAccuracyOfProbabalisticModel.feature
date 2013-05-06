@@ -3,15 +3,52 @@
 	As a fantasy football manager
 	I want to find the best probabalistic model
 
-#Scenario: Report number of correct scores predicted
-#	Given team a and team b have played one game each
-#	And a fixture exists between team a and team b
-#	And the result for the fixture between team a and team b was
-#	When I calculate the accuracy of the probabalistic model
-#	Then I should be told how many correct scores were predicted 
+Scenario: Display number of correct scores
+	Given the "Wigan" "Wolves" result on the "13-Oct-11" was 3 2
+	And the "Wolves" "Wigan" result on the "13-Nov-11" was 3 1
+	When I ask for a prediction for matches after "13-Nov-11"
+	Then I should be told 0 correct scores were predicted
 
-Scenario: Report number of correct scores predicted
-	Given two matches have been played
-	And the probabalistic model uses the last fixture
-	When I calculate the result of the second match
-	Then I should be told how many correct scores were predicted
+@Ignore
+Scenario: Display percentage of correct scores
+
+@Ignore
+Scenario: Display standard deviation of goals scored
+
+@Ignore
+Scenario: Display standard deviation of goals conceded
+
+Scenario: Predict fixture from all past results
+	Given the "Wigan" "Wolves" result on the "13-Oct-11" was 3 2
+	And the "Wolves" "Southampton" result on the "6-Nov-11" was 3 1
+	And the "Southampton" "Wigan" result on the "13-Nov-11" was 4 2
+	When I ask for a prediction for matches after "13-Nov-11"
+	Then I should be told 0 correct scores were predicted
+
+Scenario: Predict next two fixtures from all past results
+	Given the "Wigan" "Wolves" result on the "13-Oct-11" was 3 2
+	And the "Wolves" "Southampton" result on the "6-Nov-11" was 3 1
+	And the "Southampton" "Wigan" result on the "13-Nov-11" was 4 2
+	And the "Wolves" "Wigan" result on the "20-Nov-2011" was 3 0
+	When I ask for a prediction for matches after "13-Nov-11"
+	Then I should be told 0 correct scores were predicted
+
+Scenario: Display number of correct scores after correct prediction
+	Given the "Wigan" "Wolves" result on the "13-Oct-11" was 3 2
+	And the "Wolves" "Wigan" result on the "20-Nov-11" was 1 2
+	When I ask for a prediction for matches after "20-nov-11"
+	Then I should be told 1 correct scores were predicted
+
+Scenario: Predict fixture form last six results
+	Given seven weeks fixtures have been played
+	When I ask for a prediction for matches after "13-May-12"
+	Then I should be told 1 correct scores were predicted
+
+@Ignore
+Scenario: Predict fixture from this season's results
+
+@Ignore
+Scenario: Predict fixture from last year's results
+
+@Ignore
+Scenario: Predict home fixture from last six home results

@@ -1,12 +1,43 @@
+using System.Collections.Generic;
+
 namespace AlgorithmFinder.Application
 {
     public class Team
     {
         private readonly string _name;
+        private readonly int _id;
 
-        public Team(string name)
+        private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
+
+        public Team(string name, int id)
         {
             _name = name;
+            _id = id;
+        }
+
+        public Team(int id)
+        {
+            _id = id;
+        }
+
+        public int Id
+        {
+            get { return _id; }
+        }
+
+        public void AddPlayer(Player player)
+        {
+            _players.Add(player.Id, player);
+        }
+
+        public Player GetPlayer(int id)
+        {
+            return _players[id];
+        }
+
+        public decimal GoalsRatioFor(Player player)
+        {
+            return 0m;
         }
 
         #region Equality

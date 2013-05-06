@@ -2,20 +2,11 @@ using System.IO;
 
 namespace AlgorithmFinder.Data
 {
-    public class FileStreamer : IStreamer
+    public class FileStreamer : Streamer
     {
-        private readonly string _filePath;
-
-        public FileStreamer(string filePath)
+        public StreamReader GetStreamReaderFor(string filePath)
         {
-            _filePath = filePath;
-        }
-
-        public StreamReader GetStream()
-        {
-            var fileInfo = new FileInfo(_filePath);
-
-            return fileInfo.OpenText();
+            return File.OpenText(filePath);
         }
     }
 }

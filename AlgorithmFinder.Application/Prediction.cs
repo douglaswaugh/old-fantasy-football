@@ -1,17 +1,91 @@
-﻿namespace AlgorithmFinder.Application
+using System;
+
+namespace AlgorithmFinder.Application
 {
-    public class Prediction
+    public class Prediction : IPrediction
     {
-        private int _correctScoreCount;
+        private readonly double[][] _probabilities;
 
-        public int CorrectScoreCount
+        public Prediction(double[][] probabilities)
         {
-            get { return _correctScoreCount; }
+            _probabilities = probabilities;
         }
 
-        public void IncrementCorrectScore()
+        public bool MostLikelyScoreIs(Score score)
         {
-            _correctScoreCount++;
+            double highestProbability = 0.0;
+            var mostLikelyScore = new Score(0, 0);
+
+            for (int homeGoals = 0; homeGoals < 6; homeGoals++)
+            {
+                for (int awayGoals = 0; awayGoals < 6; awayGoals++)
+                {
+                    if (_probabilities[homeGoals][awayGoals] > highestProbability)
+                    {
+                        highestProbability = _probabilities[homeGoals][awayGoals];
+                        mostLikelyScore = new Score(homeGoals, awayGoals);
+                    }
+                }
+            }
+
+            return mostLikelyScore.Equals(score);
         }
+
+        public decimal DefencePointsFor()
+        {
+            return 0m;
+        }
+
+        public decimal DefencePointsForHomeTeam()
+        {
+            var cleanSheetProbability = 0m;
+            var goalsConcededProbability = 0m;
+
+            for (int homeGoals = 0; homeGoals < _probabilities.Length; homeGoals++)
+            {
+                for (int awayGoals = 0; awayGoals < _probabilities[homeGoals].Length; awayGoals++)
+                {
+                    if (awayGoals == 0)
+                    {
+                        cleanSheetProbability += Convert.ToDecimal(_probabilities[homeGoals][awayGoals]);   
+                    }
+                    if (awayGoals > 1)
+                    {
+                        goalsConcededProbability += Convert.ToDecimal(_probabilities[homeGoals][awayGoals]);
+                    }
+                }
+            }
+
+            return (cleanSheetProbability*4) + (goalsConcededProbability*-1);
+        }
+
+        public decimal DefencePointsForAwayTeam()
+        {
+            var cleanSheetProbability = 0m;
+            var goalsConcededProbability = 0m;
+
+            for (int homeGoals = 0; homeGoals < _probabilities.Length; homeGoals++)
+            {
+                for (int awayGoals = 0; awayGoals < _probabilities[homeGoals].Length; awayGoals++)
+                {
+                    if (homeGoals == 0)
+                    {
+                        cleanSheetProbability += Convert.ToDecimal(_probabilities[homeGoals][awayGoals]);
+                    }
+                    if (homeGoals > 1)
+                    {
+                        goalsConcededProbability += Convert.ToDecimal(_probabilities[homeGoals][awayGoals]);
+                    }
+                }
+            }
+
+            return (cleanSheetProbability*4) + (goalsConcededProbability*-1);
+        }
+    }
+
+    public interface IPrediction
+    {
+        decimal DefencePointsForHomeTeam();
+        decimal DefencePointsForAwayTeam();
     }
 }

@@ -11,6 +11,16 @@ namespace AlgorithmFinder.Application
             _awayGoals = awayGoals;
         }
 
+        public int AwayGoals
+        {
+            get { return _awayGoals; }
+        }
+
+        public int HomeGoals
+        {
+            get { return _homeGoals; }
+        }
+
         #region Equality
         protected bool Equals(Score other)
         {

@@ -31,8 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -40,17 +45,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcelLineResultParser.cs" />
+    <Compile Include="ExcelLineFixtureParser.cs" />
     <Compile Include="FileStreamer.cs" />
-    <Compile Include="IStreamer.cs" />
+    <Compile Include="FileTeamProvider.cs" />
+    <Compile Include="FixtureParser.cs" />
+    <Compile Include="FplPlayer.cs" />
+    <Compile Include="InvalidPlayerTypeException.cs" />
+    <Compile Include="JsonPlayerDeserialiser.cs" />
+    <Compile Include="PlayerDeserialiser.cs" />
+    <Compile Include="Streamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultsProvider.cs" />
+    <Compile Include="FileResultsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgorithmFinder.Application\AlgorithmFinder.Application.csproj">
       <Project>{1fdef00b-c6c4-4e58-8503-f3b4c3e087ec}</Project>
       <Name>AlgorithmFinder.Application</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

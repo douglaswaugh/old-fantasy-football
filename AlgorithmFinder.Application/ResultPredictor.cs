@@ -1,25 +1,31 @@
-﻿namespace AlgorithmFinder.Application
+﻿using AlgorithmFinder.Application.PredictionAccuracyMeasurement;
+
+namespace AlgorithmFinder.Application
 {
     public class ResultPredictor
     {
-        private readonly ResultsProvider _resultsProvider;
+        private readonly ProbabilityCalculator _probabilityCalculator;
 
-        public ResultPredictor(ResultsProvider resultsProvider)
+        public ResultPredictor(ProbabilityCalculator probabilityCalculator)
         {
-            _resultsProvider = resultsProvider;
+            _probabilityCalculator = probabilityCalculator;
         }
 
-        public Prediction GetPredictionResult()
+        public Predictions GetPredictionResult(Fixtures fixtures, Results expectedGoalsCalculator)
         {
-            var results = _resultsProvider.GetResults();
+            var predictions = new Predictions();
 
-            var fixtures = _resultsProvider.GetFixtures();
+            foreach (var fixture in fixtures)
+            {
+                fixture.Predict(expectedGoalsCalculator, _probabilityCalculator);
 
-            var prediction = new Prediction();
+                if (fixture.PredictionCorrect)
+                {
+                    predictions.IncrementCorrectScore();
+                }
+            }
 
-            fixtures.GetPrediction(results, prediction);
-
-            return prediction;
+            return predictions;
         }
     }
 }

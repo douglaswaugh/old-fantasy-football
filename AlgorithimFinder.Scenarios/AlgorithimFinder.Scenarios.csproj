@@ -31,8 +31,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ImpromptuInterface">
+      <HintPath>..\packages\SpecFlow.Assist.Dynamic.0.3.3\lib\40\ImpromptuInterface.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.2\lib\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="SpecFlow.Assist.Dynamic">
+      <HintPath>..\packages\SpecFlow.Assist.Dynamic.0.3.3\lib\40\SpecFlow.Assist.Dynamic.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -41,16 +47,23 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="TechTalk.SpecFlow">
-      <HintPath>..\packages\SpecFlow.1.9.0\lib\net35\TechTalk.SpecFlow.dll</HintPath>
+    <Reference Include="TechTalk.SpecFlow, Version=1.9.0.77, Culture=neutral, PublicKeyToken=0778194805d6db41, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\SpecFlow.Assist.Dynamic.0.3.3\lib\40\TechTalk.SpecFlow.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DisplayAccuracyOfProbabalisticModelSteps.cs" />
+    <Compile Include="PlayerData.cs" />
+    <Compile Include="Steps.cs" />
     <Compile Include="DisplayingAccuracyOfProbabalisticModel.feature.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>DisplayingAccuracyOfProbabalisticModel.feature</DependentUpon>
+    </Compile>
+    <Compile Include="PredictingPlayerPoints.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PredictingPlayerPoints.feature</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -61,6 +74,10 @@
       <LastGenOutput>DisplayingAccuracyOfProbabalisticModel.feature.cs</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="PredictingPlayerPoints.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>PredictingPlayerPoints.feature.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgorithmFinder\AlgorithmFinder.ConsoleUI.csproj">

@@ -1,5 +1,6 @@
 ﻿using AlgorithmFinder.Application;
-using Moq;
+using AlgorithmFinder.Application.PointsCalculators;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace AlgorithmFinder.Tests
@@ -8,38 +9,46 @@ namespace AlgorithmFinder.Tests
     public class FixtureTests
     {
         [Test]
-        public void CalculatesMostLikelyScore()
+        public void ShouldReturnExpectedPointsForGoalKeeper()
         {
-            var homeTeam = new Team("liverpool");
-            var awayTeam = new Team("reading");
-            var fixture = new Fixture(homeTeam, awayTeam);
+            // fixture that was predicted
+            var fixture = new Fixture(new Team("teamA", 1), new Team("teamB", 2));
+            
+            // parameters needed for prediction
+            var player = new Player(1, "Al Habsi", new StubPointsCalculator());
+            player.AddPlayerFixture(new PlayerFixture(5, 1, 0));
 
-            var prediction = new Prediction();
+            var team = new Team("teamE", 5);
 
-            fixture.PredictScore(prediction, new StubPoissonMatrix());
+            // act
+            var prediction = Substitute.For<IPrediction>();
+            prediction.DefencePointsForAwayTeam().Returns(0.5m);
 
-            Assert.That(prediction.CorrectScoreCount, Is.EqualTo(0));
+            var results = Substitute.For<ExpectedGoalsCalculator>();
+            results.ExpectedAwayGoals(null).ReturnsForAnyArgs(2.5m);
+
+            var pointsPrediction = fixture.ExpectedPointsFor(player, team, results, prediction);
+
+            // assert
+            Assert.That(pointsPrediction, Is.EqualTo(3.16666).Within(0.00001));
         }
     }
 
-    public class StubPoissonMatrix : IPoissonMatrix
+    public class StubPointsCalculator : PointsCalculator
     {
-        public Score MostLikelyScore()
-        {
-            return new Score(1, 2);
-        }
     }
 
-    public class StubResults : IResults
+    public class StubProbabilityCalculator : ProbabilityCalculator
     {
-        public double ExpectedHomeGoals(Team homeTeam, Team awayTeam)
+        public double[][] GetPrediction(ExpectedGoals expectedGoals)
         {
-            return 1.92;
-        }
+            var prediction = new double [3][];
 
-        public double ExpectedAwayGoals(Team homeTeam, Team awayTeam)
-        {
-            return 2.88;
+            prediction[0] = new double[3] { 0.1, 0.3, 0.2 };
+            prediction[1] = new double[3] { 0.2, 0.1, 0.2 };
+            prediction[2] = new double[3] { 0.3, 0.1, 0.3 };
+
+            return prediction;
         }
     }
 }

@@ -8,6 +8,6 @@ namespace AlgorithmFinder.Application
 
         Fixtures GetFixturesAfter(DateTime date);
 
-        Fixtures GetFixturesAfter(DateTime predictAfter, int teamId);
+        Fixtures GetFixturesAfter(DateTime predictAfter, Team team);
     }
 }

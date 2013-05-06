@@ -9,8 +9,8 @@ namespace AlgorithmFinder.Data
         {
             var cells = rawResult.Split(',');
             
-            var homeTeam = new Team(cells[0], IdForTeam(cells[0]));
-            var awayTeam = new Team(cells[1], IdForTeam(cells[1]));
+            var homeTeam = new Team(cells[0]);
+            var awayTeam = new Team(cells[1]);
             var matchDate = DateTime.Parse(cells[2]);
             var score = new Score(Int32.Parse(cells[3]), Int32.Parse(cells[4]));
             var homeShots = new Shots(Int32.Parse(cells[5]));
@@ -31,10 +31,15 @@ namespace AlgorithmFinder.Data
         {
             switch(teamName)
             {
+
+                case "Reading":
+                    return 15;
+                case "Tottenham":
+                    return 18;
                 case "Wigan":
-                    return 20;
-                case "Wolves":
                     return 19;
+                case "Wolves":
+                    return 20;
                 default:
                     return 0;
             }

@@ -20,9 +20,19 @@ namespace AlgorithmFinder.Application
             _id = id;
         }
 
-        public int Id
+        public Team(string name)
+        {
+            _name = name;
+        }
+
+        /*public int Id
         {
             get { return _id; }
+        }*/
+
+        public string Name
+        {
+            get { return _name; }
         }
 
         public void AddPlayer(Player player)

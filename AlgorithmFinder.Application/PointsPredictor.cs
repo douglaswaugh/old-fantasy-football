@@ -17,13 +17,13 @@ namespace AlgorithmFinder.Application
             _probabilityCalculator = probabilityCalculator;
         }
 
-        public decimal GetPointsFor(int teamId, DateTime predictAfter, int playerId)
+        public decimal GetPointsFor(Team team, DateTime predictAfter, int playerId)
         {
             #region getting data and stuff
-            var fixtures = _fileResultsProvider.GetFixturesAfter(predictAfter, teamId);
+            var fixtures = _fileResultsProvider.GetFixturesAfter(predictAfter, team);
             var results = _fileResultsProvider.GetResultsBefore(predictAfter);
-            var team = _teamProvider.GetTeam(teamId);
-            var player = team.GetPlayer(playerId);
+            var populatedTeam = _teamProvider.PopulateTeam(team);
+            var player = populatedTeam.GetPlayer(playerId);
             #endregion
 
             #region actual domain stuff

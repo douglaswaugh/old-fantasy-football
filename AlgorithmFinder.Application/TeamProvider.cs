@@ -2,6 +2,6 @@
 {
     public interface TeamProvider
     {
-        Team GetTeam(int teamId);
+        Team PopulateTeam(Team team);
     }
 }

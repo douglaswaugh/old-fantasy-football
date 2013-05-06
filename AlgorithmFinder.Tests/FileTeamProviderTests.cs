@@ -23,9 +23,9 @@ namespace AlgorithmFinder.Tests
             deserialiser.Deserialise("playerData")
                 .Returns(new Player(508, "Al Habsi", new GoalkeeperPointsCalculator()));
 
-            var fileTeamProvider = new FileTeamProvider(streamer, deserialiser, "C:\\filePath", new Dictionary<int,List<string>> {{ 20, new List<string> { "508" }}});
+            var fileTeamProvider = new FileTeamProvider(streamer, deserialiser, "C:\\filePath", new Dictionary<Team,List<string>> {{ new Team("Wigan", 19), new List<string> { "508" }}});
 
-            var team = fileTeamProvider.GetTeam(20);
+            var team = fileTeamProvider.PopulateTeam(new Team("Wigan", 19));
 
             var alHabsi = new Player(508, "Al Habsi", new GoalkeeperPointsCalculator());
 

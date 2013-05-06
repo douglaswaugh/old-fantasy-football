@@ -25,8 +25,8 @@ namespace AlgorithmFinder.Tests
         private static Fixture NewResult()
         {
             return new Fixture(
-                new Team("Reading", 1), 
-                new Team("Tottenham", 2), 
+                new Team("Reading", 15), 
+                new Team("Tottenham", 18), 
                 new DateTime(2012, 9, 16),
                 new Score(1, 3));
         }

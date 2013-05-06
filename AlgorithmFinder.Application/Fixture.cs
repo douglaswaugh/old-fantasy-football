@@ -89,9 +89,9 @@ namespace AlgorithmFinder.Application
             return _score.HomeGoals;
         }
 
-        public bool FixtureFor(int teamId)
+        public bool FixtureFor(Team team)
         {
-            return _homeTeam.Id.Equals(teamId) || _awayTeam.Id.Equals(teamId);
+            return _homeTeam.Equals(team) || _awayTeam.Equals(team);
         }
 
         public decimal ExpectedPointsFor(Player player, Team team, ExpectedGoalsCalculator results, IPrediction prediction)
@@ -102,7 +102,7 @@ namespace AlgorithmFinder.Application
             var expectedPoints = 0m;
             var expectedGoals = 0m;
 
-            if (team.Id.Equals(_homeTeam.Id))
+            if (team.Name.Equals(_homeTeam.Name))
             {
                 expectedPoints += prediction.DefencePointsForHomeTeam();
                 expectedGoals = results.ExpectedHomeGoals(this);

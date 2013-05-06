@@ -10,9 +10,9 @@ namespace AlgorithmFinder.Data
         private readonly PlayerDeserialiser _deserialiser;
         private readonly Streamer _streamer;
         private readonly string _directoryPath;
-        private readonly Dictionary<int, List<string>> _playerProvider;
+        private readonly Dictionary<Team, List<string>> _playerProvider;
 
-        public FileTeamProvider(Streamer streamer, PlayerDeserialiser deserialiser, string directoryPath, Dictionary<int, List<string>> playerProvider)
+        public FileTeamProvider(Streamer streamer, PlayerDeserialiser deserialiser, string directoryPath, Dictionary<Team, List<string>> playerProvider)
         {
             _deserialiser = deserialiser;
             _streamer = streamer;
@@ -20,20 +20,9 @@ namespace AlgorithmFinder.Data
             _playerProvider = playerProvider;
         }
 
-        public Team GetTeam(int teamId)
+        public Team PopulateTeam(Team team)
         {
-            var team = new Team(teamId);
-
-            PopulateTeam(team);
-
-            return team;
-        }
-
-        private void PopulateTeam(Team team)
-        {
-            var ids = _playerProvider[team.Id];
-
-            /*var ids = new[] {508};*/
+            var ids = _playerProvider[team];
 
             foreach (var id in ids)
             {
@@ -53,6 +42,8 @@ namespace AlgorithmFinder.Data
                     Console.WriteLine("File {0}.json could not be found", id);
                 }
             }
+
+            return team;
         }
     }
 }

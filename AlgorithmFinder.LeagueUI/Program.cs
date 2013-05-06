@@ -24,7 +24,7 @@ namespace AlgorithmFinder.LeagueUI
 
             var parser = new ExcelLineFixtureParser();
 
-            var results = new ExpectedGoalsCalculator(new List<Fixture>());
+            var results = new Results(new List<Fixture>());
             using (var reader = new StreamReader(stream))
             {
                 var header = reader.ReadLine();
@@ -39,6 +39,7 @@ namespace AlgorithmFinder.LeagueUI
 
             int homeGoals = 0;
             int awayGoals = 0;
+            int gamesPlayed = 0;
 
             foreach (var result in results)
             {
@@ -63,6 +64,7 @@ namespace AlgorithmFinder.LeagueUI
 
                 homeGoals += result.HomeGoals();
                 awayGoals += result.AwayGoals();
+                gamesPlayed++;
             }
 
             var averageGoalsScored = league.Values.Sum(l => l.GoalsScored) / 20m;
@@ -88,6 +90,9 @@ namespace AlgorithmFinder.LeagueUI
 
             stringBuilder.AppendFormat("Average Home Goals\t{0}\r\n", (homeGoals / Convert.ToDecimal(results.Count())).ToString("F04"));
             stringBuilder.AppendFormat("Average Away Goals\t{0}\r\n", (awayGoals / Convert.ToDecimal(results.Count())).ToString("F04"));
+            stringBuilder.AppendFormat("Total Home Goals\t{0}\r\n", (homeGoals).ToString("F04"));
+            stringBuilder.AppendFormat("Total Away Goals\t{0}\r\n", (awayGoals).ToString("F04"));
+            stringBuilder.AppendFormat("Games Played\t{0}", gamesPlayed);
 
             Console.Write(stringBuilder.ToString());
 

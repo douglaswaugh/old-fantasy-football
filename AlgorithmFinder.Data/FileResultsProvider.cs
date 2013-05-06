@@ -39,14 +39,14 @@ namespace AlgorithmFinder.Data
             return new Fixtures(_results.Where(r => r.MatchDate >= date).ToList());
         }
 
-        public Fixtures GetFixturesAfter(DateTime date, int teamId)
+        public Fixtures GetFixturesAfter(DateTime date, Team team)
         {
             if (_results == null)
             {
                 BuildResults();
             }
 
-            return new Fixtures(GetFixturesAfter(date).Where(r => r.FixtureFor(teamId)).ToList());
+            return new Fixtures(GetFixturesAfter(date).Where(r => r.FixtureFor(team)).ToList());
         }
 
         private void BuildResults()

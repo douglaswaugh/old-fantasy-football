@@ -95,8 +95,8 @@ namespace AlgorithmFinder.Tests
 
             var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
 
-            Assert.That(expectedGoals.ExpectedHomeGoals, Is.EqualTo(1.46m).Within(0.01m));
-            Assert.That(expectedGoals.ExpectedAwayGoals, Is.EqualTo(1.95m).Within(0.01m));
+            Assert.That(expectedGoals.Home, Is.EqualTo(1.46m).Within(0.01m));
+            Assert.That(expectedGoals.Away, Is.EqualTo(1.95m).Within(0.01m));
         }
 
         [Test]
@@ -112,8 +112,8 @@ namespace AlgorithmFinder.Tests
 
             var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
 
-            Assert.That(expectedGoals.ExpectedHomeGoals, Is.EqualTo(1.30m).Within(0.01m));
-            Assert.That(expectedGoals.ExpectedAwayGoals, Is.EqualTo(2.28m).Within(0.01m));
+            Assert.That(expectedGoals.Home, Is.EqualTo(1.30m).Within(0.01m));
+            Assert.That(expectedGoals.Away, Is.EqualTo(2.28m).Within(0.01m));
         }
 
         private Fixture VillaWigan(Score score)

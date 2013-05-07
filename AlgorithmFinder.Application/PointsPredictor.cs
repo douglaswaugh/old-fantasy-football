@@ -31,7 +31,7 @@ namespace AlgorithmFinder.Application
             var expectedPointsFor = fixtures.First().ExpectedPointsFor(player, team, results, prediction);
             #endregion
 
-            var expectedPointsCalculator = new ExpectedPointsCalculator(results, _probabilityCalculator);
+            var expectedPointsCalculator = new ExpectedPointsCalculator(results);
             var expectedPoints = expectedPointsCalculator.GetPointsFor(player, team, fixtures.First());
 
             return expectedPointsFor;

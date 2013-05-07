@@ -30,18 +30,22 @@ namespace AlgorithmFinder.Tests
             
             expectedGoalsCalculator
                 .ExpectedGoalsFor(new Fixture(new Team("Wolves"), _wigan))
-                .Returns(new ExpectedGoals(3m, 2m));
+                .Returns(new ExpectedGoals(1.92m, 2.88m));
 
             var probabilityCalculator = Substitute.For<ProbabilityCalculator>();
             probabilityCalculator
                 .GetPrediction(null)
                 .ReturnsForAnyArgs(new[] 
                 { 
-                    new[] {0.2, 0.3},
-                    new[] {0.4, 0.1}
+                    new[] {0.008229747, 0.023701672, 0.034130407, 0.032765191, 0.023590937, 0.01358838 },
+                    new[] {0.015801114, 0.045507209, 0.065530381, 0.062909166, 0.0452946  , 0.026089689 },
+                    new[] {0.01516907,  0.043686921, 0.062909166, 0.060392799, 0.043482816, 0.025046102 },
+                    new[] {0.009708205, 0.027959629, 0.040261866, 0.038651392, 0.027829002, 0.016029505 },
+                    new[] {0.004659938, 0.013420622, 0.019325696, 0.018552668, 0.013357921, 0.007694162 },
+                    new[] {0.001789416, 0.005153519, 0.007421067, 0.007124225, 0.005129442, 0.002954558 }
                 });
 
-            var expectedPointsCalculator = new ExpectedPointsCalculator(expectedGoalsCalculator, probabilityCalculator);
+            var expectedPointsCalculator = new ExpectedPointsCalculator(expectedGoalsCalculator);
 
             var fixtureHistory = new FixtureHistory();
             
@@ -60,15 +64,7 @@ namespace AlgorithmFinder.Tests
                 _wigan, 
                 new Fixture(new Team("Wolves"), _wigan));
 
-            expectedGoalsCalculator
-                .Received(1)
-                .ExpectedGoalsFor(new Fixture(new Team("Wolves"), _wigan));
-
-            probabilityCalculator
-                .Received(1)
-                .GetPrediction(new ExpectedGoals(3m, 2m));
-
-            Assert.That(expectedPoints, Is.EqualTo(9.0571m).Within(0.0001m));
+            Assert.That(expectedPoints, Is.EqualTo(9.9877m).Within(0.0001m));
         }
     }
 }

@@ -2,29 +2,29 @@
 {
     public class ExpectedGoals
     {
-        private readonly decimal _expectedHomeGoals;
-        private readonly decimal _expectedAwayGoals;
+        private readonly decimal _home;
+        private readonly decimal _away;
 
-        public ExpectedGoals(decimal expectedHomeGoals, decimal expectedAwayGoals)
+        public ExpectedGoals(decimal home, decimal away)
         {
-            _expectedHomeGoals = expectedHomeGoals;
-            _expectedAwayGoals = expectedAwayGoals;
+            _home = home;
+            _away = away;
         }
 
-        public decimal ExpectedHomeGoals
+        public decimal Home
         {
-            get { return _expectedHomeGoals; }
+            get { return _home; }
         }
 
-        public decimal ExpectedAwayGoals
+        public decimal Away
         {
-            get { return _expectedAwayGoals; }
+            get { return _away; }
         }
         
         #region Equality
         protected bool Equals(ExpectedGoals other)
         {
-            return _expectedHomeGoals == other._expectedHomeGoals && _expectedAwayGoals == other._expectedAwayGoals;
+            return _home == other._home && _away == other._away;
         }
 
         public override bool Equals(object obj)
@@ -39,7 +39,7 @@
         {
             unchecked
             {
-                return (_expectedHomeGoals.GetHashCode()*397) ^ _expectedAwayGoals.GetHashCode();
+                return (_home.GetHashCode()*397) ^ _away.GetHashCode();
             }
         }
         #endregion
@@ -47,7 +47,7 @@
         #region Formatting
         public override string ToString()
         {
-            return string.Format("ExpectedHomeGoals: {0}, ExpectedAwayGoals: {1}", _expectedHomeGoals, _expectedAwayGoals);
+            return string.Format("Home: {0}, Away: {1}", _home, _away);
         }
         #endregion
     }

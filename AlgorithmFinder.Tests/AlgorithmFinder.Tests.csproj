@@ -56,6 +56,7 @@
     <Compile Include="FixtureTests.cs" />
     <Compile Include="PointsPredictorTests.cs" />
     <Compile Include="FixtureHistoryTests.cs" />
+    <Compile Include="PoissonDefencePointsMultiplierTests.cs" />
     <Compile Include="PoissonMatrixTest.cs" />
     <Compile Include="PredictionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,14 +1,10 @@
-Calculate the algorithm that I want to use
+Move points calculation to a more appropriate place (all at same level of abstraction)
+	- I suspect that might enable me to use DefenderPointsCalculator strategy pattern
 
-Work out expected points of players based on the probability of scores output by algorithm
+Refactor poisson matrix to much simpler form which calculates defence points multiplier
 
-------------------
+Get rid of ifs around which is the players team and which is the opponent team
 
-So what would I need to do to get one result out of the data store (currently a csv)?
-The other possibility is that the csv file isn't the right data store.  
-I could transfer the data in to a more appropriate format.
+Make the same code work for another player type (goalkeeper)
 
-Basically you would need some sort of interface that would get me the result between two teams for a particular season.
-Although thinking about it the walking skelton in the GOOS book doesn't actually use the live data.
-So perhaps I could create a dummy data source with just the games I was interested in?  That would derisk getting data out of a csv, but I'd still need to create something which could pull out individual matches.
-Do I need to go back and have a look at the GOOS book again?
+Swap old points calculator for new points calculator

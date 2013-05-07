@@ -43,6 +43,16 @@ namespace AlgorithmFinder.Application
             return player.Goals / totalGoals;
         }
 
+        public decimal AssistsRatioFor(Player player)
+        {
+            if (player.Assists == 0)
+                return 0m;
+
+            var totalAssists = Convert.ToDecimal(_players.Sum(p => p.Value.Assists));
+
+            return player.Assists / totalAssists;
+        }
+
         #region Equality
 
         protected bool Equals(Team other)

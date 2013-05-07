@@ -49,6 +49,11 @@ namespace AlgorithmFinder.Application
             get { return _fixtureHistory.Bonus; }
         }
 
+        public decimal Assists
+        {
+            get { return _fixtureHistory.Assists; }
+        }
+
         #region Equality
 
         protected bool Equals(Player other)

@@ -5,3 +5,5 @@ Get rid of ifs around which is the players team and which is the opponent team
 Calculate points for a midfielder and a striker
 
 Take percentage chance of playing in to account
+
+Get points out of FixtureHistory.Saves

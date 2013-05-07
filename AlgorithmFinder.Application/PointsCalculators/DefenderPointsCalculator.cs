@@ -10,7 +10,9 @@
 
             var goalPoints = team.GoalsRatioFor(player) * 6m * (fixture.HomeTeam.Equals(team) ? expectedGoals.Home : expectedGoals.Away);
 
-            return defencePoints + bonusPoints + goalPoints;
+            var assistPoints = team.AssistsRatioFor(player) * 3m * (fixture.HomeTeam.Equals(team) ? expectedGoals.Home : expectedGoals.Away);
+
+            return defencePoints + bonusPoints + goalPoints + assistPoints;
         }
     }
 }

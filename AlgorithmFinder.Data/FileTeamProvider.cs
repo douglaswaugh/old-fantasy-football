@@ -37,7 +37,7 @@ namespace AlgorithmFinder.Data
                         team.AddPlayer(player);
                     }
                 }
-                catch (FileNotFoundException ex)
+                catch (FileNotFoundException)
                 {
                     Console.WriteLine("File {0}.json could not be found", id);
                 }

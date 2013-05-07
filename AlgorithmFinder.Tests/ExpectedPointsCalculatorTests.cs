@@ -17,8 +17,8 @@ namespace AlgorithmFinder.Tests
 
             var fixtureHistory = new FixtureHistory();
 
-            fixtureHistory.Add(new PlayerFixture(0, 0, 1));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 2));
+            fixtureHistory.Add(new PlayerFixture(0, 0, 1, 0));
+            fixtureHistory.Add(new PlayerFixture(0, 0, 2, 1));
 
             _wigan.AddPlayer(new Player(514, "Kone", new ForwardPointsCalculator(), fixtureHistory));
         }
@@ -36,11 +36,11 @@ namespace AlgorithmFinder.Tests
 
             var fixtureHistory = new FixtureHistory();
             
-            fixtureHistory.Add(new PlayerFixture(0, 0, 0));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 1));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 2));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 1));
-            fixtureHistory.Add(new PlayerFixture(0, 1, 0));
+            fixtureHistory.Add(new PlayerFixture(0, 0, 0, 1));
+            fixtureHistory.Add(new PlayerFixture(0, 0, 1, 0));
+            fixtureHistory.Add(new PlayerFixture(0, 0, 2, 2));
+            fixtureHistory.Add(new PlayerFixture(0, 0, 1, 0));
+            fixtureHistory.Add(new PlayerFixture(0, 1, 0, 1));
 
             var figueroa = new Player(508, "Figueroa", new DefenderPointsCalculator(), fixtureHistory);
 
@@ -51,7 +51,7 @@ namespace AlgorithmFinder.Tests
                 _wigan, 
                 new Fixture(new Team("Wolves"), _wigan));
 
-            Assert.That(expectedPoints, Is.EqualTo(9.9877m).Within(0.0001m));
+            Assert.That(expectedPoints, Is.EqualTo(16.8997m).Within(0.0001m));
         }
     }
 }

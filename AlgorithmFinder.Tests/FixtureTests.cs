@@ -16,7 +16,7 @@ namespace AlgorithmFinder.Tests
             
             // parameters needed for prediction
             var fixtureHistory = new FixtureHistory();
-            fixtureHistory.Add(new PlayerFixture(5, 1, 0));
+            fixtureHistory.Add(new PlayerFixture(5, 1, 0, 0));
 
             var player = new Player(1, "Al Habsi", new StubPointsCalculator(), fixtureHistory);
 

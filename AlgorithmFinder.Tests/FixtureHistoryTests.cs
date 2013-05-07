@@ -14,11 +14,11 @@ namespace AlgorithmFinder.Tests
         {
             _fixtureHistory = new FixtureHistory(new List<PlayerFixture>
             {
-                new PlayerFixture(3, 0, 0),
-                new PlayerFixture(4, 0, 1),
-                new PlayerFixture(5, 0, 2),
-                new PlayerFixture(2, 0, 1),
-                new PlayerFixture(3, 1, 0)
+                new PlayerFixture(3, 0, 0, 0),
+                new PlayerFixture(4, 0, 1, 0),
+                new PlayerFixture(5, 0, 2, 1),
+                new PlayerFixture(2, 0, 1, 0),
+                new PlayerFixture(3, 1, 0, 2)
             });
         }
 

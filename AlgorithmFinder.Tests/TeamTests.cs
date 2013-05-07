@@ -10,12 +10,16 @@ namespace AlgorithmFinder.Tests
         private PlayerFixture _scoredNone;
         private PlayerFixture _scoredOne;
         private Team _wigan;
+        private PlayerFixture _assistedNone;
+        private PlayerFixture _assistedOne;
 
         [SetUp]
         public void SetUp()
         {
-            _scoredNone = new PlayerFixture(0, 0, 0);
-            _scoredOne = new PlayerFixture(0, 0, 1);
+            _scoredNone = new PlayerFixture(0, 0, 0, 0);
+            _scoredOne = new PlayerFixture(0, 0, 1, 0);
+            _assistedNone = new PlayerFixture(0, 0, 0, 0);
+            _assistedOne = new PlayerFixture(0, 0, 0, 1);
             _wigan = new Team("Wigan");
         }
 
@@ -55,6 +59,42 @@ namespace AlgorithmFinder.Tests
             var goalsRatio = _wigan.GoalsRatioFor(figueroa);
 
             Assert.That(goalsRatio, Is.EqualTo(0.5m));
+        }
+
+        [Test]
+        public void Should_calculate_assists_ratio_0_if_player_has_made_no_assists()
+        {
+            Player figueroa = Figueroa(_assistedNone);
+
+            var assistsRatio = _wigan.AssistsRatioFor(figueroa);
+
+            Assert.That(assistsRatio, Is.EqualTo(0m));
+        }
+
+        [Test]
+        public void Should_calculate_assists_ratio_1_if_all_assists_made_by_player()
+        {
+            Player figueroa = Figueroa(_assistedOne);
+
+            _wigan.AddPlayer(figueroa);
+
+            var assistsRatio = _wigan.AssistsRatioFor(figueroa);
+
+            Assert.That(assistsRatio, Is.EqualTo(1m));
+        }
+
+        [Test]
+        public void Should_calculate_assists_ratio_0_point_5_if_half_of_assists_made_by_player()
+        {
+            _wigan.AddPlayer(Kone(_assistedOne));
+
+            Player figueroa = Figueroa(_assistedOne);
+
+            _wigan.AddPlayer(figueroa);
+
+            var assistsRatio = _wigan.AssistsRatioFor(figueroa);
+
+            Assert.That(assistsRatio, Is.EqualTo(0.5m));
         }
 
         private Player Kone(PlayerFixture playerFixture)

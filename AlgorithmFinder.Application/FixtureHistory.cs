@@ -33,6 +33,11 @@ namespace AlgorithmFinder.Application
             get { return _playerFixtures.Sum(f => f.Goals); }
         }
 
+        public decimal Assists
+        {
+            get { return _playerFixtures.Sum(f => f.Assists); }
+        }
+
         public void Add(PlayerFixture playerFixture)
         {
             _playerFixtures.Add(playerFixture);

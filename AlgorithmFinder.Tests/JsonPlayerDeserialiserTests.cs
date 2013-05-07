@@ -35,6 +35,22 @@ namespace AlgorithmFinder.Tests
         }
 
         [Test]
+        public void Deserialized_fixture_history_should_contain_assists_made()
+        {
+            var player = new SerialisedPlayerBuilder()
+                .WithId(508)
+                .WithName("Figueroa")
+                .WithFixture(
+                    new SerialisedFixtureBuilder()
+                        .WithAssists(2)
+                    .Build())
+                .Build();
+
+            var deserializedPlayer = new JsonPlayerDeserialiser().Deserialise(player);
+            Assert.That(deserializedPlayer.Assists, Is.EqualTo(2));
+        }
+
+        [Test]
         public void ShouldDeserialiseIdFromFplPlayer()
         {
             var alHabsi = new JsonPlayerDeserialiser().Deserialise(AlHabsi);

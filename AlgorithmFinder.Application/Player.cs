@@ -7,12 +7,14 @@ namespace AlgorithmFinder.Application
     public class Player
     {
         private readonly string _name;
+        private readonly PointsCalculator _pointsCalculator;
         private readonly int _id;
         private readonly FixtureHistory _fixtureHistory;
 
         public Player(int id, string name, PointsCalculator pointsCalculator, FixtureHistory fixtureHistory)
         {
             _name = name;
+            _pointsCalculator = pointsCalculator;
             _fixtureHistory = fixtureHistory;
             _id = id;
         }
@@ -68,5 +70,10 @@ namespace AlgorithmFinder.Application
         }
 
         #endregion
+
+        public decimal ExpectedPoints(Multiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
+        {
+            return _pointsCalculator.CalculatePoints(this, defenceMultiplier, team, expectedGoals, fixture);
+        }
     }
 }

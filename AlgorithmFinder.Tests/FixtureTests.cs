@@ -38,6 +38,11 @@ namespace AlgorithmFinder.Tests
 
     public class StubPointsCalculator : PointsCalculator
     {
+        public decimal CalculatePoints(Player player, Multiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals,
+                                       Fixture fixture)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 
     public class StubProbabilityCalculator : ProbabilityCalculator

@@ -22,7 +22,10 @@ namespace AlgorithmFinder.ConsoleUI
             {
                 var pointsPredictor = new PointsPredictor(
                     new FileResultsProvider(new FileStreamer(), new ExcelLineFixtureParser(), args[0]),
-                    new FileTeamProvider(new FileStreamer(), new JsonPlayerDeserialiser(), args[4], new Dictionary<Team, List<string>>{{new Team("Wigan"), new List<string>{"508", "513"}}}),
+                    new FileTeamProvider(new FileStreamer(), new JsonPlayerDeserialiser(), args[4], new Dictionary<Team, List<string>>{{new Team("Wigan"), new List<string>
+                        {
+                            "508", "513", "514", "518", "523", "553"
+                        }}}),
                     new PoissonMatrix()
                 );
 

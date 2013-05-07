@@ -26,15 +26,15 @@ namespace AlgorithmFinder.Application
             var player = populatedTeam.GetPlayer(playerId);
             #endregion
 
-            #region actual domain stuff
+            /*#region actual domain stuff
             var prediction = fixtures.First().Predict(results, _probabilityCalculator);
             var expectedPointsFor = fixtures.First().ExpectedPointsFor(player, team, results, prediction);
-            #endregion
+            #endregion*/
 
             var expectedPointsCalculator = new ExpectedPointsCalculator(results);
             var expectedPoints = expectedPointsCalculator.GetPointsFor(player, team, fixtures.First());
 
-            return expectedPointsFor;
+            return expectedPoints;
         }
     }
 }

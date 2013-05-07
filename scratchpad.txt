@@ -1,10 +1,7 @@
-Move points calculation to a more appropriate place (all at same level of abstraction)
-	- I suspect that might enable me to use DefenderPointsCalculator strategy pattern
-
-Refactor poisson matrix to much simpler form which calculates defence points multiplier
+Take assists in to account
 
 Get rid of ifs around which is the players team and which is the opponent team
 
-Make the same code work for another player type (goalkeeper)
+Calculate points for a midfielder and a striker
 
-Swap old points calculator for new points calculator
+Take percentage chance of playing in to account

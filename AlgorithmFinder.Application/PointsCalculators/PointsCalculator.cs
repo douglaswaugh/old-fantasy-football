@@ -2,5 +2,6 @@
 {
     public interface PointsCalculator
     {
+        decimal CalculatePoints(Player player, Multiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture);
     }
 }

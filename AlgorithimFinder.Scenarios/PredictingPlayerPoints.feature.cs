@@ -179,7 +179,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I ask for a points prediction for \"Al Habsi\" of \"Wigan\" for matches after \"13-Nov" +
                     "-11\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 17
- testRunner.Then("I should be told \"Al Habsi\" will get \"1.63\" points", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should be told \"Al Habsi\" will get \"1.51\" points", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -201,7 +201,7 @@ this.ScenarioSetup(scenarioInfo);
  testRunner.When("I ask for a points prediction for \"Figueroa\" of \"Wigan\" for matches after \"13-Nov" +
                     "-11\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 24
- testRunner.Then("I should be told \"Figueroa\" will get \"6.117973\" points", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("I should be told \"Figueroa\" will get \"7.23\" points", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

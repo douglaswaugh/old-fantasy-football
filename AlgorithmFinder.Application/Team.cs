@@ -1,34 +1,19 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AlgorithmFinder.Application
 {
     public class Team
     {
         private readonly string _name;
-        private readonly int _id;
 
         private readonly Dictionary<int, Player> _players = new Dictionary<int, Player>();
-
-        public Team(string name, int id)
-        {
-            _name = name;
-            _id = id;
-        }
-
-        public Team(int id)
-        {
-            _id = id;
-        }
 
         public Team(string name)
         {
             _name = name;
         }
-
-        /*public int Id
-        {
-            get { return _id; }
-        }*/
 
         public string Name
         {
@@ -47,7 +32,15 @@ namespace AlgorithmFinder.Application
 
         public decimal GoalsRatioFor(Player player)
         {
-            return 0m;
+            if (player.Goals == 0)
+                return 0m;
+
+            /* TODO should I worry about when a player has left? would have to build goals scored from results */
+            /* TODO might also want to try and test seeing if taking games played in to consideration improves the accuracy */
+
+            var totalGoals = Convert.ToDecimal(_players.Sum(p => p.Value.Goals));
+
+            return player.Goals / totalGoals;
         }
 
         #region Equality

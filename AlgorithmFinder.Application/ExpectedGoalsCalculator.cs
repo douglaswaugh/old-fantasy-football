@@ -7,5 +7,7 @@
         decimal ExpectedAwayGoals(Fixture fixture);
 
         ExpectedGoals ExpectedGoalsFor(Fixture fixture);
+        
+        decimal ExpectedToConceed(Team team, Fixture fixture);
     }
 }

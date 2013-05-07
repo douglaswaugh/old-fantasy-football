@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,6 +33,11 @@ namespace AlgorithmFinder.Application
         {
             return new ExpectedGoals(ExpectedHomeGoals(fixture),
                                      ExpectedAwayGoals(fixture));
+        }
+
+        public decimal ExpectedToConceed(Team team, Fixture fixture)
+        {
+            throw new NotImplementedException();
         }
 
         public decimal ExpectedHomeGoals(Fixture fixture)

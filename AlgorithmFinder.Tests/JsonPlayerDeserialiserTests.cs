@@ -13,8 +13,8 @@ namespace AlgorithmFinder.Tests
         {
             var alHabsi = new JsonPlayerDeserialiser().Deserialise(AlHabsi);
 
-            Assert.That(alHabsi.FixtureHistory.Saves, Is.EqualTo(0.95555).Within(0.0001m));
-            Assert.That(alHabsi.FixtureHistory.Bonus, Is.EqualTo(0.06666).Within(0.0001m));
+            Assert.That(alHabsi.Saves, Is.EqualTo(0.95555).Within(0.0001m));
+            Assert.That(alHabsi.Bonus, Is.EqualTo(0.06666).Within(0.0001m));
         }
 
         [Test]
@@ -31,7 +31,7 @@ namespace AlgorithmFinder.Tests
 
             var deserialisedPlayer = new JsonPlayerDeserialiser().Deserialise(player);
 
-            Assert.That(deserialisedPlayer.FixtureHistory.Goals, Is.EqualTo(2));
+            Assert.That(deserialisedPlayer.Goals, Is.EqualTo(2));
         }
 
         [Test]
@@ -40,13 +40,6 @@ namespace AlgorithmFinder.Tests
             var alHabsi = new JsonPlayerDeserialiser().Deserialise(AlHabsi);
 
             Assert.That(alHabsi.Id, Is.EqualTo(508));
-        }
-
-        [Test]
-        [Ignore]
-        public void ShouldGiveGoalkeeperPointsCalculatorToGoalkeeper()
-        {
-            
         }
     }
 }

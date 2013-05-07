@@ -31,7 +31,7 @@ namespace AlgorithmFinder.Application
             return mostLikelyScore.Equals(score);
         }
 
-        public decimal DefencePointsFor()
+        public decimal DefencePointsFor(Team team)
         {
             return 0m;
         }
@@ -81,11 +81,5 @@ namespace AlgorithmFinder.Application
 
             return (cleanSheetProbability*4) + (goalsConcededProbability*-1);
         }
-    }
-
-    public interface IPrediction
-    {
-        decimal DefencePointsForHomeTeam();
-        decimal DefencePointsForAwayTeam();
     }
 }

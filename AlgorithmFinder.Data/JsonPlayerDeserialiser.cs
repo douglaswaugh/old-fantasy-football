@@ -30,7 +30,7 @@ namespace AlgorithmFinder.Data
                     throw new InvalidPlayerTypeException();
             }
 
-            var player = new Player(fplPlayer.Id, string.Empty, pointsCalculator);
+            var fixtureHistory = new FixtureHistory();
             
             foreach(var fplFixture in fplPlayer.FixtureHistory["all"])
             {
@@ -40,8 +40,10 @@ namespace AlgorithmFinder.Data
 
                 var fixture = new PlayerFixture(saves, bonus, goals);
 
-                player.AddPlayerFixture(fixture);
+                fixtureHistory.Add(fixture);
             }
+
+            var player = new Player(fplPlayer.Id, string.Empty, pointsCalculator, fixtureHistory);
 
             return player;
         }

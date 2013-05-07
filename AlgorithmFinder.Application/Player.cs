@@ -8,11 +8,12 @@ namespace AlgorithmFinder.Application
     {
         private readonly string _name;
         private readonly int _id;
-        private readonly FixtureHistory _fixtureHistory = new FixtureHistory();
+        private readonly FixtureHistory _fixtureHistory;
 
-        public Player(int id, string name, PointsCalculator pointsCalculator)
+        public Player(int id, string name, PointsCalculator pointsCalculator, FixtureHistory fixtureHistory)
         {
             _name = name;
+            _fixtureHistory = fixtureHistory;
             _id = id;
         }
 
@@ -31,9 +32,19 @@ namespace AlgorithmFinder.Application
             get { return _fixtureHistory; }
         }
 
-        public void AddPlayerFixture(PlayerFixture playerFixture)
+        public decimal Goals
         {
-            _fixtureHistory.Add(playerFixture);
+            get { return _fixtureHistory.Goals; }
+        }
+
+        public decimal Saves
+        {
+            get { return _fixtureHistory.Saves; }
+        }
+
+        public decimal Bonus
+        {
+            get { return _fixtureHistory.Bonus; }
         }
 
         #region Equality

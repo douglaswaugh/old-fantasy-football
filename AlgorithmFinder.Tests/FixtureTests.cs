@@ -12,13 +12,15 @@ namespace AlgorithmFinder.Tests
         public void ShouldReturnExpectedPointsForGoalKeeper()
         {
             // fixture that was predicted
-            var fixture = new Fixture(new Team("teamA", 1), new Team("teamB", 2));
+            var fixture = new Fixture(new Team("teamA"), new Team("teamB"));
             
             // parameters needed for prediction
-            var player = new Player(1, "Al Habsi", new StubPointsCalculator());
-            player.AddPlayerFixture(new PlayerFixture(5, 1, 0));
+            var fixtureHistory = new FixtureHistory();
+            fixtureHistory.Add(new PlayerFixture(5, 1, 0));
 
-            var team = new Team("teamE", 5);
+            var player = new Player(1, "Al Habsi", new StubPointsCalculator(), fixtureHistory);
+
+            var team = new Team("teamE");
 
             // act
             var prediction = Substitute.For<IPrediction>();

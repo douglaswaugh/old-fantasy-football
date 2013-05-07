@@ -14,13 +14,13 @@ namespace AlgorithmFinder.Tests
             var results = new Results(new List<Fixture>
                 {
                     new Fixture(
-                        new Team("Wigan", 2), 
-                        new Team("Wolves", 1), 
+                        new Team("Wigan"), 
+                        new Team("Wolves"), 
                         new DateTime(2012, 9, 16),
                         new Score(3, 2))
                 });
 
-            var fixture = new Fixture(new Team("Wolves", 1), new Team("Wigan", 2));
+            var fixture = new Fixture(new Team("Wolves"), new Team("Wigan"));
 
             Assert.That(results.ExpectedHomeGoals(fixture), Is.EqualTo(1.92d));
         }
@@ -31,13 +31,13 @@ namespace AlgorithmFinder.Tests
             var results = new Results(new List<Fixture>
                 {
                     new Fixture(
-                        new Team("Wigan", 2), 
-                        new Team("Wolves", 1), 
+                        new Team("Wigan"), 
+                        new Team("Wolves"), 
                         new DateTime(2012, 9, 16),
                         new Score(3, 2))
                 });
 
-            var fixture = new Fixture(new Team("Wolves", 1), new Team("Wigan", 2));
+            var fixture = new Fixture(new Team("Wolves"), new Team("Wigan"));
 
             Assert.That(results.ExpectedAwayGoals(fixture), Is.EqualTo(2.88d));
         }

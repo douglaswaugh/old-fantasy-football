@@ -27,9 +27,9 @@ namespace AlgorithmFinder.Tests
         [SetUp]
         public void SetUp()
         {
-            _wigan = new Team(19);
-            _wolves = new Team(20);
-            _villa = new Team(2);
+            _wigan = new Team("Wigan");
+            _wolves = new Team("Wolves");
+            _villa = new Team("Aston Villa");
             _wolvesWigan = new Fixture(_wolves, _wigan);
             _nilNil = new Score(0, 0);
             _oneNil = new Score(1, 0);

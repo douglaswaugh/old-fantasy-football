@@ -21,13 +21,13 @@ namespace AlgorithmFinder.Tests
 
             var deserialiser = Substitute.For<PlayerDeserialiser>();
             deserialiser.Deserialise("playerData")
-                .Returns(new Player(508, "Al Habsi", new GoalkeeperPointsCalculator()));
+                .Returns(new Player(508, "Al Habsi", new GoalkeeperPointsCalculator(), new FixtureHistory()));
 
-            var fileTeamProvider = new FileTeamProvider(streamer, deserialiser, "C:\\filePath", new Dictionary<Team,List<string>> {{ new Team("Wigan", 19), new List<string> { "508" }}});
+            var fileTeamProvider = new FileTeamProvider(streamer, deserialiser, "C:\\filePath", new Dictionary<Team,List<string>> {{ new Team("Wigan"), new List<string> { "508" }}});
 
-            var team = fileTeamProvider.PopulateTeam(new Team("Wigan", 19));
+            var team = fileTeamProvider.PopulateTeam(new Team("Wigan"));
 
-            var alHabsi = new Player(508, "Al Habsi", new GoalkeeperPointsCalculator());
+            var alHabsi = new Player(508, "Al Habsi", new GoalkeeperPointsCalculator(), new FixtureHistory());
 
             Assert.That(team.GetPlayer(508), Is.EqualTo(alHabsi));
         }

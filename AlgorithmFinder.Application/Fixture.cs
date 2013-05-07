@@ -113,9 +113,9 @@ namespace AlgorithmFinder.Application
                 expectedGoals = results.ExpectedAwayGoals(this);
             }
 
-            expectedPoints += player.FixtureHistory.Saves;
+            expectedPoints += player.Saves;
 
-            expectedPoints += player.FixtureHistory.Bonus;
+            expectedPoints += player.Bonus;
 
             expectedPoints += expectedGoals * team.GoalsRatioFor(player) * 6;
 

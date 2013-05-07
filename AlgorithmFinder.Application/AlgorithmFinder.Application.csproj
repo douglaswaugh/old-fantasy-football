@@ -49,8 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateParser.cs" />
+    <Compile Include="DefencePointsCalculator.cs" />
     <Compile Include="ExpectedGoalsCalculator.cs" />
     <Compile Include="ExpectedPointsCalculator.cs" />
+    <Compile Include="IPrediction.cs" />
     <Compile Include="PointsCalculators\DefenderPointsCalculator.cs" />
     <Compile Include="Division.cs" />
     <Compile Include="ExpectedGoals.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="FixtureHistory.cs" />
     <Compile Include="PointsCalculators\PointsCalculator.cs" />
     <Compile Include="PointsPredictor.cs" />
+    <Compile Include="PoissonDefencePointsCalculator.cs" />
     <Compile Include="Prediction.cs" />
     <Compile Include="PredictionAccuracyMeasurement\PredictionMeasurer.cs" />
     <Compile Include="PredictionAccuracyMeasurement\Predictions.cs" />

@@ -1,4 +1,7 @@
-﻿namespace AlgorithmFinder.Application
+﻿using System;
+using MathNet.Numerics.Distributions;
+
+namespace AlgorithmFinder.Application
 {
     public class ExpectedPointsCalculator
     {
@@ -15,19 +18,22 @@
         {
             var expectedGoals = _expectedGoalsCalculator.ExpectedGoalsFor(fixture);
 
-            /*var probabilityMatrix = _probabilityCalculator.GetPrediction(expectedGoals);
+            var probabilityMatrix = _probabilityCalculator.GetPrediction(expectedGoals);
 
             var prediction = new Prediction(probabilityMatrix);
 
-            var defencePoints = prediction.DefencePointsForHomeTeam();
+            var defencePoints = fixture.HomeTeam.Equals(team) ? prediction.DefencePointsForHomeTeam() : prediction.DefencePointsForAwayTeam();
 
-            var bonusPoints = player.FixtureHistory.Bonus;
+            /* TODO Refactor above to what's below
+            var expectedToConceed = _expectedGoalsCalculator.ExpectedToConceed(team, fixture);
 
-            var goalPoints = team.GoalsRatioFor(player);
+            var defencePoints = _defencePointsCalculator.Calculate(expectedToConceed);*/
 
-            return defencePoints + bonusPoints + goalPoints;*/
+            var bonusPoints = player.Bonus;
 
-            return 0m;
+            var goalPoints = team.GoalsRatioFor(player) * 6m * (fixture.HomeTeam.Equals(team) ? expectedGoals.ExpectedHomeGoals : expectedGoals.ExpectedAwayGoals);
+
+            return defencePoints + bonusPoints + goalPoints;
         }
     }
 }

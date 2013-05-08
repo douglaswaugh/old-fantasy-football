@@ -54,7 +54,7 @@ namespace AlgorithmFinder.Data
             _results = new Results(new List<Fixture>());
             using (var reader = _streamer.GetStreamReaderFor(_filePath))
             {
-                var header = reader.ReadLine();
+                reader.ReadLine();
                 string rawResult;
                 while ((rawResult = reader.ReadLine()) != null)
                 {

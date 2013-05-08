@@ -24,9 +24,9 @@ namespace AlgorithmFinder.Tests
 
         private static double[][] PredictionFor192HomeGoals288AwayGoals()
         {
-            var flatProbabilities = new double[6][]
-            {
-                new double[6]
+            var flatProbabilities = new[]
+                {
+                new[]
                 {
                     0.008229747d,
                     0.023701672d,
@@ -35,7 +35,7 @@ namespace AlgorithmFinder.Tests
                     0.023590937d,
                     0.01358838d   
                 },
-                new double[6]
+                new[]
                 {
                     0.015801114d,
                     0.045507209d,
@@ -44,7 +44,8 @@ namespace AlgorithmFinder.Tests
                     0.0452946d,
                     0.026089689d
                 },
-                new double[6]{
+                new[]
+                {
                     0.01516907d,
                     0.043686921d,
                     0.062909166d,
@@ -52,7 +53,7 @@ namespace AlgorithmFinder.Tests
                     0.043482816d,
                     0.025046102d
                 },
-                new double[6]{
+                new[]{
                     0.009708205d,
                     0.027959629d,
                     0.040261866d,
@@ -60,7 +61,7 @@ namespace AlgorithmFinder.Tests
                     0.027829002d,
                     0.016029505d
                 },
-                new double[6]{
+                new[]{
                     0.004659938d,
                     0.013420622d,
                     0.019325696d,
@@ -68,7 +69,7 @@ namespace AlgorithmFinder.Tests
                     0.013357921d,
                     0.007694162d,
                 },
-                new double[6]{
+                new[]{
                     0.001789416d,
                     0.005153519d,
                     0.007421067d,

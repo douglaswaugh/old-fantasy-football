@@ -109,7 +109,7 @@ namespace AlgorithmFinder.Tests
         {
             var prediction = new Prediction(new[] 
             { 
-                new[] {0.2, 0.3},
+                new[] {0.2, 0.3}
             });
 
             var awayDefencePoints = prediction.DefencePointsForAwayTeam();

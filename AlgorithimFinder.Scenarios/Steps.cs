@@ -105,31 +105,31 @@ West Brom,Blackburn,07-Apr-12,3,0,9,6,16,10,1,2011";
         [Given(@"seven weeks fixtures have been played")]
         public void GivenSevenWeeksFixturesHaveBeenPlayed()
         {
-            foreach (var result in _week38.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var result in _week38.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 _resultsContent.Add(result);
             }
-            foreach (var result in _week37.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var result in _week37.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 _resultsContent.Add(result);
             }
-            foreach (var result in _week36.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var result in _week36.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 _resultsContent.Add(result);
             }
-            foreach (var result in _week35.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var result in _week35.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 _resultsContent.Add(result);
             }
-            foreach (var result in _week34.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var result in _week34.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 _resultsContent.Add(result);
             }
-            foreach (var result in _week33.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var result in _week33.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 _resultsContent.Add(result);
             }
-            foreach (var result in _week32.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
+            foreach (var result in _week32.Split(new[] { Environment.NewLine }, StringSplitOptions.None))
             {
                 _resultsContent.Add(result);
             }

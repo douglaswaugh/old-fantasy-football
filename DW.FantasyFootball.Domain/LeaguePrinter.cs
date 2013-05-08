@@ -18,7 +18,7 @@ namespace DW.FantasyFootball.Domain
 
             foreach (var leagueEntry in orderedLeague)
             {
-                System.Console.WriteLine(string.Format("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.Points));
+                System.Console.WriteLine("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.Points);
             }
         }
 
@@ -30,7 +30,7 @@ namespace DW.FantasyFootball.Domain
 
             foreach (var leagueEntry in orderedLeague)
             {
-               System.Console.WriteLine(string.Format("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.HomeGoalsAgainst));
+               System.Console.WriteLine("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.HomeGoalsAgainst);
             }
 
             System.Console.WriteLine();
@@ -44,7 +44,7 @@ namespace DW.FantasyFootball.Domain
 
             foreach (var leagueEntry in orderedLeague)
             {
-                System.Console.WriteLine(string.Format("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.HomeGoalsFor));
+                System.Console.WriteLine("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.HomeGoalsFor);
             }
 
             System.Console.WriteLine();
@@ -58,7 +58,7 @@ namespace DW.FantasyFootball.Domain
 
             foreach (var leagueEntry in orderedLeague)
             {
-                System.Console.WriteLine(string.Format("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.AwayGoalsAgainst));
+                System.Console.WriteLine("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.AwayGoalsAgainst);
             }
 
             System.Console.WriteLine();
@@ -72,7 +72,7 @@ namespace DW.FantasyFootball.Domain
 
             foreach (var leagueEntry in orderedLeague)
             {
-                System.Console.WriteLine(string.Format("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.AwayGoalsFor));
+                System.Console.WriteLine("{0} {1}", leagueEntry.Key.Name, leagueEntry.Value.AwayGoalsFor);
             } 
             
             System.Console.WriteLine();

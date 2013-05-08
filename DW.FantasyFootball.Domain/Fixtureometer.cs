@@ -29,9 +29,9 @@ namespace DW.FantasyFootball.Domain
                     if (nextFixture == null)
                         break;
 
-                    var homeFixtures = fixtureList.GetLastXHomeFixturesForTeam(nextFixture.HomeTeam, 6);
+                    var homeFixtures = fixtureList.GetLastXHomeFixturesForTeam(nextFixture.HomeTeam, 6).ToList();
 
-                    var awayFixtures = fixtureList.GetLastXAwayFixturesForTeam(nextFixture.AwayTeam, 6);
+                    var awayFixtures = fixtureList.GetLastXAwayFixturesForTeam(nextFixture.AwayTeam, 6).ToList();
 
                     var expectedHomeGoals = (homeFixtures.Average(f => (decimal)f.HomeGoals) + awayFixtures.Average(f => (decimal)f.HomeGoals)) / 2m;
 

@@ -35,30 +35,22 @@ namespace DW.FantasyFootball.Domain
 
         public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByDefensivePoints()
         {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderBy(s => s.Value.DefensivePointsAverage);
+            return _stats.OrderBy(s => s.Value.DefensivePointsAverage);
         }
 
         public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByOffensivePointsAverage()
         {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderByDescending(s => s.Value.OffensivePointsAverage);
+            return _stats.OrderByDescending(s => s.Value.OffensivePointsAverage);
         }
 
         public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByProbabilityOfAtLeastOneCleanSheet()
         {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderByDescending(s => s.Value.ProbabilityOfAtLeastOneCleanSheet);
+            return _stats.OrderByDescending(s => s.Value.ProbabilityOfAtLeastOneCleanSheet);
         }
 
         public IOrderedEnumerable<KeyValuePair<Team, StatFixtureList>> OrderedByOffensivePointsTotal()
         {
-            return _stats
-                .OfType<KeyValuePair<Team, StatFixtureList>>()
-                .OrderByDescending(s => s.Value.OffensivePointsTotal);
+            return _stats.OrderByDescending(s => s.Value.OffensivePointsTotal);
         }
     }
 }

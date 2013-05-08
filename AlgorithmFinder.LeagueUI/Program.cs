@@ -10,7 +10,7 @@ namespace AlgorithmFinder.LeagueUI
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var stream = new MemoryStream();
 
@@ -27,7 +27,7 @@ namespace AlgorithmFinder.LeagueUI
             var results = new Results(new List<Fixture>());
             using (var reader = new StreamReader(stream))
             {
-                var header = reader.ReadLine();
+                reader.ReadLine();
                 string rawResult;
                 while ((rawResult = reader.ReadLine()) != null)
                 {
@@ -97,24 +97,6 @@ namespace AlgorithmFinder.LeagueUI
             Console.Write(stringBuilder.ToString());
 
             Console.ReadKey();
-        }
-
-        private static string Spacers(int length, int maxLength)
-        {
-            var nameSpacersRequired = maxLength - length;
-
-            return SpacerOfLength(nameSpacersRequired);
-        }
-
-        private static string SpacerOfLength(int extraSpacesRequired)
-        {
-            var nameSpaces = string.Empty;
-
-            for (int i = 0; i < extraSpacesRequired; i++)
-            {
-                nameSpaces += " ";
-            }
-            return nameSpaces;
         }
     }
 

@@ -94,36 +94,6 @@ namespace AlgorithmFinder.Application
             return _homeTeam.Equals(team) || _awayTeam.Equals(team);
         }
 
-        public decimal ExpectedPointsFor(Player player, Team team, ExpectedGoalsCalculator results, IPrediction prediction)
-        {
-            // yellow cards
-            // red cards
-
-            var expectedPoints = 0m;
-            var expectedGoals = 0m;
-
-            if (team.Name.Equals(_homeTeam.Name))
-            {
-                expectedPoints += prediction.DefencePointsForHomeTeam();
-                expectedGoals = results.ExpectedHomeGoals(this);
-            }
-            else
-            {
-                expectedPoints += prediction.DefencePointsForAwayTeam();
-                expectedGoals = results.ExpectedAwayGoals(this);
-            }
-
-            expectedPoints += player.Saves;
-
-            expectedPoints += player.Bonus;
-
-            expectedPoints += expectedGoals * team.GoalsRatioFor(player) * 6;
-
-            // assists
-
-            return expectedPoints;
-        }
-
         #region Equality
         protected bool Equals(Fixture other)
         {

@@ -25,8 +25,7 @@ namespace AlgorithmFinder.ConsoleUI
                     new FileTeamProvider(new FileStreamer(), new JsonPlayerDeserialiser(), args[4], new Dictionary<Team, List<string>>{{new Team("Wigan"), new List<string>
                         {
                             "508", "513", "514", "518", "523", "553"
-                        }}}),
-                    new PoissonMatrix()
+                        }}})
                 );
 
                 var team = new Team(args[3]);

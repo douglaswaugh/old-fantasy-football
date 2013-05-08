@@ -7,7 +7,7 @@
         {
             var defensivePoints = (defenceMultiplier.CleanSheet * 4) + (defenceMultiplier.ConcedeTwoOrThree * -1) + (defenceMultiplier.ConcedeFourOrFive * -2);
 
-            var saves = player.Saves;
+            var saves = player.Saves / 3m;
 
             var bonus = player.Bonus;
 

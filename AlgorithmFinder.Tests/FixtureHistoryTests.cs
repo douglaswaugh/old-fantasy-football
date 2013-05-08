@@ -25,7 +25,7 @@ namespace AlgorithmFinder.Tests
         [Test]
         public void SavesShouldBeCalculatedCorrectly()
         {
-            Assert.That(_fixtureHistory.Saves, Is.EqualTo(1.1333m).Within(0.0001m));
+            Assert.That(_fixtureHistory.Saves, Is.EqualTo(3.4m).Within(0.0001m));
         }
 
         [Test]

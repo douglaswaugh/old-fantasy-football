@@ -6,9 +6,9 @@ namespace AlgorithmFinder.Application
     [DataContract]
     public class Player
     {
+        private readonly int _id;
         private readonly string _name;
         private readonly PointsCalculator _pointsCalculator;
-        private readonly int _id;
         private readonly FixtureHistory _fixtureHistory;
 
         public Player(int id, string name, PointsCalculator pointsCalculator, FixtureHistory fixtureHistory)
@@ -54,6 +54,11 @@ namespace AlgorithmFinder.Application
             get { return _fixtureHistory.Assists; }
         }
 
+        public decimal ExpectedPoints(Multiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
+        {
+            return _pointsCalculator.CalculatePoints(this, defenceMultiplier, team, expectedGoals, fixture);
+        }
+
         #region Equality
 
         protected bool Equals(Player other)
@@ -75,10 +80,5 @@ namespace AlgorithmFinder.Application
         }
 
         #endregion
-
-        public decimal ExpectedPoints(Multiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
-        {
-            return _pointsCalculator.CalculatePoints(this, defenceMultiplier, team, expectedGoals, fixture);
-        }
     }
 }

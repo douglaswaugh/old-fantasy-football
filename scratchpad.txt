@@ -1,9 +1,7 @@
-Take assists in to account
-
 Get rid of ifs around which is the players team and which is the opponent team
+
+Find and delete code no longer used
 
 Calculate points for a midfielder and a striker
 
 Take percentage chance of playing in to account
-
-Get points out of FixtureHistory.Saves

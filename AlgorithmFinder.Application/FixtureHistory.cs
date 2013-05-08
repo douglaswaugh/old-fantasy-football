@@ -19,8 +19,7 @@ namespace AlgorithmFinder.Application
 
         public decimal Saves
         {
-            /* TODO need to put all the points at the same level */
-            get { return Convert.ToDecimal(_playerFixtures.Average(f => f.Saves)) / 3m; }
+            get { return Convert.ToDecimal(_playerFixtures.Average(f => f.Saves)); }
         }
 
         public decimal Bonus

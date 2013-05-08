@@ -8,7 +8,7 @@ namespace DW.FantasyFootball.Console
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             try
             {
@@ -45,13 +45,6 @@ namespace DW.FantasyFootball.Console
             System.Console.ReadKey(true);
         }
 
-        private static void SuggestPlayerToBuy()
-        {
-            Player player = null;
-
-            System.Console.WriteLine("You should buy: {0}", player);
-        }
-
         private static void DownloadFixtures()
         {
             var fixtureScrapper = new FixtureScrapper();
@@ -83,7 +76,7 @@ namespace DW.FantasyFootball.Console
                 }
                 catch
                 {
-                    System.Console.WriteLine(string.Format("No player found with id {0}", i));
+                    System.Console.WriteLine("No player found with id {0}", i);
                 }
             }
         }
@@ -94,7 +87,7 @@ namespace DW.FantasyFootball.Console
             {
                 stream.CopyTo(file);
 
-                System.Console.WriteLine(string.Format("Player {0} downloaded", playerId));
+                System.Console.WriteLine("Player {0} downloaded", playerId);
             }
         }
 

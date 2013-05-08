@@ -1,4 +1,6 @@
-﻿namespace AlgorithmFinder.Tests
+﻿using System.Collections.Generic;
+
+namespace AlgorithmFinder.Tests
 {
     public class SerialisedPlayerBuilder
     {
@@ -17,7 +19,7 @@
 
         private int _id;
         private string _name;
-        private string _fixtures = string.Empty;
+        private List<string> _fixtures = new List<string>();
 
         public SerialisedPlayerBuilder WithId(int id)
         {
@@ -33,13 +35,15 @@
 
         public SerialisedPlayerBuilder WithFixture(string fixture)
         {
-            _fixtures += fixture;
+            _fixtures.Add(fixture);
             return this;
         }
 
         public string Build()
         {
-            return string.Format(SerialisedPlayerFormat, _id, _fixtures, _name);
+            var fixtures = string.Join(",", _fixtures);
+
+            return string.Format(SerialisedPlayerFormat, _id, fixtures, _name);
         }
     }
 }

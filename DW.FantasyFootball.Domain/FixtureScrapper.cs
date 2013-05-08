@@ -18,7 +18,7 @@ namespace DW.FantasyFootball.Domain
 
                 fixtureList.Add(gamesweek);
 
-                Console.WriteLine(String.Format("Processed gamesweek {0}", weekNumber));
+                Console.WriteLine("Processed gamesweek {0}", weekNumber);
             }
 
             return fixtureList;
@@ -145,7 +145,7 @@ namespace DW.FantasyFootball.Domain
 
             int day = Int32.Parse(date[0]);
 
-            var months = new Dictionary<string, int>()
+            var months = new Dictionary<string, int>
                              {
                                  {"Jan", 1},
                                  {"Feb",2},

@@ -46,7 +46,7 @@ namespace DW.FantasyFootball.Domain
             var homeGames = _gamesweeks
                 .Where(g => g.Completed)
                 .SelectMany(c => c.GetFixturesForTeam(team))
-                .Where(f => f.HomeTeam == team);
+                .Where(f => f.HomeTeam == team).ToList();
 
             return homeGames.Skip(homeGames.Count() - fixtureCount);
         }
@@ -56,7 +56,7 @@ namespace DW.FantasyFootball.Domain
             var awayGames = _gamesweeks
                 .Where(g => g.Completed)
                 .SelectMany(c => c.GetFixturesForTeam(team))
-                .Where(f => f.AwayTeam == team);
+                .Where(f => f.AwayTeam == team).ToList();
 
             return awayGames.Skip(awayGames.Count() - fixtureCount);
         }

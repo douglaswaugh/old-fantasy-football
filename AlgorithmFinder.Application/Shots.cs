@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace AlgorithmFinder.Application
 {
     public class Shots

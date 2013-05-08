@@ -29,8 +29,8 @@ namespace AlgorithmFinder.Tests
             var expectedGoalsCalculator = Substitute.For<ExpectedGoalsCalculator>();
             
             expectedGoalsCalculator
-                .ExpectedGoalsFor(new Fixture(new Team("Wolves"), _wigan))
-                .Returns(new ExpectedGoals(1.92m, 2.88m));
+                .ExpectedGoalsFor(_wigan, new Fixture(new Team("Wolves"), _wigan))
+                .Returns(new ExpectedGoals(2.88m, 1.92m));
 
             var expectedPointsCalculator = new ExpectedPointsCalculator(expectedGoalsCalculator);
 

@@ -15,8 +15,6 @@ namespace AlgorithmFinder.Tests
         private Score _oneNil;
         private DateTime _15Dec2012;
         private Score _oneAll;
-        private ExpectedGoals _expectedNilNil;
-        private ExpectedGoals _expectedOneAll;
         private Score _threeTwo;
         private Score _twoAll;
         private Score _twoOne;
@@ -40,48 +38,46 @@ namespace AlgorithmFinder.Tests
             _threeOne = new Score(3, 1);
             _threeTwo = new Score(3, 2);
             _15Dec2012 = new DateTime(2012, 12, 15);
-            _expectedNilNil = new ExpectedGoals(0, 0);
-            _expectedOneAll = new ExpectedGoals(1, 1);
         }
 
         [Test]
         public void Should_calculate_expected_goals_given_single_nil_nil_result()
         {
             var results = new Results(new List<Fixture> { WiganWolves(_nilNil) });
+            var expectedGoals = results.ExpectedGoalsFor(_wolves, _wolvesWigan);
 
-            var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
-
-            Assert.That(expectedGoals, Is.EqualTo(_expectedNilNil));
+            Assert.That(expectedGoals.Team, Is.EqualTo(0m));
+            Assert.That(expectedGoals.Opponent, Is.EqualTo(0m));
         }
 
         [Test]
         public void Should_calculate_expected_goals_given_single_one_nil_result()
         {
             var results = new Results(new List<Fixture> { WiganWolves(_oneNil) });
+            var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
-
-            Assert.That(expectedGoals, Is.EqualTo(_expectedNilNil));
+            Assert.That(expectedGoals.Team, Is.EqualTo(0m));
+            Assert.That(expectedGoals.Opponent, Is.EqualTo(0m));
         }
 
         [Test]
         public void Should_calculate_expected_goals_given_single_one_all_result()
         {
             var results = new Results(new List<Fixture> { WiganWolves(_oneAll) });
+            var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
-
-            Assert.That(expectedGoals, Is.EqualTo(_expectedOneAll));
+            Assert.That(expectedGoals.Team, Is.EqualTo(1m));
+            Assert.That(expectedGoals.Opponent, Is.EqualTo(1m));
         }
 
         [Test]
         public void Should_calculate_expected_goals_given_single_three_two_result()
         {
             var results = new Results(new List<Fixture> { WiganWolves(_threeTwo) });
+            var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
-
-            Assert.That(expectedGoals, Is.EqualTo(new ExpectedGoals(1.92m, 2.88m)));
+            Assert.That(expectedGoals.Team, Is.EqualTo(2.88m));
+            Assert.That(expectedGoals.Opponent, Is.EqualTo(1.92m));
         }
 
         [Test]
@@ -93,10 +89,10 @@ namespace AlgorithmFinder.Tests
                     WiganWolves(_twoOne)
                 });
 
-            var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
+            var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            Assert.That(expectedGoals.Home, Is.EqualTo(1.46m).Within(0.01m));
-            Assert.That(expectedGoals.Away, Is.EqualTo(1.95m).Within(0.01m));
+            Assert.That(expectedGoals.Team, Is.EqualTo(1.95m).Within(0.01m));
+            Assert.That(expectedGoals.Opponent, Is.EqualTo(1.46m).Within(0.01m));
         }
 
         [Test]
@@ -110,10 +106,10 @@ namespace AlgorithmFinder.Tests
                     VillaWigan(_oneAll)
                 });
 
-            var expectedGoals = results.ExpectedGoalsFor(_wolvesWigan);
+            var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            Assert.That(expectedGoals.Home, Is.EqualTo(1.30m).Within(0.01m));
-            Assert.That(expectedGoals.Away, Is.EqualTo(2.28m).Within(0.01m));
+            Assert.That(expectedGoals.Team, Is.EqualTo(2.28m).Within(0.01m));
+            Assert.That(expectedGoals.Opponent, Is.EqualTo(1.30m).Within(0.01m));
         }
 
         private Fixture VillaWigan(Score score)

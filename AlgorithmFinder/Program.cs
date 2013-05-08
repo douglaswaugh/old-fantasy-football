@@ -12,7 +12,7 @@ namespace AlgorithmFinder.ConsoleUI
         {
             var predictionMeasurer = new PredictionMeasurer(
                 new FileResultsProvider(new FileStreamer(), new ExcelLineFixtureParser(), args[0]),
-                new ResultPredictor(new PoissonMatrix()));
+                new ResultPredictor());
             
             var predictionResult = predictionMeasurer.MeasureAccuracy(new DateParser().Parse(args[1]));
             

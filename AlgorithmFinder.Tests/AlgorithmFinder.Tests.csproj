@@ -53,15 +53,11 @@
     <Compile Include="FileResultsProviderTests.cs" />
     <Compile Include="FileTeamProviderTests.cs" />
     <Compile Include="JsonPlayerDeserialiserTests.cs" />
-    <Compile Include="FixtureTests.cs" />
     <Compile Include="PointsPredictorTests.cs" />
     <Compile Include="FixtureHistoryTests.cs" />
     <Compile Include="PoissonDefencePointsMultiplierTests.cs" />
-    <Compile Include="PoissonMatrixTest.cs" />
-    <Compile Include="PredictionTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResultPredictorTests.cs" />
-    <Compile Include="ExpectedGoalsCalculatorTests.cs" />
     <Compile Include="ResultsTests.cs" />
     <Compile Include="SerialisedFixtureBuilder.cs" />
     <Compile Include="SerialisedPlayerBuilder.cs" />

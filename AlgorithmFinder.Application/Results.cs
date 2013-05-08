@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,18 +28,18 @@ namespace AlgorithmFinder.Application
             return GetEnumerator();
         }
 
-        public ExpectedGoals ExpectedGoalsFor(Fixture fixture)
+        public ExpectedGoals ExpectedGoalsFor(Team team, Fixture fixture)
         {
-            return new ExpectedGoals(ExpectedHomeGoals(fixture),
-                                     ExpectedAwayGoals(fixture));
+            var home = ExpectedHomeGoals(fixture);
+            var away = ExpectedAwayGoals(fixture);
+
+            if (fixture.HomeTeam.Equals(team))
+                return new ExpectedGoals(home, away);
+
+            return new ExpectedGoals(away, home);
         }
 
-        public decimal ExpectedToConceed(Team team, Fixture fixture)
-        {
-            throw new NotImplementedException();
-        }
-
-        public decimal ExpectedHomeGoals(Fixture fixture)
+        private decimal ExpectedHomeGoals(Fixture fixture)
         {
             var homeGoalsBaseLine = HomeGoalsBaseLine();
             var homeTeamAttackStrength = AttackStrengthOf(fixture.HomeTeam);
@@ -49,7 +48,7 @@ namespace AlgorithmFinder.Application
             return homeTeamAttackStrength * awayTeamDefenceWeakness * homeGoalsBaseLine;
         }
 
-        public decimal ExpectedAwayGoals(Fixture fixture)
+        private decimal ExpectedAwayGoals(Fixture fixture)
         {
             var awayGoalsBaseLine = AwayGoalsBaseLine();
             var homeTeamDefenceWeakness = DefenceWeaknessOf(fixture.HomeTeam);

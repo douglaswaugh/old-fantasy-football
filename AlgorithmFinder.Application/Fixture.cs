@@ -8,7 +8,8 @@ namespace AlgorithmFinder.Application
         private readonly Team _homeTeam;
         private readonly Team _awayTeam;
         private readonly Score _score;
-        private Prediction _prediction;
+        private Score _predictedScore;
+        private PredictionListener _predictionListener;
 
         public Fixture(Team homeTeam, Team awayTeam, DateTime matchDate, Score score)
         {
@@ -34,9 +35,9 @@ namespace AlgorithmFinder.Application
             get { return _awayTeam; }
         }
 
-        public bool PredictionCorrect
+        public bool PredictionCorrect()
         {
-            get { return _prediction.MostLikelyScoreIs(_score); }
+            return _score.Equals(_predictedScore);
         }
 
         public DateTime MatchDate
@@ -54,13 +55,21 @@ namespace AlgorithmFinder.Application
             return _score.HomeGoals + _score.AwayGoals;
         }
 
-        public Prediction Predict(Results results, ProbabilityCalculator probabilityCalculator)
+        public void Predict(Results results)
         {
-            var expectedGoals = results.ExpectedGoalsFor(this);
+            var expectedGoals = results.ExpectedGoalsFor(_homeTeam, this);
 
-            _prediction = new Prediction(probabilityCalculator.GetPrediction(expectedGoals));
+            _predictedScore = new Score(Convert.ToInt32(Math.Truncate(expectedGoals.Team)), Convert.ToInt32(Math.Truncate(expectedGoals.Opponent)));
 
-            return _prediction;
+            if (PredictionCorrect())
+            {
+                _predictionListener.AddCorrectPrediction();
+            }
+        }
+
+        public void AddPredictionListener(PredictionListener listener)
+        {
+            _predictionListener = listener;
         }
 
         public int AwayGoals()
@@ -95,9 +104,10 @@ namespace AlgorithmFinder.Application
         }
 
         #region Equality
+
         protected bool Equals(Fixture other)
         {
-            return _matchDate.Equals(other._matchDate) && Equals(_homeTeam, other._homeTeam) && Equals(_awayTeam, other._awayTeam) && Equals(_score, other._score) && Equals(_prediction, other._prediction);
+            return _matchDate.Equals(other._matchDate) && Equals(_homeTeam, other._homeTeam) && Equals(_awayTeam, other._awayTeam) && Equals(_score, other._score);
         }
 
         public override bool Equals(object obj)
@@ -116,17 +126,17 @@ namespace AlgorithmFinder.Application
                 hashCode = (hashCode*397) ^ (_homeTeam != null ? _homeTeam.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (_awayTeam != null ? _awayTeam.GetHashCode() : 0);
                 hashCode = (hashCode*397) ^ (_score != null ? _score.GetHashCode() : 0);
-                hashCode = (hashCode*397) ^ (_prediction != null ? _prediction.GetHashCode() : 0);
                 return hashCode;
             }
         }
+
         #endregion
 
         #region Formatting
 
         public override string ToString()
         {
-            return string.Format("MatchDate: {0}, HomeTeam: {1}, AwayTeam: {2}, Score: {3}, Prediction: {4}", _matchDate, _homeTeam, _awayTeam, _score, _prediction);
+            return string.Format("MatchDate: {0}, HomeTeam: {1}, AwayTeam: {2}, Score: {3}, PredictedScore: {4}", _matchDate, _homeTeam, _awayTeam, _score, _predictedScore);
         }
 
         #endregion

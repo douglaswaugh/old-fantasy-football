@@ -2,30 +2,26 @@
 
 namespace AlgorithmFinder.Application
 {
-    public class ResultPredictor
+    public class ResultPredictor : PredictionListener
     {
-        private readonly ProbabilityCalculator _probabilityCalculator;
+        private Predictions _predictions;
 
-        public ResultPredictor(ProbabilityCalculator probabilityCalculator)
+        public Predictions GetPredictionResult(Fixtures fixtures, Results results)
         {
-            _probabilityCalculator = probabilityCalculator;
-        }
-
-        public Predictions GetPredictionResult(Fixtures fixtures, Results expectedGoalsCalculator)
-        {
-            var predictions = new Predictions();
+            _predictions = new Predictions();
 
             foreach (var fixture in fixtures)
             {
-                fixture.Predict(expectedGoalsCalculator, _probabilityCalculator);
-
-                if (fixture.PredictionCorrect)
-                {
-                    predictions.IncrementCorrectScore();
-                }
+                fixture.AddPredictionListener(this);
+                fixture.Predict(results);
             }
 
-            return predictions;
+            return _predictions;
+        }
+
+        public void AddCorrectPrediction()
+        {
+            _predictions.IncrementCorrectScore();
         }
     }
 }

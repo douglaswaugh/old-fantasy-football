@@ -8,9 +8,9 @@
 
             var bonusPoints = player.Bonus;
 
-            var goalPoints = team.GoalsRatioFor(player) * 6m * (fixture.HomeTeam.Equals(team) ? expectedGoals.Home : expectedGoals.Away);
+            var goalPoints = team.GoalsRatioFor(player) * 6m * expectedGoals.Team;
 
-            var assistPoints = team.AssistsRatioFor(player) * 3m * (fixture.HomeTeam.Equals(team) ? expectedGoals.Home : expectedGoals.Away);
+            var assistPoints = team.AssistsRatioFor(player) * 3m * expectedGoals.Team;
 
             return defencePoints + bonusPoints + goalPoints + assistPoints;
         }

@@ -11,11 +11,11 @@
 
         public decimal GetPointsFor(Player player, Team team, Fixture fixture)
         {
-            var expectedGoals = _expectedGoalsCalculator.ExpectedGoalsFor(fixture);
+            var expectedGoals = _expectedGoalsCalculator.ExpectedGoalsFor(team, fixture);
 
             var defenceMultiplierCalculator = new PoissonDefencePointsMultiplier();
 
-            var defenceMultiplier = defenceMultiplierCalculator.Calculate(fixture.HomeTeam.Equals(team) ? expectedGoals.Away : expectedGoals.Home);
+            var defenceMultiplier = defenceMultiplierCalculator.Calculate(expectedGoals.Opponent);
 
             return player.ExpectedPoints(defenceMultiplier, team, expectedGoals, fixture);
         }

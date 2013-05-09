@@ -46,7 +46,7 @@ namespace AlgorithmFinder.Data
                 BuildResults();
             }
 
-            return new Fixtures(GetFixturesAfter(date).Where(r => r.FixtureFor(team)).ToList());
+            return new Fixtures(GetFixturesAfter(date).Where(r => r.HasTeam(team)).ToList());
         }
 
         private void BuildResults()

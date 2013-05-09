@@ -35,11 +35,6 @@ namespace AlgorithmFinder.Application
             get { return _awayTeam; }
         }
 
-        public DateTime MatchDate
-        {
-            get { return _matchDate; }
-        }
-
         public bool HasTeam(Team team)
         {
             return _homeTeam.Equals(team) || _awayTeam.Equals(team);
@@ -48,6 +43,42 @@ namespace AlgorithmFinder.Application
         public int GoalsScored()
         {
             return _score.HomeGoals + _score.AwayGoals;
+        }
+
+        public int AwayGoals()
+        {
+            return _score.AwayGoals;
+        }
+
+        public int HomeGoals()
+        {
+            return _score.HomeGoals;
+        }
+
+        public int GoalsScoredBy(Team team)
+        {
+            if (team.Equals(_homeTeam))
+                return _score.HomeGoals;
+
+            return _score.AwayGoals;
+        }
+
+        public int GoalsConcededBy(Team team)
+        {
+            if (team.Equals(_homeTeam))
+                return _score.AwayGoals;
+
+            return _score.HomeGoals;
+        }
+
+        public bool IsBefore(DateTime date)
+        {
+            return _matchDate < date;
+        }
+
+        public bool IsOnOrAfter(DateTime date)
+        {
+            return _matchDate >= date;
         }
 
         public void Predict(Results results)
@@ -65,37 +96,6 @@ namespace AlgorithmFinder.Application
         public void AddPredictionListener(PredictionListener listener)
         {
             _predictionListener = listener;
-        }
-
-        public int AwayGoals()
-        {
-            return _score.AwayGoals;
-        }
-
-        public int GoalsScoredBy(Team team)
-        {
-            if (team.Equals(_homeTeam))
-                return _score.HomeGoals;
-
-            return _score.AwayGoals;
-        }
-
-        public int HomeGoals()
-        {
-            return _score.HomeGoals;
-        }
-
-        public int GoalsConcededBy(Team team)
-        {
-            if (team.Equals(_homeTeam))
-                return _score.AwayGoals;
-
-            return _score.HomeGoals;
-        }
-
-        public bool FixtureFor(Team team)
-        {
-            return _homeTeam.Equals(team) || _awayTeam.Equals(team);
         }
 
         private bool PredictionCorrect()
@@ -140,5 +140,6 @@ namespace AlgorithmFinder.Application
         }
 
         #endregion
+
     }
 }

@@ -2,6 +2,8 @@ namespace AlgorithmFinder.Application
 {
     public interface DefencePointsMultiplier
     {
-        Multiplier Calculate(decimal expectedGoals);
+        decimal CleanSheet { get; }
+        decimal ConcedeTwoOrThree { get; }
+        decimal ConcedeFourOrFive { get; }
     }
 }

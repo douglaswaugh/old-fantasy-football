@@ -35,9 +35,6 @@ namespace AlgorithmFinder.Application
             if (player.Goals == 0)
                 return 0m;
 
-            /* TODO should I worry about when a player has left? would have to build goals scored from results */
-            /* TODO might also want to try and test seeing if taking games played in to consideration improves the accuracy */
-
             var totalGoals = Convert.ToDecimal(_players.Sum(p => p.Value.Goals));
 
             return player.Goals / totalGoals;
@@ -75,9 +72,11 @@ namespace AlgorithmFinder.Application
 
         #endregion
 
+        #region Formatting
         public override string ToString()
         {
             return string.Format("Name: {0}", _name);
         }
+        #endregion
     }
 }

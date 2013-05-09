@@ -13,11 +13,7 @@
         {
             var expectedGoals = _expectedGoalsCalculator.ExpectedGoalsFor(team, fixture);
 
-            var defenceMultiplierCalculator = new PoissonDefencePointsMultiplier();
-
-            var defenceMultiplier = defenceMultiplierCalculator.Calculate(expectedGoals.Opponent);
-
-            return player.ExpectedPoints(defenceMultiplier, team, expectedGoals, fixture);
+            return player.ExpectedPoints(new PoissonDefencePointsMultiplier(expectedGoals.Opponent), team, expectedGoals, fixture);
         } 
     }
 }

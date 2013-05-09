@@ -5,17 +5,26 @@ namespace AlgorithmFinder.Application
 {
     public class PoissonDefencePointsMultiplier : DefencePointsMultiplier
     {
-        public Multiplier Calculate(decimal expectedGoals)
+        private readonly Poisson _poissonDistribution;
+
+        public PoissonDefencePointsMultiplier(decimal expectedGoals)
         {
-            var poissonDistribution = new Poisson(Convert.ToDouble(expectedGoals));
+            _poissonDistribution = new Poisson(Convert.ToDouble(expectedGoals));
+        }
 
-            var cleanSheetPoints = Convert.ToDecimal(poissonDistribution.Probability(0));
+        public decimal CleanSheet
+        {
+            get { return Convert.ToDecimal(_poissonDistribution.Probability(0)); }
+        }
 
-            var conceedTwoOrThreePoints = Convert.ToDecimal((poissonDistribution.Probability(2) + poissonDistribution.Probability(3)));
+        public decimal ConcedeTwoOrThree
+        {
+            get { return Convert.ToDecimal((_poissonDistribution.Probability(2) + _poissonDistribution.Probability(3))); }
+        }
 
-            var conceedFourOrFivePoints = Convert.ToDecimal((poissonDistribution.Probability(4) + poissonDistribution.Probability(5)));
-
-            return new Multiplier(cleanSheetPoints, conceedTwoOrThreePoints, conceedFourOrFivePoints);
+        public decimal ConcedeFourOrFive
+        {
+            get { return Convert.ToDecimal((_poissonDistribution.Probability(4) + _poissonDistribution.Probability(5))); }
         }
     }
 }

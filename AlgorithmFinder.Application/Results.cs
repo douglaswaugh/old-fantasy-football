@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace AlgorithmFinder.Application
 {
-    public class Results : IEnumerable<Fixture>, ExpectedGoalsCalculator
+    public class Results : ExpectedGoalsCalculator
     {
         private readonly List<Fixture> _results = new List<Fixture>();
 
@@ -19,14 +18,9 @@ namespace AlgorithmFinder.Application
             _results.Add(result);
         }
 
-        public IEnumerator<Fixture> GetEnumerator()
+        public int Count()
         {
-            return _results.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            return _results.Count();
         }
 
         public ExpectedGoals ExpectedGoalsFor(Team team, Fixture fixture)
@@ -60,7 +54,7 @@ namespace AlgorithmFinder.Application
 
         private decimal DefenceWeaknessOf(Team team)
         {
-            if (AverageGoalsConceded() == 0m)
+            if (AverageGoalsPerGame() == 0m)
                 return 0m;
 
             return GoalsConcededPerGameBy(team)/AverageGoalsPerGame();
@@ -73,7 +67,7 @@ namespace AlgorithmFinder.Application
 
         private decimal AttackStrengthOf(Team team)
         {
-            if (AverageGoalsScored() == 0m)
+            if (AverageGoalsPerGame() == 0m)
                 return 0m;
 
             return GoalsScoredPerGameBy(team) / AverageGoalsPerGame();
@@ -101,7 +95,7 @@ namespace AlgorithmFinder.Application
 
         private decimal TotalGoalsScored()
         {
-            return _results.Sum(result => result.HomeGoals() + result.AwayGoals());
+            return _results.Sum(result => result.GoalsScored());
         }
 
         private int GoalsConcededBy(Team team)
@@ -112,21 +106,6 @@ namespace AlgorithmFinder.Application
         private int GoalsScoredBy(Team team)
         {
             return _results.Where(result => result.HasTeam(team)).Sum(result => result.GoalsScoredBy(team));
-        }
-
-        private decimal AverageGoalsConceded()
-        {
-            return AverageGoalsScored();
-        }
-
-        private decimal AverageGoalsScored()
-        {
-            return ((decimal)_results.Sum(result => result.GoalsScored())) / NumberOfTeamsInLeague();
-        }
-
-        private int NumberOfTeamsInLeague()
-        {
-            return _results.Select(r => r.HomeTeam).Union(_results.Select(s => s.AwayTeam)).Count();
         }
 
         private decimal AwayGoalsBaseLine()
@@ -145,12 +124,12 @@ namespace AlgorithmFinder.Application
 
         public IEnumerable<Fixture> Before(DateTime date)
         {
-            return _results.Where(r => r.MatchDate < date);
+            return _results.Where(r => r.IsBefore(date));
         }
 
         public IEnumerable<Fixture> After(DateTime date)
         {
-            return _results.Where(r => r.MatchDate >= date);
+            return _results.Where(r => r.IsOnOrAfter(date));
         }
     }
 }

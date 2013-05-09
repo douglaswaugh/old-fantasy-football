@@ -1,9 +1,7 @@
-﻿using System.Runtime.Serialization;
-using AlgorithmFinder.Application.PointsCalculators;
+﻿using AlgorithmFinder.Application.PointsCalculators;
 
 namespace AlgorithmFinder.Application
 {
-    [DataContract]
     public class Player
     {
         private readonly int _id;
@@ -29,11 +27,6 @@ namespace AlgorithmFinder.Application
             get { return _id; }
         }
 
-        public FixtureHistory FixtureHistory
-        {
-            get { return _fixtureHistory; }
-        }
-
         public decimal Goals
         {
             get { return _fixtureHistory.Goals; }
@@ -54,7 +47,7 @@ namespace AlgorithmFinder.Application
             get { return _fixtureHistory.Assists; }
         }
 
-        public decimal ExpectedPoints(Multiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
+        public decimal ExpectedPoints(DefencePointsMultiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
         {
             return _pointsCalculator.CalculatePoints(this, defenceMultiplier, team, expectedGoals, fixture);
         }

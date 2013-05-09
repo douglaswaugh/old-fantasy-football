@@ -19,14 +19,14 @@ namespace AlgorithmFinder.Data
             _filePath = filePath;
         }
 
-        public Results GetResultsBefore(DateTime before)
+        public Results GetResultsBefore(DateTime date)
         {
             if (_results == null)
             {
                 BuildResults();
             }
 
-            return new Results(_results.Where(r => r.MatchDate < before).ToList());
+            return new Results(_results.Before(date).ToList());
         }
 
         public Fixtures GetFixturesAfter(DateTime date)
@@ -36,7 +36,7 @@ namespace AlgorithmFinder.Data
                 BuildResults();
             }
 
-            return new Fixtures(_results.Where(r => r.MatchDate >= date).ToList());
+            return new Fixtures(_results.After(date).ToList());
         }
 
         public Fixtures GetFixturesAfter(DateTime date, Team team)

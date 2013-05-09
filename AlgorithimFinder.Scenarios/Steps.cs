@@ -266,7 +266,6 @@ West Brom,Blackburn,07-Apr-12,3,0,9,6,16,10,1,2011";
             Assert.That(_consoleOutput, Is.StringContaining(string.Format("{0}\t{1}", player, points)));
         }
 
-
         [AfterScenario]
         public void AfterScenario()
         {

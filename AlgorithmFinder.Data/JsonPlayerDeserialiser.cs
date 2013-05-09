@@ -1,4 +1,5 @@
-﻿using AlgorithmFinder.Application;
+﻿using System.Collections.Generic;
+using AlgorithmFinder.Application;
 using AlgorithmFinder.Application.PointsCalculators;
 using Newtonsoft.Json;
 
@@ -30,7 +31,7 @@ namespace AlgorithmFinder.Data
                     throw new InvalidPlayerTypeException();
             }
 
-            var fixtureHistory = new FixtureHistory();
+            var fixtures = new List<PlayerFixture>();
             
             foreach(var fplFixture in fplPlayer.FixtureHistory["all"])
             {
@@ -41,10 +42,10 @@ namespace AlgorithmFinder.Data
 
                 var fixture = new PlayerFixture(saves, bonus, goals, assists);
 
-                fixtureHistory.Add(fixture);
+                fixtures.Add(fixture);
             }
 
-            var player = new Player(fplPlayer.Id, string.Empty, pointsCalculator, fixtureHistory);
+            var player = new Player(fplPlayer.Id, string.Empty, pointsCalculator, new FixtureHistory(fixtures));
 
             return player;
         }

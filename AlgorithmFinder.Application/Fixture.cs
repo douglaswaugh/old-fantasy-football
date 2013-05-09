@@ -35,11 +35,6 @@ namespace AlgorithmFinder.Application
             get { return _awayTeam; }
         }
 
-        public bool PredictionCorrect()
-        {
-            return _score.Equals(_predictedScore);
-        }
-
         public DateTime MatchDate
         {
             get { return _matchDate; }
@@ -101,6 +96,11 @@ namespace AlgorithmFinder.Application
         public bool FixtureFor(Team team)
         {
             return _homeTeam.Equals(team) || _awayTeam.Equals(team);
+        }
+
+        private bool PredictionCorrect()
+        {
+            return _score.Equals(_predictedScore);
         }
 
         #region Equality

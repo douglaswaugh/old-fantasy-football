@@ -4,7 +4,7 @@ namespace AlgorithmFinder.Application
 {
     public interface ResultsProvider
     {
-        Results GetResultsBefore(DateTime before);
+        Results GetResultsBefore(DateTime date);
 
         Fixtures GetFixturesAfter(DateTime date);
 

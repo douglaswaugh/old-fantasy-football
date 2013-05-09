@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -30,8 +31,8 @@ namespace AlgorithmFinder.Application
 
         public ExpectedGoals ExpectedGoalsFor(Team team, Fixture fixture)
         {
-            var home = ExpectedHomeGoals(fixture);
-            var away = ExpectedAwayGoals(fixture);
+            var home = ExpectedHomeGoals(fixture.HomeTeam, fixture.AwayTeam);
+            var away = ExpectedAwayGoals(fixture.HomeTeam, fixture.AwayTeam);
 
             if (fixture.HomeTeam.Equals(team))
                 return new ExpectedGoals(home, away);
@@ -39,20 +40,20 @@ namespace AlgorithmFinder.Application
             return new ExpectedGoals(away, home);
         }
 
-        private decimal ExpectedHomeGoals(Fixture fixture)
+        private decimal ExpectedHomeGoals(Team homeTeam, Team awayTeam)
         {
             var homeGoalsBaseLine = HomeGoalsBaseLine();
-            var homeTeamAttackStrength = AttackStrengthOf(fixture.HomeTeam);
-            var awayTeamDefenceWeakness = DefenceWeaknessOf(fixture.AwayTeam);
+            var homeTeamAttackStrength = AttackStrengthOf(homeTeam);
+            var awayTeamDefenceWeakness = DefenceWeaknessOf(awayTeam);
 
             return homeTeamAttackStrength * awayTeamDefenceWeakness * homeGoalsBaseLine;
         }
 
-        private decimal ExpectedAwayGoals(Fixture fixture)
+        private decimal ExpectedAwayGoals(Team homeTeam, Team awayTeam)
         {
             var awayGoalsBaseLine = AwayGoalsBaseLine();
-            var homeTeamDefenceWeakness = DefenceWeaknessOf(fixture.HomeTeam);
-            var awayTeamAttackStrength = AttackStrengthOf(fixture.AwayTeam);
+            var homeTeamDefenceWeakness = DefenceWeaknessOf(homeTeam);
+            var awayTeamAttackStrength = AttackStrengthOf(awayTeam);
 
             return awayTeamAttackStrength * homeTeamDefenceWeakness * awayGoalsBaseLine;
         }
@@ -140,6 +141,16 @@ namespace AlgorithmFinder.Application
             decimal homeGoals = _results.Sum(result => result.HomeGoals());
 
             return homeGoals / _results.Count();
+        }
+
+        public IEnumerable<Fixture> Before(DateTime date)
+        {
+            return _results.Where(r => r.MatchDate < date);
+        }
+
+        public IEnumerable<Fixture> After(DateTime date)
+        {
+            return _results.Where(r => r.MatchDate >= date);
         }
     }
 }

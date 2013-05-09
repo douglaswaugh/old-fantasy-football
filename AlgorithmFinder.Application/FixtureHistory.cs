@@ -8,10 +8,6 @@ namespace AlgorithmFinder.Application
     {
         private readonly List<PlayerFixture> _playerFixtures = new List<PlayerFixture>();
 
-        public FixtureHistory()
-        {
-        }
-
         public FixtureHistory(List<PlayerFixture> playerFixtures)
         {
             _playerFixtures = playerFixtures;

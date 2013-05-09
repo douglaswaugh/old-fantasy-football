@@ -1,11 +1,7 @@
-Get rid of ifs around which is the players team and which is the opponent team
-
 Calculate points for a midfielder and a striker
 
 Take percentage chance of playing in to account
 
-Do something about the results accuracy part of the program
-
-Remove other ExpectedGoals constructor
-
 Look for feature envy
+
+Give player a reference to team

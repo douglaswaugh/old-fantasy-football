@@ -1,4 +1,5 @@
-﻿using AlgorithmFinder.Application;
+﻿using System.Collections.Generic;
+using AlgorithmFinder.Application;
 using AlgorithmFinder.Application.PointsCalculators;
 using NUnit.Framework;
 
@@ -99,20 +100,16 @@ namespace AlgorithmFinder.Tests
 
         private Player Kone(PlayerFixture playerFixture)
         {
-            var fixtureHistory = new FixtureHistory();
+            var fixtures = new List<PlayerFixture> { playerFixture };
 
-            fixtureHistory.Add(playerFixture);
-
-            return new Player(524, "Kone", new ForwardPointsCalculator(), fixtureHistory);
+            return new Player(524, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures));
         }
 
         private Player Figueroa(PlayerFixture playerFixture)
         {
-            var fixtureHistory = new FixtureHistory();
+            var fixtures = new List<PlayerFixture> { playerFixture };
 
-            fixtureHistory.Add(playerFixture);
-
-            return new Player(508, "Figueroa", new DefenderPointsCalculator(), fixtureHistory);
+            return new Player(508, "Figueroa", new DefenderPointsCalculator(), new FixtureHistory(fixtures));
         }
     }
 }

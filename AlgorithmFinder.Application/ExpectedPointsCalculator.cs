@@ -18,6 +18,6 @@
             var defenceMultiplier = defenceMultiplierCalculator.Calculate(expectedGoals.Opponent);
 
             return player.ExpectedPoints(defenceMultiplier, team, expectedGoals, fixture);
-        }
+        } 
     }
 }

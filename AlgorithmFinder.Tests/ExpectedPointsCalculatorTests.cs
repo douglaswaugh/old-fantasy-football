@@ -1,4 +1,5 @@
-﻿using AlgorithmFinder.Application;
+﻿using System.Collections.Generic;
+using AlgorithmFinder.Application;
 using AlgorithmFinder.Application.PointsCalculators;
 using NSubstitute;
 using NUnit.Framework;
@@ -15,12 +16,13 @@ namespace AlgorithmFinder.Tests
         {
             _wigan = new Team("Wigan");
 
-            var fixtureHistory = new FixtureHistory();
+            var fixtures = new List<PlayerFixture>
+                {
+                    new PlayerFixture(0, 0, 1, 0), 
+                    new PlayerFixture(0, 0, 2, 1)
+                };
 
-            fixtureHistory.Add(new PlayerFixture(0, 0, 1, 0));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 2, 1));
-
-            _wigan.AddPlayer(new Player(514, "Kone", new ForwardPointsCalculator(), fixtureHistory));
+            _wigan.AddPlayer(new Player(514, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures)));
         }
 
         [Test]
@@ -34,15 +36,15 @@ namespace AlgorithmFinder.Tests
 
             var expectedPointsCalculator = new ExpectedPointsCalculator(expectedGoalsCalculator);
 
-            var fixtureHistory = new FixtureHistory();
+            var fixtures = new List<PlayerFixture>();
             
-            fixtureHistory.Add(new PlayerFixture(0, 0, 0, 1));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 1, 0));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 2, 2));
-            fixtureHistory.Add(new PlayerFixture(0, 0, 1, 0));
-            fixtureHistory.Add(new PlayerFixture(0, 1, 0, 1));
+            fixtures.Add(new PlayerFixture(0, 0, 0, 1));
+            fixtures.Add(new PlayerFixture(0, 0, 1, 0));
+            fixtures.Add(new PlayerFixture(0, 0, 2, 2));
+            fixtures.Add(new PlayerFixture(0, 0, 1, 0));
+            fixtures.Add(new PlayerFixture(0, 1, 0, 1));
 
-            var figueroa = new Player(508, "Figueroa", new DefenderPointsCalculator(), fixtureHistory);
+            var figueroa = new Player(508, "Figueroa", new DefenderPointsCalculator(), new FixtureHistory(fixtures));
 
             _wigan.AddPlayer(figueroa);
 

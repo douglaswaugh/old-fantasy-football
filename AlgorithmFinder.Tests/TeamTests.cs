@@ -102,14 +102,14 @@ namespace AlgorithmFinder.Tests
         {
             var fixtures = new List<PlayerFixture> { playerFixture };
 
-            return new Player(524, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures));
+            return new Player(524, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures), _wigan);
         }
 
         private Player Figueroa(PlayerFixture playerFixture)
         {
             var fixtures = new List<PlayerFixture> { playerFixture };
 
-            return new Player(508, "Figueroa", new DefenderPointsCalculator(), new FixtureHistory(fixtures));
+            return new Player(508, "Figueroa", new DefenderPointsCalculator(), new FixtureHistory(fixtures), _wigan);
         }
     }
 }

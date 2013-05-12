@@ -1,4 +1,5 @@
-﻿using AlgorithmFinder.Data;
+﻿using AlgorithmFinder.Application;
+using AlgorithmFinder.Data;
 using NUnit.Framework;
 
 namespace AlgorithmFinder.Tests
@@ -22,7 +23,8 @@ namespace AlgorithmFinder.Tests
                     .Build())
                 .Build();
 
-            var alHabsi = new JsonPlayerDeserialiser().Deserialise(player);
+            var alHabsi = Deserialize(player);
+
             Assert.That(alHabsi.Bonus, Is.EqualTo(4m));
         }
 
@@ -42,7 +44,8 @@ namespace AlgorithmFinder.Tests
                     .Build())
                 .Build();
 
-            var deserializedPlayer = new JsonPlayerDeserialiser().Deserialise(player);
+            var deserializedPlayer = Deserialize(player);
+
             Assert.That(deserializedPlayer.Saves, Is.EqualTo(3.5m));
         }
 
@@ -58,7 +61,8 @@ namespace AlgorithmFinder.Tests
                     .Build())
             .Build();
 
-            var deserialisedPlayer = new JsonPlayerDeserialiser().Deserialise(player);
+            var deserialisedPlayer = Deserialize(player);
+
             Assert.That(deserialisedPlayer.Goals, Is.EqualTo(2));
         }
 
@@ -74,7 +78,8 @@ namespace AlgorithmFinder.Tests
                     .Build())
                 .Build();
 
-            var deserializedPlayer = new JsonPlayerDeserialiser().Deserialise(player);
+            var deserializedPlayer = Deserialize(player);
+
             Assert.That(deserializedPlayer.Assists, Is.EqualTo(2));
         }
 
@@ -85,9 +90,28 @@ namespace AlgorithmFinder.Tests
                 .WithId(508)
                 .Build();
 
-            var alHabsi = new JsonPlayerDeserialiser().Deserialise(player);
+            var alHabsi = Deserialize(player);
 
             Assert.That(alHabsi.Id, Is.EqualTo(508));
+        }
+
+        [Test]
+        public void Deserialized_player_should_contain_contain_team()
+        {
+            var player = new SerialisedPlayerBuilder()
+                .WithId(508)
+                .Build();
+
+            var alHabsi = Deserialize(player);
+
+            Assert.That(alHabsi.Team, Is.EqualTo(new Team("Wigan")));
+        }
+
+        private static Player Deserialize(string player)
+        {
+            var alHabsi = new JsonPlayerDeserialiser().Deserialise(player, new Team("Wigan"));
+
+            return alHabsi;
         }
     }
 }

@@ -4,6 +4,6 @@ namespace AlgorithmFinder.Data
 {
     public interface PlayerDeserialiser
     {
-        Player Deserialise(string playerData);
+        Player Deserialise(string playerData, Team team);
     }
 }

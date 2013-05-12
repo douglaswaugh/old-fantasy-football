@@ -9,11 +9,11 @@
             _expectedGoalsCalculator = expectedGoalsCalculator;
         }
 
-        public decimal GetPointsFor(Player player, Team team, Fixture fixture)
+        public decimal GetPointsFor(Player player, Fixture fixture)
         {
-            var expectedGoals = _expectedGoalsCalculator.ExpectedGoalsFor(team, fixture);
+            var expectedGoals = _expectedGoalsCalculator.ExpectedGoalsFor(player.Team, fixture);
 
-            return player.ExpectedPoints(new PoissonDefencePointsMultiplier(expectedGoals.Opponent), team, expectedGoals, fixture);
+            return player.ExpectedPoints(new PoissonDefencePointsMultiplier(expectedGoals.Opponent), player.Team, expectedGoals, fixture);
         } 
     }
 }

@@ -22,7 +22,7 @@ namespace AlgorithmFinder.Tests
                     new PlayerFixture(0, 0, 2, 1)
                 };
 
-            _wigan.AddPlayer(new Player(514, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures)));
+            _wigan.AddPlayer(new Player(514, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures), _wigan));
         }
 
         [Test]
@@ -44,13 +44,12 @@ namespace AlgorithmFinder.Tests
             fixtures.Add(new PlayerFixture(0, 0, 1, 0));
             fixtures.Add(new PlayerFixture(0, 1, 0, 1));
 
-            var figueroa = new Player(508, "Figueroa", new DefenderPointsCalculator(), new FixtureHistory(fixtures));
+            var figueroa = new Player(508, "Figueroa", new DefenderPointsCalculator(), new FixtureHistory(fixtures), _wigan);
 
             _wigan.AddPlayer(figueroa);
 
             var expectedPoints = expectedPointsCalculator.GetPointsFor(
-                figueroa,
-                _wigan, 
+                figueroa, 
                 new Fixture(new Team("Wolves"), _wigan));
 
             Assert.That(expectedPoints, Is.EqualTo(16.8997m).Within(0.0001m));

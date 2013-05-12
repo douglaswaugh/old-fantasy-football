@@ -8,13 +8,15 @@ namespace AlgorithmFinder.Application
         private readonly string _name;
         private readonly PointsCalculator _pointsCalculator;
         private readonly FixtureHistory _fixtureHistory;
+        private readonly Team _team;
 
-        public Player(int id, string name, PointsCalculator pointsCalculator, FixtureHistory fixtureHistory)
+        public Player(int id, string name, PointsCalculator pointsCalculator, FixtureHistory fixtureHistory, Team team)
         {
             _name = name;
             _pointsCalculator = pointsCalculator;
             _fixtureHistory = fixtureHistory;
             _id = id;
+            _team = team;
         }
 
         public string Name
@@ -45,6 +47,11 @@ namespace AlgorithmFinder.Application
         public decimal Assists
         {
             get { return _fixtureHistory.Assists; }
+        }
+
+        public Team Team
+        {
+            get { return _team; }
         }
 
         public decimal ExpectedPoints(DefencePointsMultiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)

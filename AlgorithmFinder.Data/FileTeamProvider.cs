@@ -32,7 +32,7 @@ namespace AlgorithmFinder.Data
                     {
                         var playerData = stream.ReadToEnd();
 
-                        var player = _deserialiser.Deserialise(playerData);
+                        var player = _deserialiser.Deserialise(playerData, team);
 
                         team.AddPlayer(player);
                     }

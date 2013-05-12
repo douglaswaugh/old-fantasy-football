@@ -7,7 +7,7 @@ namespace AlgorithmFinder.Data
 {
     public class JsonPlayerDeserialiser : PlayerDeserialiser
     {
-        public Player Deserialise(string playerData)
+        public Player Deserialise(string playerData, Team team)
         {
             var fplPlayer = JsonConvert.DeserializeObject<FplPlayer>(playerData);
 
@@ -24,7 +24,7 @@ namespace AlgorithmFinder.Data
                 case "Midfielder":
                     pointsCalculator = new MidfielderPointsCalculator();
                     break;
-                case "Forward" :
+                case "Forward":
                     pointsCalculator = new ForwardPointsCalculator();
                     break;
                 default:
@@ -32,8 +32,8 @@ namespace AlgorithmFinder.Data
             }
 
             var fixtures = new List<PlayerFixture>();
-            
-            foreach(var fplFixture in fplPlayer.FixtureHistory["all"])
+
+            foreach (var fplFixture in fplPlayer.FixtureHistory["all"])
             {
                 var saves = int.Parse(fplFixture[13]);
                 var bonus = int.Parse(fplFixture[14]);
@@ -45,7 +45,7 @@ namespace AlgorithmFinder.Data
                 fixtures.Add(fixture);
             }
 
-            var player = new Player(fplPlayer.Id, string.Empty, pointsCalculator, new FixtureHistory(fixtures));
+            var player = new Player(fplPlayer.Id, string.Empty, pointsCalculator, new FixtureHistory(fixtures), team);
 
             return player;
         }

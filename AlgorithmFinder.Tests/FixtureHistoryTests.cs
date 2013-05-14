@@ -14,12 +14,17 @@ namespace AlgorithmFinder.Tests
         {
             _fixtureHistory = new FixtureHistory(new List<PlayerFixture>
             {
-                new PlayerFixture(3, 0, 0, 0),
-                new PlayerFixture(4, 0, 1, 0),
-                new PlayerFixture(5, 0, 2, 1),
-                new PlayerFixture(2, 0, 1, 0),
-                new PlayerFixture(3, 1, 0, 2)
+                NewPlayerFixture(3, 0, 0, 0),
+                NewPlayerFixture(4, 0, 1, 0),
+                NewPlayerFixture(5, 0, 2, 1),
+                NewPlayerFixture(2, 0, 1, 0),
+                NewPlayerFixture(3, 1, 0, 2)
             });
+        }
+
+        private static PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists)
+        {
+            return new PlayerFixture(saves, bonus, goals, assists);
         }
 
         [Test]

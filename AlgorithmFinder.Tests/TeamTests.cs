@@ -17,11 +17,16 @@ namespace AlgorithmFinder.Tests
         [SetUp]
         public void SetUp()
         {
-            _scoredNone = new PlayerFixture(0, 0, 0, 0);
-            _scoredOne = new PlayerFixture(0, 0, 1, 0);
-            _assistedNone = new PlayerFixture(0, 0, 0, 0);
-            _assistedOne = new PlayerFixture(0, 0, 0, 1);
+            _scoredNone = NewPlayerFixture(0, 0, 0, 0);
+            _scoredOne = NewPlayerFixture(0, 0, 1, 0);
+            _assistedNone = NewPlayerFixture(0, 0, 0, 0);
+            _assistedOne = NewPlayerFixture(0, 0, 0, 1);
             _wigan = new Team("Wigan");
+        }
+
+        private static PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists)
+        {
+            return new PlayerFixture(saves, bonus, goals, assists);
         }
 
         [Test]

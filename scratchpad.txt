@@ -1,10 +1,18 @@
-Calculate points for a midfielder and a striker
+Include yellow cards
 
-Take percentage chance of playing in to account
+Include red cards
+
+Missed penalties
+
+Saved penalties
+
+Take percentage chance of playing in to account (really defensive points only, I think) - have to get points for multiple games
+
+Points for playing
+
+Points for playing 60 mins
 
 Look for feature envy
-
-Give player a reference to team
 
 Delete Fixtures and just have Results?
 
@@ -15,3 +23,5 @@ Remove Count() from Results
 Adjust goal and assist ratios when a previous team mate has left (calculate goals and assists from results, not team player fixture histories)
 
 Should I only count games the player has played in for goal and assist ratios?  Might work quite nicely with % chance of playing (goal ratio of one every two games but only 10% chance of playing)
+
+Calculate if making everything based on games player has played

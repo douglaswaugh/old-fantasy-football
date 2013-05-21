@@ -54,6 +54,16 @@ namespace AlgorithmFinder.Application
             get { return _team; }
         }
 
+        public decimal YellowCards
+        {
+            get { return _fixtureHistory.YellowCards; }
+        }
+
+        public decimal RedCards
+        {
+            get { return _fixtureHistory.RedCards; }
+        }
+
         public decimal ExpectedPoints(DefencePointsMultiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
         {
             return _pointsCalculator.CalculatePoints(this, defenceMultiplier, team, expectedGoals, fixture);

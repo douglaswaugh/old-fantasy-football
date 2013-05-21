@@ -33,9 +33,19 @@ namespace AlgorithmFinder.Application
             get { return _playerFixtures.Sum(f => f.Assists); }
         }
 
+        public decimal YellowCards
+        {
+            get { return Convert.ToDecimal(_playerFixtures.Average(f => f.YellowCards)); }
+        }
+
         public void Add(PlayerFixture playerFixture)
         {
             _playerFixtures.Add(playerFixture);
+        }
+
+        public decimal RedCards
+        {
+            get { return Convert.ToDecimal(_playerFixtures.Average(f => f.RedCards));}
         }
     }
 }

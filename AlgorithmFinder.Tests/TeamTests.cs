@@ -26,7 +26,7 @@ namespace AlgorithmFinder.Tests
 
         private static PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists)
         {
-            return new PlayerFixture(saves, bonus, goals, assists);
+            return new PlayerFixture(saves, bonus, goals, assists, 0, 0);
         }
 
         [Test]

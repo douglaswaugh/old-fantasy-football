@@ -39,8 +39,10 @@ namespace AlgorithmFinder.Data
                 var bonus = int.Parse(fplFixture[14]);
                 var goals = int.Parse(fplFixture[4]);
                 var assists = int.Parse(fplFixture[5]);
+                var yellowCards = int.Parse(fplFixture[11]);
+                var redCards = int.Parse(fplFixture[12]);
 
-                var fixture = new PlayerFixture(saves, bonus, goals, assists);
+                var fixture = new PlayerFixture(saves, bonus, goals, assists, yellowCards, redCards);
 
                 fixtures.Add(fixture);
             }

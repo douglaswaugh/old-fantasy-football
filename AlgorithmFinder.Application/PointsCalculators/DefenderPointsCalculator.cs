@@ -12,7 +12,11 @@
 
             var assistPoints = team.AssistsRatioFor(player) * 3m * expectedGoals.Team;
 
-            return defencePoints + bonusPoints + goalPoints + assistPoints;
+            var yellowCards = player.YellowCards;
+
+            var redCards = player.RedCards * 3;
+
+            return defencePoints + bonusPoints + goalPoints + assistPoints - yellowCards - redCards;
         }
     }
 }

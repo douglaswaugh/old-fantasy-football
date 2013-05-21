@@ -14,17 +14,12 @@ namespace AlgorithmFinder.Tests
         {
             _fixtureHistory = new FixtureHistory(new List<PlayerFixture>
             {
-                NewPlayerFixture(3, 0, 0, 0),
-                NewPlayerFixture(4, 0, 1, 0),
-                NewPlayerFixture(5, 0, 2, 1),
-                NewPlayerFixture(2, 0, 1, 0),
-                NewPlayerFixture(3, 1, 0, 2)
+                NewPlayerFixture(3, 0, 0, 0, 0, 1),
+                NewPlayerFixture(4, 0, 1, 0, 0, 1),
+                NewPlayerFixture(5, 0, 2, 1, 1),
+                NewPlayerFixture(2, 0, 1, 0, 1),
+                NewPlayerFixture(3, 1, 0, 2, 0)
             });
-        }
-
-        private static PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists)
-        {
-            return new PlayerFixture(saves, bonus, goals, assists);
         }
 
         [Test]
@@ -43,6 +38,23 @@ namespace AlgorithmFinder.Tests
         public void Goals_should_be_counted_correctly()
         {
             Assert.That(_fixtureHistory.Goals, Is.EqualTo(4));
+        }
+
+        [Test]
+        public void Yellow_cards_should_be_calculated_correctly()
+        {
+            Assert.That(_fixtureHistory.YellowCards, Is.EqualTo(0.4m));
+        }
+
+        [Test]
+        public void Red_cards_should_be_calculated_correctly()
+        {
+            Assert.That(_fixtureHistory.RedCards, Is.EqualTo(0.4m));
+        }
+
+        private PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards, int redCards = 0)
+        {
+            return new PlayerFixture(saves, bonus, goals, assists, yellowCards, redCards);
         }
     }
 }

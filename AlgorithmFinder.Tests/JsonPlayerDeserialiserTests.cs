@@ -14,11 +14,11 @@ namespace AlgorithmFinder.Tests
                 .WithId(501)
                 .WithName("Al Habsi")
                 .WithFixture(
-                    new SerialisedFixtureBuilder()
+                    new SerializedFixtureBuilder()
                         .WithBonus(3)
                     .Build())
                 .WithFixture(
-                    new SerialisedFixtureBuilder()
+                    new SerializedFixtureBuilder()
                         .WithBonus(5)
                     .Build())
                 .Build();
@@ -35,11 +35,11 @@ namespace AlgorithmFinder.Tests
                 .WithId(501)
                 .WithName("Al Habsi")
                 .WithFixture(
-                    new SerialisedFixtureBuilder()
+                    new SerializedFixtureBuilder()
                         .WithSaves(2)
                     .Build())
                 .WithFixture(
-                    new SerialisedFixtureBuilder()
+                    new SerializedFixtureBuilder()
                         .WithSaves(5)
                     .Build())
                 .Build();
@@ -56,7 +56,7 @@ namespace AlgorithmFinder.Tests
                 .WithId(508)
                 .WithName("Figueroa")
                 .WithFixture(
-                    new SerialisedFixtureBuilder()
+                    new SerializedFixtureBuilder()
                         .WithGoals(2)
                     .Build())
             .Build();
@@ -73,7 +73,7 @@ namespace AlgorithmFinder.Tests
                 .WithId(508)
                 .WithName("Figueroa")
                 .WithFixture(
-                    new SerialisedFixtureBuilder()
+                    new SerializedFixtureBuilder()
                         .WithAssists(2)
                     .Build())
                 .Build();
@@ -96,7 +96,7 @@ namespace AlgorithmFinder.Tests
         }
 
         [Test]
-        public void Deserialized_player_should_contain_contain_team()
+        public void Deserialized_player_should_contain_team()
         {
             var player = new SerialisedPlayerBuilder()
                 .WithId(508)
@@ -105,6 +105,34 @@ namespace AlgorithmFinder.Tests
             var alHabsi = Deserialize(player);
 
             Assert.That(alHabsi.Team, Is.EqualTo(new Team("Wigan")));
+        }
+
+        [Test]
+        public void Deserialized_player_should_contain_yellow_cards()
+        {
+            var player = new SerialisedPlayerBuilder()
+                .WithId(508)
+                .WithFixture(
+                    new SerializedFixtureBuilder()
+                        .WithYellowCards(1)
+                    .Build())
+                .Build();
+
+            var alHabsi = Deserialize(player);
+
+            Assert.That(alHabsi.YellowCards, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void Deserialized_player_should_contain_red_cards()
+        {
+            var player = new SerialisedPlayerBuilder()
+                .WithFixture(new SerializedFixtureBuilder()
+                .WithRedCards(1)
+                .Build())
+                .Build();
+            var alHabsi = Deserialize(player);
+            Assert.That(alHabsi.RedCards, Is.EqualTo(1));
         }
 
         private static Player Deserialize(string player)

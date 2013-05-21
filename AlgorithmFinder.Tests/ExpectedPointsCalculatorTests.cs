@@ -18,8 +18,8 @@ namespace AlgorithmFinder.Tests
 
             var fixtures = new List<PlayerFixture>
                 {
-                    NewPlayerFixture(0, 0, 1, 0), 
-                    NewPlayerFixture(0, 0, 2, 1)
+                    NewPlayerFixture(0, 0, 1, 0, 0), 
+                    NewPlayerFixture(0, 0, 2, 1, 0)
                 };
 
             _wigan.AddPlayer(new Player(514, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures), _wigan));
@@ -38,11 +38,11 @@ namespace AlgorithmFinder.Tests
 
             var fixtures = new List<PlayerFixture>();
 
-            fixtures.Add(NewPlayerFixture(0, 0, 0, 1));
-            fixtures.Add(NewPlayerFixture(0, 0, 1, 0));
-            fixtures.Add(NewPlayerFixture(0, 0, 2, 2));
-            fixtures.Add(NewPlayerFixture(0, 0, 1, 0));
-            fixtures.Add(NewPlayerFixture(0, 1, 0, 1));
+            fixtures.Add(NewPlayerFixture(0, 0, 0, 1, 0, 2));
+            fixtures.Add(NewPlayerFixture(0, 0, 1, 0, 0));
+            fixtures.Add(NewPlayerFixture(0, 0, 2, 2, 1));
+            fixtures.Add(NewPlayerFixture(0, 0, 1, 0, 1));
+            fixtures.Add(NewPlayerFixture(0, 1, 0, 1, 0));
 
             var figueroa = new Player(508, "Figueroa", new DefenderPointsCalculator(), new FixtureHistory(fixtures), _wigan);
 
@@ -52,12 +52,12 @@ namespace AlgorithmFinder.Tests
                 figueroa, 
                 new Fixture(new Team("Wolves"), _wigan));
 
-            Assert.That(expectedPoints, Is.EqualTo(16.8997m).Within(0.0001m));
+            Assert.That(expectedPoints, Is.EqualTo(15.2997m).Within(0.0001m));
         }
 
-        private static PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists)
+        private PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards, int redCards = 0)
         {
-            return new PlayerFixture(saves, bonus, goals, assists);
+            return new PlayerFixture(saves, bonus, goals, assists, yellowCards, redCards);
         }
     }
 }

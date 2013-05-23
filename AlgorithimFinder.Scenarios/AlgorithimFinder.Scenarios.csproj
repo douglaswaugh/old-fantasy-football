@@ -53,7 +53,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationRunner.cs" />
     <Compile Include="PlayerData.cs" />
+    <Compile Include="PlayerFileBuilder.cs" />
+    <Compile Include="ResultsFile.cs" />
+    <Compile Include="ResultsFileBuilder.cs" />
     <Compile Include="Steps.cs" />
     <Compile Include="DisplayingAccuracyOfProbabalisticModel.feature.cs">
       <AutoGen>True</AutoGen>

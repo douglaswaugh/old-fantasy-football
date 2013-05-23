@@ -17,7 +17,7 @@ namespace AlgorithmFinder.Tests
             // Division,Season
             const string resultLine = "Reading,Tottenham,16-Sep-12,1,3,7,2,23,8,1,2012";
 
-            var result = new ExcelLineFixtureParser().ParseLine(resultLine);
+            var result = new ExcelLineFixtureParser().ParseFixtre(resultLine);
 
             Assert.That(result, Is.EqualTo(NewResult()));
         }

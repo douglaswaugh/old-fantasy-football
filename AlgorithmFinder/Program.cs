@@ -15,6 +15,7 @@ namespace AlgorithmFinder.ConsoleUI
 
             var predictionMeasurer = new PredictionMeasurer(
                 new FileResultsProvider(new FileStreamer(), new ExcelLineFixtureParser(), resultsFilePath),
+                new FileResultsProvider(new FileStreamer(), new ExcelLineFixtureParser(), resultsFilePath),
                 new ResultPredictor());
             
             var predictionResult = predictionMeasurer.MeasureAccuracy(new DateParser().Parse(predictAfterDate));
@@ -30,6 +31,7 @@ namespace AlgorithmFinder.ConsoleUI
 
                 var pointsPredictor = new PointsPredictor(
                     new FileResultsProvider(new FileStreamer(), new ExcelLineFixtureParser(), resultsFilePath),
+                    new FileFixturesProvider(new FileStreamer(), new ExcelLineFixtureParser(), resultsFilePath),
                     new FileTeamProvider(new FileStreamer(), new JsonPlayerDeserialiser(), playerDirectoryPath, new Dictionary<Team, List<string>>{{new Team("Wigan"), new List<string>
                         {
                             "508", "513", "514", "518", "523", "553"

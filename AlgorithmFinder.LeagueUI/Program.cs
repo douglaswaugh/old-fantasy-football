@@ -35,7 +35,7 @@ namespace AlgorithmFinder.LeagueUI
                 string rawResult;
                 while ((rawResult = reader.ReadLine()) != null)
                 {
-                    results.Add(parser.ParseLine(rawResult));
+                    results.Add(parser.ParseFixtre(rawResult));
                     var cells = rawResult.Split(',');
 
                     var homeTeam = new Team(cells[0]);

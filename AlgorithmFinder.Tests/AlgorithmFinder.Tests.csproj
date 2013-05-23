@@ -50,8 +50,10 @@
     <Compile Include="DateParserTest.cs" />
     <Compile Include="ExcelLineResultParserTests.cs" />
     <Compile Include="ExpectedPointsCalculatorTests.cs" />
+    <Compile Include="FileFixturesProviderTests.cs" />
     <Compile Include="FileResultsProviderTests.cs" />
     <Compile Include="FileTeamProviderTests.cs" />
+    <Compile Include="JsonFileFixtureParserTests.cs" />
     <Compile Include="JsonPlayerDeserialiserTests.cs" />
     <Compile Include="PointsPredictorTests.cs" />
     <Compile Include="FixtureHistoryTests.cs" />
@@ -61,6 +63,7 @@
     <Compile Include="ResultsTests.cs" />
     <Compile Include="SerializedFixtureBuilder.cs" />
     <Compile Include="SerialisedPlayerBuilder.cs" />
+    <Compile Include="StringExtensions.cs" />
     <Compile Include="TeamTests.cs" />
   </ItemGroup>
   <ItemGroup>

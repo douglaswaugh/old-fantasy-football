@@ -31,8 +31,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.2\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.5\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -46,11 +47,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelLineFixtureParser.cs" />
+    <Compile Include="FileFixturesProvider.cs" />
     <Compile Include="FileStreamer.cs" />
     <Compile Include="FileTeamProvider.cs" />
     <Compile Include="FixtureParser.cs" />
+    <Compile Include="FplFixture.cs" />
+    <Compile Include="FplFixtures.cs" />
     <Compile Include="FplPlayer.cs" />
+    <Compile Include="FplTeam.cs" />
     <Compile Include="InvalidPlayerTypeException.cs" />
+    <Compile Include="JsonFileFixtureParser.cs" />
     <Compile Include="JsonPlayerDeserialiser.cs" />
     <Compile Include="PlayerDeserialiser.cs" />
     <Compile Include="Streamer.cs" />

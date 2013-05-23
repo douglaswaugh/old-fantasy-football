@@ -1,11 +1,13 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using AlgorithmFinder.Application;
 
 namespace AlgorithmFinder.Data
 {
     public class ExcelLineFixtureParser : FixtureParser
     {
-        public Fixture ParseLine(string rawResult)
+        public Fixture ParseFixtre(string rawResult)
         {
             var cells = rawResult.Split(',');
             
@@ -21,22 +23,25 @@ namespace AlgorithmFinder.Data
                 score);
         }
 
-        private int IdForTeam(string teamName)
+        public IEnumerable<string> ParseFixtures(StreamReader reader)
         {
-            switch(teamName)
-            {
+            ScanPastHeader(reader);
 
-                case "Reading":
-                    return 15;
-                case "Tottenham":
-                    return 18;
-                case "Wigan":
-                    return 19;
-                case "Wolves":
-                    return 20;
-                default:
-                    return 0;
+            string rawFixture;
+
+            var rawFixtures = new List<string>();
+
+            while ((rawFixture = reader.ReadLine()) != null)
+            {
+                rawFixtures.Add(rawFixture);
             }
+
+            return rawFixtures;
+        }
+
+        public void ScanPastHeader(StreamReader reader)
+        {
+            reader.ReadLine();
         }
     }
 }

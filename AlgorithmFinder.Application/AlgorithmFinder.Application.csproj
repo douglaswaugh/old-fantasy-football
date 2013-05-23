@@ -52,6 +52,7 @@
     <Compile Include="DefencePointsMultiplier.cs" />
     <Compile Include="ExpectedGoalsCalculator.cs" />
     <Compile Include="ExpectedPointsCalculator.cs" />
+    <Compile Include="FixturesProvider.cs" />
     <Compile Include="PointsCalculators\DefenderPointsCalculator.cs" />
     <Compile Include="ExpectedGoals.cs" />
     <Compile Include="Fixture.cs" />

@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace AlgorithmFinder.Tests
 {
     [TestFixture]
-    public class ExcelLineResultParserTests
+    public class CsvFileResultParserTests
     {
         [Test]
         public void ShouldParseExcelLine()
@@ -17,7 +17,7 @@ namespace AlgorithmFinder.Tests
             // Division,Season
             const string resultLine = "Reading,Tottenham,16-Sep-12,1,3,7,2,23,8,1,2012";
 
-            var result = new ExcelLineFixtureParser().ParseFixtre(resultLine);
+            var result = new CsvFileFixtureParser().ParseFixtre(resultLine);
 
             Assert.That(result, Is.EqualTo(NewResult()));
         }

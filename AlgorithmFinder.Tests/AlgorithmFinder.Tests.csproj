@@ -48,7 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateParserTest.cs" />
-    <Compile Include="ExcelLineResultParserTests.cs" />
+    <Compile Include="CsvFileResultParserTests.cs" />
     <Compile Include="ExpectedPointsCalculatorTests.cs" />
     <Compile Include="FileFixturesProviderTests.cs" />
     <Compile Include="FileResultsProviderTests.cs" />

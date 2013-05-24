@@ -5,7 +5,7 @@ using AlgorithmFinder.Application;
 
 namespace AlgorithmFinder.Data
 {
-    public class ExcelLineFixtureParser : FixtureParser
+    public class CsvFileFixtureParser : FixtureParser
     {
         public Fixture ParseFixtre(string rawResult)
         {

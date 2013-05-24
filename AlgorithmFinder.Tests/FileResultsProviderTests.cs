@@ -10,7 +10,7 @@ namespace AlgorithmFinder.Tests
     [TestFixture]
     public class FileResultsProviderTests
     {
-        private ExcelLineFixtureParser _parser;
+        private CsvFileFixtureParser _parser;
         private Streamer _streamer;
         private FileResultsProvider _fileResultsProvider;
 
@@ -27,7 +27,7 @@ Wolves,Wigan,20-Nov-11,3,0,20,10,7,3,1,2011";
         [SetUp]
         public void SetUp()
         {
-            _parser =  new ExcelLineFixtureParser();
+            _parser =  new CsvFileFixtureParser();
             _streamer = Substitute.For<Streamer>();
 
             _fileResultsProvider = new FileResultsProvider(_streamer, _parser, "filePath");

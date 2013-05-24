@@ -46,7 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExcelLineFixtureParser.cs" />
+    <Compile Include="CsvFileFixtureParser.cs" />
     <Compile Include="FileFixturesProvider.cs" />
     <Compile Include="FileStreamer.cs" />
     <Compile Include="FileTeamProvider.cs" />

@@ -22,7 +22,7 @@ namespace AlgorithmFinder.LeagueUI
 
             stream.Position = 0;
 
-            var parser = new ExcelLineFixtureParser();
+            var parser = new CsvFileFixtureParser();
             var results = new Results(new List<Fixture>());
             var league = new Dictionary<string, LeagueData>();
             int homeGoals = 0;

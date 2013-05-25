@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using AlgorithmFinder.Application;
 
@@ -42,16 +40,9 @@ namespace AlgorithmFinder.Data
 
         private void BuildResults()
         {
-            _results = new Results(new List<Fixture>());
-
             using (var reader = _streamer.GetStreamReaderFor(_filePath))
             {
-                var rawFixtures = _parser.ParseFixtures(reader);
-
-                foreach (var rawFixture in rawFixtures)
-                {
-                    _results.Add(_parser.ParseFixtre(rawFixture));
-                }
+                _results = new Results(_parser.ParseFixtures(reader).ToList());
             }
         }
     }

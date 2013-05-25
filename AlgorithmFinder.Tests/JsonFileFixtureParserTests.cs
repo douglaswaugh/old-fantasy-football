@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
 using NUnit.Framework;
 
@@ -10,7 +13,74 @@ namespace AlgorithmFinder.Tests
         [Test]
         public void Should_split_fixture_file_in_to_fixtures()
         {
-            var reader = @"{
+            Assert.That(GetFixtures(TwoFixtures()).Count(), Is.EqualTo(2));
+        }
+
+        [Test]
+        public void Deserialized_fixtures_should_have_home_team()
+        {
+            Assert.That(GetFixtures(OneFixture()).First().HomeTeam, Is.EqualTo(new Team("Arsenal")));
+        }
+
+        [Test]
+        public void Deserialized_fixtures_should_have_away_team()
+        {
+            Assert.That(GetFixtures(OneFixture()).First().AwayTeam, Is.EqualTo(new Team("West Brom")));
+        }
+
+        [Test]
+        public void Deserialized_fixtures_should_have_a_score()
+        {
+            Assert.That(GetFixtures(OneFixture()).First().HomeGoals(), Is.EqualTo(3));
+            Assert.That(GetFixtures(OneFixture()).First().AwayGoals(), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void Deserialized_fixtures_should_have_a_date()
+        {
+            Assert.That(GetFixtures(OneFixture()).First().IsBefore(new DateTime(2011, 11, 5, 15, 0, 0, 1)), Is.True);
+        }
+
+        [Test]
+        public void Deserialized_fixture_should_be_on_or_after_date()
+        {
+            Assert.That(GetFixtures(OneFixture()).First().IsOnOrAfter(new DateTime(2011, 11, 5, 15, 0, 0)), Is.True);
+        }
+
+        private static IEnumerable<Fixture> GetFixtures(string fixturesString)
+        {
+            var reader = fixturesString.ToStreamReader();
+
+            var fixtureParser = new JsonFileFixtureParser();
+            var fixtures = fixtureParser.ParseFixtures(reader);
+            return fixtures;
+        }
+
+        private static string OneFixture()
+        {
+            return @"{
+   ""completed"":true,
+   ""fixtures"":[
+    {
+         ""awayGoals"":0,
+         ""awayTeam"":{
+            ""name"":""West Brom""
+         },
+         ""date"":""\/Date(1320505200000+0000)\/"",
+         ""homeGoals"":3,
+         ""homeTeam"":{
+            ""name"":""Arsenal""
+         },
+         ""played"":true
+      }
+   ],
+   ""started"":true
+}";
+        }
+
+        private static string TwoFixtures()
+        {
+            return @"{
    ""completed"":true,
    ""fixtures"":[
       {
@@ -39,38 +109,7 @@ namespace AlgorithmFinder.Tests
       }
    ],
    ""started"":true
-}".ToStreamReader();
-            
-            var fixtureParser = new JsonFileFixtureParser();
-            var fixtures = fixtureParser.ParseFixtures(reader);
-            Assert.That(fixtures.Count(), Is.EqualTo(2));
-        }
-
-        [Test]
-        public void Deserialized_fixtures_should_have_home_team()
-        {
-            var reader = @"{
-   ""completed"":true,
-   ""fixtures"":[
-    {
-         ""awayGoals"":0,
-         ""awayTeam"":{
-            ""name"":""West Brom""
-         },
-         ""date"":""\/Date(1320505200000+0000)\/"",
-         ""homeGoals"":3,
-         ""homeTeam"":{
-            ""name"":""Arsenal""
-         },
-         ""played"":true
-      }
-   ],
-   ""started"":true
-}".ToStreamReader();
-
-            var fixtureParser = new JsonFileFixtureParser();
-            var fixtures = fixtureParser.ParseFixtures(reader);
-            Assert.That(fixtures.First().HomeTeam.Name, Is.EqualTo("Arsenal"));
+}";
         }
     }
 }

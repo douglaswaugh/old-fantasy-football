@@ -23,47 +23,38 @@ namespace AlgorithmFinder.LeagueUI
             stream.Position = 0;
 
             var parser = new CsvFileFixtureParser();
-            var results = new Results(new List<Fixture>());
             var league = new Dictionary<string, LeagueData>();
             int homeGoals = 0;
             int awayGoals = 0;
             int gamesPlayed = 0;
-
+            IEnumerable<Fixture> results;
             using (var reader = new StreamReader(stream))
             {
-                reader.ReadLine();
-                string rawResult;
-                while ((rawResult = reader.ReadLine()) != null)
+                results = parser.ParseFixtures(reader).ToList();
+
+                foreach (var result in results)
                 {
-                    results.Add(parser.ParseFixtre(rawResult));
-                    var cells = rawResult.Split(',');
-
-                    var homeTeam = new Team(cells[0]);
-                    var awayTeam = new Team(cells[1]);
-                    var matchDate = DateTime.Parse(cells[2]);
-                    var score = new Score(Int32.Parse(cells[3]), Int32.Parse(cells[4]));
-
-                    if (!league.ContainsKey(homeTeam.Name))
+                    if (!league.ContainsKey(result.HomeTeam.Name))
                     {
-                        league.Add(homeTeam.Name, new LeagueData());
+                        league.Add(result.HomeTeam.Name, new LeagueData());
                     }
-                    if (!league.ContainsKey(awayTeam.Name))
+                    if (!league.ContainsKey(result.AwayTeam.Name))
                     {
-                        league.Add(awayTeam.Name, new LeagueData());
+                        league.Add(result.AwayTeam.Name, new LeagueData());
                     }
 
-                    var homeLeagueData = league[homeTeam.Name];
-                    homeLeagueData.GoalsScored += score.HomeGoals;
-                    homeLeagueData.GoalsConceded += score.AwayGoals;
+                    var homeLeagueData = league[result.HomeTeam.Name];
+                    homeLeagueData.GoalsScored += result.HomeGoals();
+                    homeLeagueData.GoalsConceded += result.AwayGoals();
                     homeLeagueData.GamesPlayed++;
 
-                    var awayLeagueData = league[awayTeam.Name];
-                    awayLeagueData.GoalsScored += score.AwayGoals;
-                    awayLeagueData.GoalsConceded += score.HomeGoals;
+                    var awayLeagueData = league[result.AwayTeam.Name];
+                    awayLeagueData.GoalsScored += result.AwayGoals();
+                    awayLeagueData.GoalsConceded += result.HomeGoals();
                     awayLeagueData.GamesPlayed++;
 
-                    homeGoals += score.HomeGoals;
-                    awayGoals += score.AwayGoals;
+                    homeGoals += result.HomeGoals();
+                    awayGoals += result.AwayGoals();
                     gamesPlayed++;
                 }
             }
@@ -80,12 +71,12 @@ namespace AlgorithmFinder.LeagueUI
 
             foreach (var key in league.Keys)
             {
-                stringBuilder.AppendFormat("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\r\n", 
-                    key, 
-                    league[key].GamesPlayed, 
-                    league[key].GoalsScored, 
-                    league[key].GoalsConceded, 
-                    (league[key].GoalsScored / averageGoalsScored).ToString("F04"), 
+                stringBuilder.AppendFormat("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\r\n",
+                    key,
+                    league[key].GamesPlayed,
+                    league[key].GoalsScored,
+                    league[key].GoalsConceded,
+                    (league[key].GoalsScored / averageGoalsScored).ToString("F04"),
                     (league[key].GoalsConceded / averageGoalsConceded).ToString("F04"));
             }
 

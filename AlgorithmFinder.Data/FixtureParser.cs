@@ -6,8 +6,6 @@ namespace AlgorithmFinder.Data
 {
     public interface FixtureParser
     {
-        Fixture ParseFixtre(string rawResult);
-
-        IEnumerable<string> ParseFixtures(StreamReader reader);
+        IEnumerable<Fixture> ParseFixtures(StreamReader reader);
     }
 }

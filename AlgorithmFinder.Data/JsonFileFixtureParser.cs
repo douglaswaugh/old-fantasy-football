@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AlgorithmFinder.Application;
@@ -7,7 +6,7 @@ using Newtonsoft.Json;
 
 namespace AlgorithmFinder.Data
 {
-    public class JsonFileFixtureParser
+    public class JsonFileFixtureParser : FixtureParser
     {
         public IEnumerable<Fixture> ParseFixtures(StreamReader reader)
         {
@@ -15,9 +14,9 @@ namespace AlgorithmFinder.Data
 
             return fixtures.Fixtures.Select(f => new Fixture
             (
-                new Team(f.HomeTeam.Name), 
+                new Team(f.HomeTeam.Name),
                 new Team(f.AwayTeam.Name),
-                DateTime.MinValue, 
+                f.Date,
                 new Score(f.HomeGoals, f.AwayGoals))
             );
         }

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace AlgorithmFinder.Data
 {
@@ -16,5 +17,8 @@ namespace AlgorithmFinder.Data
 
         [DataMember(Name = "homeTeam")]
         public FplTeam HomeTeam { get; private set; }
+
+        [DataMember(Name = "date")]
+        public DateTime Date { get; private set; }
     }
 }

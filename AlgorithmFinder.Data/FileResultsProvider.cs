@@ -51,15 +51,9 @@ namespace AlgorithmFinder.Data
 
         private void BuildResults()
         {
-            _results = new Results(new List<Fixture>());
             using (var reader = _streamer.GetStreamReaderFor(_filePath))
             {
-                reader.ReadLine();
-                string rawResult;
-                while ((rawResult = reader.ReadLine()) != null)
-                {
-                    _results.Add(_parser.ParseFixtre(rawResult));
-                }
+                _results = new Results(_parser.ParseFixtures(reader).ToList());
             }
         }
     }

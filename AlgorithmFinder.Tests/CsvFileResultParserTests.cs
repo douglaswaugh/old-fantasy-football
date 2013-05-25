@@ -15,9 +15,10 @@ namespace AlgorithmFinder.Tests
             // Home Goals,Away Goals,
             // H Shots,H Shots - Target,A Shots,A Shots - Target,
             // Division,Season
-            const string resultLine = "Reading,Tottenham,16-Sep-12,1,3,7,2,23,8,1,2012";
+            var resultLine = @"Home Team, AwayTeam, Match Date, Home Goals, Away Goals, H Shots,H Shots - Target,A Shots,A Shots - Target,Division,Season
+Reading,Tottenham,16-Sep-12,1,3,7,2,23,8,1,2012".ToStreamReader();
 
-            var result = new CsvFileFixtureParser().ParseFixtre(resultLine);
+            var result = new CsvFileFixtureParser().ParseFixtures(resultLine);
 
             Assert.That(result, Is.EqualTo(NewResult()));
         }

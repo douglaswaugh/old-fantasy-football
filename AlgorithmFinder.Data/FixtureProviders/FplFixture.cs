@@ -1,7 +1,8 @@
-﻿using System;
+using System;
 using System.Runtime.Serialization;
+using AlgorithmFinder.Data.TeamProviders;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.FixtureProviders
 {
     [DataContract]
     public class FplFixture

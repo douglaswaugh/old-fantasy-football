@@ -1,6 +1,6 @@
-﻿using System;
+using System;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.PlayerProviders
 {
     public class InvalidPlayerTypeException : Exception
     {

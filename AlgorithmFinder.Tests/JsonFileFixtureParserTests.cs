@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
+using AlgorithmFinder.Data.FixtureProviders;
 using NUnit.Framework;
 
 namespace AlgorithmFinder.Tests

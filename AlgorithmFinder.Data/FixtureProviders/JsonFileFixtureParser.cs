@@ -1,11 +1,10 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AlgorithmFinder.Application;
-using AlgorithmFinder.Data.FixtureProviders;
 using Newtonsoft.Json;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.FixtureProviders
 {
     public class JsonFileFixtureParser : FixtureParser
     {

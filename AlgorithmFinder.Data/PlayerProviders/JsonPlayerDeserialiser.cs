@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Application.PointsCalculators;
 using Newtonsoft.Json;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.PlayerProviders
 {
     public class JsonPlayerDeserialiser : PlayerDeserialiser
     {

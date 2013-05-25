@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.PlayerProviders
 {
     [DataContract]
     public class FplPlayer

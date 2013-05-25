@@ -1,6 +1,6 @@
-﻿using AlgorithmFinder.Application;
+using AlgorithmFinder.Application;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.PlayerProviders
 {
     public interface PlayerDeserialiser
     {

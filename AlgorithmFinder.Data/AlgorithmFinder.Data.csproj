@@ -50,18 +50,18 @@
     <Compile Include="FixtureProviders\CsvFileFixtureParser.cs" />
     <Compile Include="FixtureProviders\FileFixturesProvider.cs" />
     <Compile Include="FixtureProviders\FixtureParser.cs" />
-    <Compile Include="FplFixture.cs" />
-    <Compile Include="FplFixtures.cs" />
-    <Compile Include="FplPlayer.cs" />
-    <Compile Include="FplTeam.cs" />
-    <Compile Include="InvalidPlayerTypeException.cs" />
-    <Compile Include="JsonFileFixtureParser.cs" />
-    <Compile Include="JsonPlayerDeserialiser.cs" />
-    <Compile Include="PlayerDeserialiser.cs" />
+    <Compile Include="FixtureProviders\FplFixture.cs" />
+    <Compile Include="FixtureProviders\FplFixtures.cs" />
+    <Compile Include="FixtureProviders\JsonFileFixtureParser.cs" />
+    <Compile Include="PlayerProviders\FplPlayer.cs" />
+    <Compile Include="PlayerProviders\InvalidPlayerTypeException.cs" />
+    <Compile Include="PlayerProviders\JsonPlayerDeserialiser.cs" />
+    <Compile Include="PlayerProviders\PlayerDeserialiser.cs" />
     <Compile Include="ResultProviders\FileResultsProvider.cs" />
     <Compile Include="Streamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TeamProviders\FileTeamProvider.cs" />
+    <Compile Include="TeamProviders\FplTeam.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgorithmFinder.Application\AlgorithmFinder.Application.csproj">
@@ -72,9 +72,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="PlayerProviders\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

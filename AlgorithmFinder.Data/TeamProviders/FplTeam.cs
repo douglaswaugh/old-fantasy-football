@@ -1,6 +1,6 @@
-﻿using System.Runtime.Serialization;
+using System.Runtime.Serialization;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.TeamProviders
 {
     [DataContract]
     public class FplTeam

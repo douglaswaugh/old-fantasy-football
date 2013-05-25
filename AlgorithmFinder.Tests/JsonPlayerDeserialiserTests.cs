@@ -1,5 +1,6 @@
 ﻿using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
+using AlgorithmFinder.Data.PlayerProviders;
 using NUnit.Framework;
 
 namespace AlgorithmFinder.Tests

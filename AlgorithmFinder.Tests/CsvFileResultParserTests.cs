@@ -1,6 +1,7 @@
 ﻿using System;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
+using AlgorithmFinder.Data.FixtureProviders;
 using NUnit.Framework;
 
 namespace AlgorithmFinder.Tests

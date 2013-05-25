@@ -1,18 +1,18 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using AlgorithmFinder.Application;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.TeamProviders
 {
     public class FileTeamProvider : TeamProvider
     {
         private readonly PlayerDeserialiser _deserialiser;
         private readonly Streamer _streamer;
         private readonly string _directoryPath;
-        private readonly Dictionary<Team, List<string>> _playerProvider;
+        private readonly Dictionary<Application.Team, List<string>> _playerProvider;
 
-        public FileTeamProvider(Streamer streamer, PlayerDeserialiser deserialiser, string directoryPath, Dictionary<Team, List<string>> playerProvider)
+        public FileTeamProvider(Streamer streamer, PlayerDeserialiser deserialiser, string directoryPath, Dictionary<Application.Team, List<string>> playerProvider)
         {
             _deserialiser = deserialiser;
             _streamer = streamer;
@@ -20,7 +20,7 @@ namespace AlgorithmFinder.Data
             _playerProvider = playerProvider;
         }
 
-        public Team PopulateTeam(Team team)
+        public Application.Team PopulateTeam(Application.Team team)
         {
             var ids = _playerProvider[team];
 

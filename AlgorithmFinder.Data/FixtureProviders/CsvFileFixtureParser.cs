@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using AlgorithmFinder.Application;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.FixtureProviders
 {
     public class CsvFileFixtureParser : FixtureParser
     {

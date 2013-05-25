@@ -1,32 +1,21 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using AlgorithmFinder.Application;
 
-namespace AlgorithmFinder.Data
+namespace AlgorithmFinder.Data.FixtureProviders
 {
-    public class FileResultsProvider : ResultsProvider, FixturesProvider
+    public class FileFixturesProvider : FixturesProvider
     {
-        private readonly Streamer _streamer;
-        private readonly FixtureParser _parser;
         private readonly string _filePath;
+        private readonly Streamer _streamer;
         private Results _results;
+        private readonly FixtureParser _parser;
 
-        public FileResultsProvider(Streamer streamer, FixtureParser parser, string filePath)
+        public FileFixturesProvider(Streamer streamer, FixtureParser parser, string filePath)
         {
             _streamer = streamer;
             _parser = parser;
             _filePath = filePath;
-        }
-
-        public Results GetResultsBefore(DateTime date)
-        {
-            if (_results == null)
-            {
-                BuildResults();
-            }
-
-            return new Results(_results.Before(date).ToList());
         }
 
         public Fixtures GetFixturesAfter(DateTime date)

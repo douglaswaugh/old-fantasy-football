@@ -4,6 +4,8 @@ using System.Text;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Application.PointsCalculators;
 using AlgorithmFinder.Data;
+using AlgorithmFinder.Data.Team;
+using AlgorithmFinder.Data.TeamProviders;
 using NSubstitute;
 using NUnit.Framework;
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Application.PredictionAccuracyMeasurement;
 using AlgorithmFinder.Data;
+using AlgorithmFinder.Data.FixtureProviders;
+using AlgorithmFinder.Data.ResultProviders;
+using AlgorithmFinder.Data.TeamProviders;
 
 namespace AlgorithmFinder.ConsoleUI
 {

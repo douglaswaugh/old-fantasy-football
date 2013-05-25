@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
+using AlgorithmFinder.Data.FixtureProviders;
 
 namespace AlgorithmFinder.LeagueUI
 {

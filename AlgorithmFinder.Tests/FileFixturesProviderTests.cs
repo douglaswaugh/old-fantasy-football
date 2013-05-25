@@ -2,6 +2,7 @@
 using System.IO;
 using System.Linq;
 using AlgorithmFinder.Data;
+using AlgorithmFinder.Data.FixtureProviders;
 using NSubstitute;
 using NUnit.Framework;
 

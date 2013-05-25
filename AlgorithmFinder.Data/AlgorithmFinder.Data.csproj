@@ -46,11 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CsvFileFixtureParser.cs" />
-    <Compile Include="FileFixturesProvider.cs" />
     <Compile Include="FileStreamer.cs" />
-    <Compile Include="FileTeamProvider.cs" />
-    <Compile Include="FixtureParser.cs" />
+    <Compile Include="FixtureProviders\CsvFileFixtureParser.cs" />
+    <Compile Include="FixtureProviders\FileFixturesProvider.cs" />
+    <Compile Include="FixtureProviders\FixtureParser.cs" />
     <Compile Include="FplFixture.cs" />
     <Compile Include="FplFixtures.cs" />
     <Compile Include="FplPlayer.cs" />
@@ -59,9 +58,10 @@
     <Compile Include="JsonFileFixtureParser.cs" />
     <Compile Include="JsonPlayerDeserialiser.cs" />
     <Compile Include="PlayerDeserialiser.cs" />
+    <Compile Include="ResultProviders\FileResultsProvider.cs" />
     <Compile Include="Streamer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileResultsProvider.cs" />
+    <Compile Include="TeamProviders\FileTeamProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgorithmFinder.Application\AlgorithmFinder.Application.csproj">
@@ -71,6 +71,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="PlayerProviders\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -112,8 +112,8 @@ Sunderland,Man United,13-May-12,0,1,6,5,17,9,1,2011".Split(new[] { Environment.N
 
         public static void CreateResultsFile()
         {
-            ScenarioContext.Current["fixturesFilePath"] = Path.GetTempFileName();
-            var resultsFile = new FileInfo(ScenarioContext.Current.Get<string>("fixturesFilePath"));
+            ScenarioContext.Current["resultsFilePath"] = Path.GetTempFileName();
+            var resultsFile = new FileInfo(ScenarioContext.Current.Get<string>("resultsFilePath"));
             using (var writer = resultsFile.CreateText())
             {
                 foreach (var resultContent in ((List<string>)ScenarioContext.Current["resultsContent"]))

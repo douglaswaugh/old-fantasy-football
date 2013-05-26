@@ -4,6 +4,7 @@ using System.Linq;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
 using AlgorithmFinder.Data.FixtureProviders;
+using NSubstitute;
 using NUnit.Framework;
 
 namespace AlgorithmFinder.Tests
@@ -52,8 +53,15 @@ namespace AlgorithmFinder.Tests
         {
             var reader = fixturesString.ToStreamReader();
 
-            var fixtureParser = new JsonFileFixtureParser();
-            var fixtures = fixtureParser.ParseFixtures(reader);
+            var filePath = @"c:\filepath";
+
+            var streamer = Substitute.For<Streamer>();
+            streamer.GetStreamReaderFor(filePath).Returns(reader);
+
+            var fixtureParser = new JsonFileFixtureParser(streamer, filePath);
+
+            var fixtures = fixtureParser.GetFixtures();
+
             return fixtures;
         }
 

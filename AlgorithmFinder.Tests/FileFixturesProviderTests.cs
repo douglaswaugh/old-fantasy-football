@@ -24,10 +24,11 @@ Wolves,Wigan,20-Nov-11,3,0,20,10,7,3,1,2011";
         [SetUp]
         public void SetUp()
         {
-            _parser = new CsvFileFixtureParser();
             _streamer = Substitute.For<Streamer>();
 
-            _fileFixturesProvider = new FileFixturesProvider(_streamer, _parser, "filePath");
+            _parser = new CsvFileFixtureParser(_streamer, string.Empty);
+
+            _fileFixturesProvider = new FileFixturesProvider(_parser);
         }
 
         [Test]

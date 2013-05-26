@@ -21,6 +21,36 @@ namespace AlgorithimFinder.Scenarios
             (ResultsContent()).Add(ResultsFileBuilder.SingleResult(homeTeam, awayTeam, date, homeGoals, awayGoals));
         }
 
+        [Given(@"the ""(.*)"" ""(.*)"" fixture is on the ""(.*)""")]
+        public void GivenTheHomeTeamAwayTeamFixtureIsOnTheDate(string homeTeam, string awayTeam, string date)
+        {
+            // write the fixture out to a fixture file
+            var results = @"{
+   ""completed"":true,
+   ""fixtures"":[
+      {
+         ""awayGoals"":1,
+         ""awayTeam"":{
+            ""name"":""Wigan""
+         },
+         ""date"":""\/Date(1321196400000+0000)\/"",
+         ""homeGoals"":3,
+         ""homeTeam"":{
+            ""name"":""Wolves""
+         },
+         ""played"":true
+      }
+   ],
+   ""started"":true
+}";
+            // get temp fixtures file name
+            var fixturesFileName = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+            File.WriteAllText(fixturesFileName, results);
+
+            ScenarioContext.Current["fixturesFilePath"] = fixturesFileName;
+        }
+
         [Given(@"seven weeks fixtures have been played")]
         public void GivenSevenWeeksFixturesHaveBeenPlayed()
         {
@@ -64,7 +94,7 @@ namespace AlgorithimFinder.Scenarios
 
             ApplicationRunner.RunApplicationWithParameters(new[]
                 {
-                    FixturesFilePath(), 
+                    ResultsFilePath(), 
                     date
                 });
         }
@@ -76,13 +106,22 @@ namespace AlgorithimFinder.Scenarios
 
             ApplicationRunner.RunApplicationWithParameters(new[]
                 {
-                    FixturesFilePath(), 
+                    ResultsFilePath(), 
                     date, 
                     player, 
                     team, 
                     PlayersDirectoryPath(), 
-                    PlayerData.Ids[player].ToString()
+                    PlayerData.Ids[player].ToString(),
+                    FixturesFilePath()
                 });
+        }
+
+        private string FixturesFilePath()
+        {
+            if (ScenarioContext.Current.ContainsKey("fixturesFilePath"))
+                return (string)ScenarioContext.Current["fixturesFilePath"];
+
+            return ResultsFilePath();
         }
 
         [Then(@"I should be told (.*) correct scores were predicted")]
@@ -100,18 +139,18 @@ namespace AlgorithimFinder.Scenarios
         [AfterScenario]
         public void AfterScenario()
         {
-            if (ScenarioContext.Current.ContainsKey("fixturesFilePath"))
-                if (File.Exists(FixturesFilePath()))
-                    File.Delete(FixturesFilePath());
+            if (ScenarioContext.Current.ContainsKey("resultsFilePath"))
+                if (File.Exists(ResultsFilePath()))
+                    File.Delete(ResultsFilePath());
 
             if (ScenarioContext.Current.ContainsKey("playersDirectoryPath"))
                 if (Directory.Exists(PlayersDirectoryPath()))
                     Directory.Delete(PlayersDirectoryPath(), true);
         }
 
-        private static string FixturesFilePath()
+        private static string ResultsFilePath()
         {
-            return (string)ScenarioContext.Current["fixturesFilePath"];
+            return (string)ScenarioContext.Current["resultsFilePath"];
         }
 
         private static List<string> ResultsContent()

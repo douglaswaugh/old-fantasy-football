@@ -1,12 +1,22 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using AlgorithmFinder.Application;
 
 namespace AlgorithmFinder.Data.FixtureProviders
 {
     public class CsvFileFixtureParser : FixtureParser
     {
+        private readonly Streamer _streamer;
+        private readonly string _filePath;
+
+        public CsvFileFixtureParser(Streamer streamer, string filePath)
+        {
+            _streamer = streamer;
+            _filePath = filePath;
+        }
+
         public IEnumerable<Fixture> ParseFixtures(StreamReader reader)
         {
             ScanPastHeader(reader);
@@ -20,6 +30,14 @@ namespace AlgorithmFinder.Data.FixtureProviders
             }
 
             return fixtures;
+        }
+
+        public IEnumerable<Fixture> GetFixtures()
+        {
+            using (var reader = _streamer.GetStreamReaderFor(_filePath))
+            {
+                return ParseFixtures(reader).ToList();
+            }
         }
 
         private Fixture ParseFixtre(string rawResult)

@@ -6,6 +6,7 @@ using System.Text;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
 using AlgorithmFinder.Data.FixtureProviders;
+using NSubstitute;
 
 namespace AlgorithmFinder.LeagueUI
 {
@@ -23,41 +24,42 @@ namespace AlgorithmFinder.LeagueUI
 
             stream.Position = 0;
 
-            var parser = new CsvFileFixtureParser();
+            var streamer = Substitute.For<Streamer>();
+            streamer.GetStreamReaderFor(string.Empty).Returns(new StreamReader(stream));
+
+            var parser = new CsvFileFixtureParser(streamer, string.Empty);
             var league = new Dictionary<string, LeagueData>();
             int homeGoals = 0;
             int awayGoals = 0;
             int gamesPlayed = 0;
             IEnumerable<Fixture> results;
-            using (var reader = new StreamReader(stream))
+
+            results = parser.GetFixtures().ToList();
+
+            foreach (var result in results)
             {
-                results = parser.ParseFixtures(reader).ToList();
-
-                foreach (var result in results)
+                if (!league.ContainsKey(result.HomeTeam.Name))
                 {
-                    if (!league.ContainsKey(result.HomeTeam.Name))
-                    {
-                        league.Add(result.HomeTeam.Name, new LeagueData());
-                    }
-                    if (!league.ContainsKey(result.AwayTeam.Name))
-                    {
-                        league.Add(result.AwayTeam.Name, new LeagueData());
-                    }
-
-                    var homeLeagueData = league[result.HomeTeam.Name];
-                    homeLeagueData.GoalsScored += result.HomeGoals();
-                    homeLeagueData.GoalsConceded += result.AwayGoals();
-                    homeLeagueData.GamesPlayed++;
-
-                    var awayLeagueData = league[result.AwayTeam.Name];
-                    awayLeagueData.GoalsScored += result.AwayGoals();
-                    awayLeagueData.GoalsConceded += result.HomeGoals();
-                    awayLeagueData.GamesPlayed++;
-
-                    homeGoals += result.HomeGoals();
-                    awayGoals += result.AwayGoals();
-                    gamesPlayed++;
+                    league.Add(result.HomeTeam.Name, new LeagueData());
                 }
+                if (!league.ContainsKey(result.AwayTeam.Name))
+                {
+                    league.Add(result.AwayTeam.Name, new LeagueData());
+                }
+
+                var homeLeagueData = league[result.HomeTeam.Name];
+                homeLeagueData.GoalsScored += result.HomeGoals();
+                homeLeagueData.GoalsConceded += result.AwayGoals();
+                homeLeagueData.GamesPlayed++;
+
+                var awayLeagueData = league[result.AwayTeam.Name];
+                awayLeagueData.GoalsScored += result.AwayGoals();
+                awayLeagueData.GoalsConceded += result.HomeGoals();
+                awayLeagueData.GamesPlayed++;
+
+                homeGoals += result.HomeGoals();
+                awayGoals += result.AwayGoals();
+                gamesPlayed++;
             }
 
             var averageGoalsScored = league.Values.Sum(l => l.GoalsScored) / 20m;

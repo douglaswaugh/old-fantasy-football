@@ -122,11 +122,13 @@ namespace AlgorithmFinder.Application
             return homeGoals / _results.Count();
         }
 
+        /* should return results */
         public IEnumerable<Fixture> Before(DateTime date)
         {
             return _results.Where(r => r.IsBefore(date));
         }
 
+        /* should return results */
         public IEnumerable<Fixture> After(DateTime date)
         {
             return _results.Where(r => r.IsOnOrAfter(date));

@@ -75,7 +75,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 7
  testRunner.Given("the \"Wigan\" \"Wolves\" result on the \"13-Oct-11\" was 3 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 8
- testRunner.And("the \"Wolves\" \"Wigan\" result on the \"13-Nov-11\" was 3 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the \"Wolves\" \"Wigan\" fixture is on the \"13-Nov-11\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 9
  testRunner.And("\"Al Habsi\" has a history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 10
@@ -97,7 +97,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 14
  testRunner.Given("the \"Wigan\" \"Wolves\" result on the \"13-Oct-11\" was 3 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 15
- testRunner.And("the \"Wolves\" \"Wigan\" result on the \"13-Nov-11\" was 3 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the \"Wolves\" \"Wigan\" fixture is on the \"13-Nov-11\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 16
  testRunner.And("the players of \"Wigan\" have a history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 17
@@ -119,7 +119,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 21
  testRunner.Given("the \"Wigan\" \"Wolves\" result on the \"13-Oct-11\" was 3 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 22
- testRunner.And("the \"Wolves\" \"Wigan\" result on the \"13-Nov-11\" was 3 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the \"Wolves\" \"Wigan\" fixture is on the \"13-Nov-11\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 23
  testRunner.And("the players of \"Wigan\" have a history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 24
@@ -141,7 +141,7 @@ this.ScenarioSetup(scenarioInfo);
 #line 28
  testRunner.Given("the \"Wigan\" \"Wolves\" result on the \"13-Oct-11\" was 3 2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 29
- testRunner.And("the \"Wolves\" \"Wigan\" result on the \"13-Nov-11\" was 3 1", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the \"Wolves\" \"Wigan\" fixture is on the \"13-Nov-11\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 30
  testRunner.And("the players of \"Wigan\" have a history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 31

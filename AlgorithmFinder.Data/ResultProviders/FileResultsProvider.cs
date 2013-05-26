@@ -5,28 +5,24 @@ using AlgorithmFinder.Data.FixtureProviders;
 
 namespace AlgorithmFinder.Data.ResultProviders
 {
-    public class FileResultsProvider : ResultsProvider, FixturesProvider
+    public class FileResultsProvider : ResultsProvider
     {
-        private readonly Streamer _streamer;
         private readonly FixtureParser _parser;
-        private readonly string _filePath;
-        private Application.Results _results;
+        private Results _results;
 
-        public FileResultsProvider(Streamer streamer, FixtureParser parser, string filePath)
+        public FileResultsProvider(FixtureParser parser)
         {
-            _streamer = streamer;
             _parser = parser;
-            _filePath = filePath;
         }
 
-        public Application.Results GetResultsBefore(DateTime date)
+        public Results GetResultsBefore(DateTime date)
         {
             if (_results == null)
             {
                 BuildResults();
             }
 
-            return new Application.Results(_results.Before(date).ToList());
+            return new Results(_results.Before(date).ToList());
         }
 
         public Fixtures GetFixturesAfter(DateTime date)
@@ -51,10 +47,7 @@ namespace AlgorithmFinder.Data.ResultProviders
 
         private void BuildResults()
         {
-            using (var reader = _streamer.GetStreamReaderFor(_filePath))
-            {
-                _results = new Application.Results(_parser.ParseFixtures(reader).ToList());
-            }
+            _results = new Results(_parser.GetFixtures().ToList());
         }
     }
 }

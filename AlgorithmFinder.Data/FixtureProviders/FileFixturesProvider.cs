@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using AlgorithmFinder.Application;
 
@@ -6,44 +7,37 @@ namespace AlgorithmFinder.Data.FixtureProviders
 {
     public class FileFixturesProvider : FixturesProvider
     {
-        private readonly string _filePath;
-        private readonly Streamer _streamer;
-        private Results _results;
+        private IEnumerable<Fixture> _results;
         private readonly FixtureParser _parser;
 
-        public FileFixturesProvider(Streamer streamer, FixtureParser parser, string filePath)
+        public FileFixturesProvider(FixtureParser parser)
         {
-            _streamer = streamer;
             _parser = parser;
-            _filePath = filePath;
         }
 
         public Fixtures GetFixturesAfter(DateTime date)
         {
             if (_results == null)
             {
-                BuildResults();
+                BuildFixtures();
             }
 
-            return new Fixtures(_results.After(date).ToList());
+            return new Fixtures(_results.Where(r => r.IsOnOrAfter(date)).ToList());
         }
 
         public Fixtures GetFixturesAfter(DateTime date, Team team)
         {
             if (_results == null)
             {
-                BuildResults();
+                BuildFixtures();
             }
 
             return new Fixtures(GetFixturesAfter(date).Where(r => r.HasTeam(team)).ToList());
         }
 
-        private void BuildResults()
+        private void BuildFixtures()
         {
-            using (var reader = _streamer.GetStreamReaderFor(_filePath))
-            {
-                _results = new Results(_parser.ParseFixtures(reader).ToList());
-            }
+            _results = _parser.GetFixtures();
         }
     }
 }

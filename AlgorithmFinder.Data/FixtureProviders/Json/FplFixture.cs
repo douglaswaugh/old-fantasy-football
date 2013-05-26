@@ -2,7 +2,7 @@ using System;
 using System.Runtime.Serialization;
 using AlgorithmFinder.Data.TeamProviders;
 
-namespace AlgorithmFinder.Data.FixtureProviders
+namespace AlgorithmFinder.Data.FixtureProviders.Json
 {
     [DataContract]
     public class FplFixture

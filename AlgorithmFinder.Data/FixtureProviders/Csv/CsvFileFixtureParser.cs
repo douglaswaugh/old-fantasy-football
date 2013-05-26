@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using AlgorithmFinder.Application;
 
-namespace AlgorithmFinder.Data.FixtureProviders
+namespace AlgorithmFinder.Data.FixtureProviders.Csv
 {
     public class CsvFileFixtureParser : FixtureParser
     {

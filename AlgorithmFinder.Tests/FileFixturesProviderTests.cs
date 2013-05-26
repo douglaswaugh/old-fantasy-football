@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using AlgorithmFinder.Data;
 using AlgorithmFinder.Data.FixtureProviders;
+using AlgorithmFinder.Data.FixtureProviders.Csv;
 using NSubstitute;
 using NUnit.Framework;
 

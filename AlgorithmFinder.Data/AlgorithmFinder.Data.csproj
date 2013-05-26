@@ -47,12 +47,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileStreamer.cs" />
-    <Compile Include="FixtureProviders\CsvFileFixtureParser.cs" />
+    <Compile Include="FixtureProviders\Csv\CsvFileFixtureParser.cs" />
     <Compile Include="FixtureProviders\FileFixturesProvider.cs" />
     <Compile Include="FixtureProviders\FixtureParser.cs" />
-    <Compile Include="FixtureProviders\FplFixture.cs" />
-    <Compile Include="FixtureProviders\FplFixtures.cs" />
-    <Compile Include="FixtureProviders\JsonFileFixtureParser.cs" />
+    <Compile Include="FixtureProviders\Json\FplFixture.cs" />
+    <Compile Include="FixtureProviders\Json\FplFixtures.cs" />
+    <Compile Include="FixtureProviders\Json\JsonFileFixtureParser.cs" />
     <Compile Include="PlayerProviders\FplPlayer.cs" />
     <Compile Include="PlayerProviders\InvalidPlayerTypeException.cs" />
     <Compile Include="PlayerProviders\JsonPlayerDeserialiser.cs" />
@@ -72,10 +72,7 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="FixtureProviders\Csv\" />
-    <Folder Include="FixtureProviders\Json\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

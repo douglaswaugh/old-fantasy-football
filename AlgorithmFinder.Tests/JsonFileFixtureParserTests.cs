@@ -4,6 +4,7 @@ using System.Linq;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
 using AlgorithmFinder.Data.FixtureProviders;
+using AlgorithmFinder.Data.FixtureProviders.Json;
 using NSubstitute;
 using NUnit.Framework;
 

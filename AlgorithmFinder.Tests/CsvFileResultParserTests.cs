@@ -2,6 +2,7 @@
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
 using AlgorithmFinder.Data.FixtureProviders;
+using AlgorithmFinder.Data.FixtureProviders.Csv;
 using NSubstitute;
 using NUnit.Framework;
 

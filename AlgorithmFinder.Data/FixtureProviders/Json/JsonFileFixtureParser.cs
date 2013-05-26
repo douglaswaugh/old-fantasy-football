@@ -4,7 +4,7 @@ using System.Linq;
 using AlgorithmFinder.Application;
 using Newtonsoft.Json;
 
-namespace AlgorithmFinder.Data.FixtureProviders
+namespace AlgorithmFinder.Data.FixtureProviders.Json
 {
     public class JsonFileFixtureParser : FixtureParser
     {

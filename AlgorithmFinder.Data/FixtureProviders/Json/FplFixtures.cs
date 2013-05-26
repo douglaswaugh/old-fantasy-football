@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace AlgorithmFinder.Data.FixtureProviders
+namespace AlgorithmFinder.Data.FixtureProviders.Json
 {
     [DataContract]
     public class FplFixtures

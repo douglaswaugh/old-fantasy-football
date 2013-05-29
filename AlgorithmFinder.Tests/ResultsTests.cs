@@ -28,7 +28,7 @@ namespace AlgorithmFinder.Tests
             _wigan = new Team("Wigan");
             _wolves = new Team("Wolves");
             _villa = new Team("Aston Villa");
-            _wolvesWigan = new Fixture(_wolves, _wigan);
+            _wolvesWigan = new Fixture(_wolves, _wigan, new DateTime(2011, 11, 13));
             _nilNil = new Score(0, 0);
             _oneNil = new Score(1, 0);
             _oneAll = new Score(1, 1);

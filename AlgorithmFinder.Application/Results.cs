@@ -13,16 +13,6 @@ namespace AlgorithmFinder.Application
             _results = results;
         }
 
-        public void Add(Fixture result)
-        {
-            _results.Add(result);
-        }
-
-        public int Count()
-        {
-            return _results.Count();
-        }
-
         public ExpectedGoals ExpectedGoalsFor(Team team, Fixture fixture)
         {
             var home = ExpectedHomeGoals(fixture.HomeTeam, fixture.AwayTeam);
@@ -32,6 +22,18 @@ namespace AlgorithmFinder.Application
                 return new ExpectedGoals(home, away);
 
             return new ExpectedGoals(away, home);
+        }
+
+        /* should return results */
+        public IEnumerable<Fixture> Before(DateTime date)
+        {
+            return _results.Where(r => r.IsBefore(date));
+        }
+
+        /* should return results */
+        public IEnumerable<Fixture> After(DateTime date)
+        {
+            return _results.Where(r => r.IsOnOrAfter(date));
         }
 
         private decimal ExpectedHomeGoals(Team homeTeam, Team awayTeam)
@@ -122,16 +124,27 @@ namespace AlgorithmFinder.Application
             return homeGoals / _results.Count();
         }
 
-        /* should return results */
-        public IEnumerable<Fixture> Before(DateTime date)
+        protected bool Equals(Results other)
         {
-            return _results.Where(r => r.IsBefore(date));
+            return _results.SequenceEqual(other._results);
         }
 
-        /* should return results */
-        public IEnumerable<Fixture> After(DateTime date)
+        public override bool Equals(object obj)
         {
-            return _results.Where(r => r.IsOnOrAfter(date));
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Results) obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return (_results != null ? _results.GetHashCode() : 0);
+        }
+
+        public override string ToString()
+        {
+            return string.Join(",", _results);
         }
     }
 }

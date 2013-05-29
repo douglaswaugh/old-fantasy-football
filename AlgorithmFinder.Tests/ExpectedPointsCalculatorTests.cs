@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using AlgorithmFinder.Application;
 using AlgorithmFinder.Application.PointsCalculators;
 using NSubstitute;
@@ -10,6 +11,7 @@ namespace AlgorithmFinder.Tests
     public class ExpectedPointsCalculatorTests
     {
         private Team _wigan;
+        private Team _wolves;
 
         [SetUp]
         public void SetUp()
@@ -23,15 +25,17 @@ namespace AlgorithmFinder.Tests
                 };
 
             _wigan.AddPlayer(new Player(514, "Kone", new ForwardPointsCalculator(), new FixtureHistory(fixtures), _wigan));
+
+            _wolves = new Team("Wolves");
         }
 
         [Test]
         public void Should_calculate_expected_points()
         {
             var expectedGoalsCalculator = Substitute.For<ExpectedGoalsCalculator>();
-            
+
             expectedGoalsCalculator
-                .ExpectedGoalsFor(_wigan, new Fixture(new Team("Wolves"), _wigan))
+                .ExpectedGoalsFor(_wigan, NewFixture())
                 .Returns(new ExpectedGoals(2.88m, 1.92m));
 
             var expectedPointsCalculator = new ExpectedPointsCalculator(expectedGoalsCalculator);
@@ -50,9 +54,14 @@ namespace AlgorithmFinder.Tests
 
             var expectedPoints = expectedPointsCalculator.GetPointsFor(
                 figueroa, 
-                new Fixture(new Team("Wolves"), _wigan));
+                NewFixture());
 
             Assert.That(expectedPoints, Is.EqualTo(15.2997m).Within(0.0001m));
+        }
+
+        private Fixture NewFixture()
+        {
+            return new Fixture(_wolves, _wigan, new DateTime(2011, 11, 13));
         }
 
         private PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards, int redCards = 0)

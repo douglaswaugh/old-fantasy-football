@@ -21,5 +21,7 @@ namespace AlgorithmFinder.Application
         {
             return GetEnumerator();
         }
+
+
     }
 }

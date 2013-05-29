@@ -19,10 +19,11 @@ namespace AlgorithmFinder.Application
             _score = score;
         }
 
-        public Fixture(Team homeTeam, Team awayTeam)
+        public Fixture(Team homeTeam, Team awayTeam, DateTime matchDate)
         {
             _homeTeam = homeTeam;
             _awayTeam = awayTeam;
+            _matchDate = matchDate;
         }
 
         public Team HomeTeam
@@ -107,7 +108,7 @@ namespace AlgorithmFinder.Application
 
         protected bool Equals(Fixture other)
         {
-            return _matchDate.Equals(other._matchDate) && Equals(_homeTeam, other._homeTeam) && Equals(_awayTeam, other._awayTeam) && Equals(_score, other._score);
+            return _matchDate.Equals(other._matchDate) && Equals(_homeTeam, other._homeTeam) && Equals(_awayTeam, other._awayTeam);
         }
 
         public override bool Equals(object obj)
@@ -136,7 +137,7 @@ namespace AlgorithmFinder.Application
 
         public override string ToString()
         {
-            return string.Format("MatchDate: {0}, HomeTeam: {1}, AwayTeam: {2}, Score: {3}, PredictedScore: {4}", _matchDate, _homeTeam, _awayTeam, _score, _predictedScore);
+            return string.Format("MatchDate: {0}, HomeTeam: {1}, AwayTeam: {2}", _matchDate, _homeTeam, _awayTeam);
         }
 
         #endregion

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using AlgorithmFinder.Application;
 using AlgorithmFinder.Data;
 using AlgorithmFinder.Data.FixtureProviders;
 using AlgorithmFinder.Data.FixtureProviders.Csv;
@@ -44,7 +46,7 @@ Wolves,Wigan,20-Nov-11,3,0,20,10,7,3,1,2011";
 
             var results = _fileResultsProvider.GetResultsBefore(new DateTime(2011, 11, 6));
 
-            Assert.That(results.Count(), Is.EqualTo(0));
+            Assert.That(results, Is.EqualTo(new Results(new List<Fixture>())));
         }
 
         [Test]
@@ -64,7 +66,11 @@ Wolves,Wigan,20-Nov-11,3,0,20,10,7,3,1,2011";
 
             var results = _fileResultsProvider.GetResultsBefore(new DateTime(2011, 11, 14));
 
-            Assert.That(results.Count(), Is.EqualTo(2));
+            Assert.That(results, Is.EqualTo(new Results(new List<Fixture>
+                {
+                    NewFixture("Wigan", "Wolves", 2011, 11, 6, 3, 2),
+                    NewFixture("Wolves", "Wigan", 2011, 11, 13, 3, 1)
+                })));
         }
 
         [Test]
@@ -74,7 +80,16 @@ Wolves,Wigan,20-Nov-11,3,0,20,10,7,3,1,2011";
 
             var results = _fileResultsProvider.GetResultsBefore(new DateTime(2011, 11, 13));
 
-            Assert.That(results.Count(), Is.EqualTo(2));
+            Assert.That(results, Is.EqualTo(new Results(new List<Fixture>
+                {
+                    NewFixture("Wigan", "Wolves", 2011, 10, 13, 3, 2),
+                    NewFixture("Wolves", "Southampton", 2011, 11, 6, 3, 1)
+                })));
+        }
+
+        private static Fixture NewFixture(string homeTeam, string awayTeam, int year, int month, int day, int homeGoals, int awayGoals)
+        {
+            return new Fixture(new Team(homeTeam), new Team(awayTeam), new DateTime(year, month, day), new Score(homeGoals, awayGoals));
         }
 
         private StreamReader TwoFixturesOfTwoAfter2011_11_06()

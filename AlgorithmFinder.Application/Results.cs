@@ -24,16 +24,14 @@ namespace AlgorithmFinder.Application
             return new ExpectedGoals(away, home);
         }
 
-        /* should return results */
-        public IEnumerable<Fixture> Before(DateTime date)
+        public Results Before(DateTime date)
         {
-            return _results.Where(r => r.IsBefore(date));
+            return new Results(_results.Where(r => r.IsBefore(date)).ToList());
         }
 
-        /* should return results */
-        public IEnumerable<Fixture> After(DateTime date)
+        public Results After(DateTime date)
         {
-            return _results.Where(r => r.IsOnOrAfter(date));
+            return new Results(_results.Where(r => r.IsOnOrAfter(date)).ToList());
         }
 
         private decimal ExpectedHomeGoals(Team homeTeam, Team awayTeam)

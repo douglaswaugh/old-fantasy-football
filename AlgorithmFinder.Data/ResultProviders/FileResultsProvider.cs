@@ -22,27 +22,7 @@ namespace AlgorithmFinder.Data.ResultProviders
                 BuildResults();
             }
 
-            return new Results(_results.Before(date).ToList());
-        }
-
-        public Fixtures GetFixturesAfter(DateTime date)
-        {
-            if (_results == null)
-            {
-                BuildResults();
-            }
-
-            return new Fixtures(_results.After(date).ToList());
-        }
-
-        public Fixtures GetFixturesAfter(DateTime date, Team team)
-        {
-            if (_results == null)
-            {
-                BuildResults();
-            }
-
-            return new Fixtures(GetFixturesAfter(date).Where(r => r.HasTeam(team)).ToList());
+            return _results.Before(date);
         }
 
         private void BuildResults()

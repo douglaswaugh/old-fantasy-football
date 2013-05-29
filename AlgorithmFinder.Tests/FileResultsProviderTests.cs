@@ -50,16 +50,6 @@ Wolves,Wigan,20-Nov-11,3,0,20,10,7,3,1,2011";
         }
 
         [Test]
-        public void ShouldReturnTwoFixturesAfterDateFromFourFixtures()
-        {
-            _streamer.GetStreamReaderFor(string.Empty).Returns(TwoFixturesOfFourAfter2011_11_13());
-
-            var fixtures = _fileResultsProvider.GetFixturesAfter(new DateTime(2011, 11, 13));
-
-            Assert.That(fixtures.Count(), Is.EqualTo(2));
-        }
-
-        [Test]
         public void ShouldReturnTwoResultsBeforeDateFromTwoFixtures()
         {
             _streamer.GetStreamReaderFor(string.Empty).Returns(TwoFixturesOfTwoAfter2011_11_06());

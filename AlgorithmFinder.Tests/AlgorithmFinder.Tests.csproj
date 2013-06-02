@@ -55,11 +55,9 @@
     <Compile Include="FileTeamProviderTests.cs" />
     <Compile Include="JsonFileFixtureParserTests.cs" />
     <Compile Include="JsonPlayerDeserialiserTests.cs" />
-    <Compile Include="PointsPredictorTests.cs" />
     <Compile Include="FixtureHistoryTests.cs" />
     <Compile Include="PoissonDefencePointsMultiplierTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResultPredictorTests.cs" />
     <Compile Include="ResultsTests.cs" />
     <Compile Include="SerializedFixtureBuilder.cs" />
     <Compile Include="SerialisedPlayerBuilder.cs" />

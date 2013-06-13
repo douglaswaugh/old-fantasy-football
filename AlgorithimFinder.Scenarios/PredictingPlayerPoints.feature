@@ -30,3 +30,8 @@ Scenario: Predict forward points
 	And the players of "Wigan" have a history
 	When I ask for a points prediction for "Kone" of "Wigan" for matches after "13-Nov-11"
 	Then I should be told "Kone" will get "8.64" points
+
+Scenario: Points for playing
+	Given a player has played 90 minutes in each  of thier last 5 games	
+	When I ask for the points prediction for the player
+	Then the player should be predicted 2 extra points

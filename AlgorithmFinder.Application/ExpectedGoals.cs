@@ -2,30 +2,30 @@
 {
     public class ExpectedGoals
     {
-        private readonly decimal _team;
-        private readonly decimal _opponent;
+        private readonly decimal _forTeam;
+        private readonly decimal _forOpponent;
 
-        public ExpectedGoals(decimal team, decimal opponent)
+        public ExpectedGoals(decimal forTeam, decimal forOpponent)
         {
-            _team = team;
-            _opponent = opponent;
+            _forTeam = forTeam;
+            _forOpponent = forOpponent;
         }
 
-        public decimal Team
+        public decimal ForTeam
         {
-            get { return _team; }
+            get { return _forTeam; }
         }
 
-        public decimal Opponent
+        public decimal ForOpponent
         {
-            get { return _opponent; }
+            get { return _forOpponent; }
         }
 
         #region Equality
 
         protected bool Equals(ExpectedGoals other)
         {
-            return _team == other._team && _opponent == other._opponent;
+            return _forTeam == other._forTeam && _forOpponent == other._forOpponent;
         }
 
         public override bool Equals(object obj)
@@ -40,7 +40,7 @@
         {
             unchecked
             {
-                return (_team.GetHashCode()*397) ^ _opponent.GetHashCode();
+                return (_forTeam.GetHashCode()*397) ^ _forOpponent.GetHashCode();
             }
         }
 
@@ -50,7 +50,7 @@
 
         public override string ToString()
         {
-            return string.Format("Team: {0}, Opponent: {1}", _team, _opponent);
+            return string.Format("Team: {0}, Opponent: {1}", _forTeam, _forOpponent);
         }
 
         #endregion

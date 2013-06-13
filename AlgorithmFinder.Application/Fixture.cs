@@ -86,7 +86,7 @@ namespace AlgorithmFinder.Application
         {
             var expectedGoals = results.ExpectedGoalsFor(_homeTeam, this);
 
-            _predictedScore = new Score(Convert.ToInt32(Math.Truncate(expectedGoals.Team)), Convert.ToInt32(Math.Truncate(expectedGoals.Opponent)));
+            _predictedScore = new Score(Convert.ToInt32(Math.Truncate(expectedGoals.ForTeam)), Convert.ToInt32(Math.Truncate(expectedGoals.ForOpponent)));
 
             if (PredictionCorrect())
             {

@@ -46,8 +46,8 @@ namespace AlgorithmFinder.Tests
             var results = new Results(new List<Fixture> { WiganWolves(_nilNil) });
             var expectedGoals = results.ExpectedGoalsFor(_wolves, _wolvesWigan);
 
-            Assert.That(expectedGoals.Team, Is.EqualTo(0m));
-            Assert.That(expectedGoals.Opponent, Is.EqualTo(0m));
+            Assert.That(expectedGoals.ForTeam, Is.EqualTo(0m));
+            Assert.That(expectedGoals.ForOpponent, Is.EqualTo(0m));
         }
 
         [Test]
@@ -56,8 +56,8 @@ namespace AlgorithmFinder.Tests
             var results = new Results(new List<Fixture> { WiganWolves(_oneNil) });
             var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            Assert.That(expectedGoals.Team, Is.EqualTo(0m));
-            Assert.That(expectedGoals.Opponent, Is.EqualTo(0m));
+            Assert.That(expectedGoals.ForTeam, Is.EqualTo(0m));
+            Assert.That(expectedGoals.ForOpponent, Is.EqualTo(0m));
         }
 
         [Test]
@@ -66,8 +66,8 @@ namespace AlgorithmFinder.Tests
             var results = new Results(new List<Fixture> { WiganWolves(_oneAll) });
             var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            Assert.That(expectedGoals.Team, Is.EqualTo(1m));
-            Assert.That(expectedGoals.Opponent, Is.EqualTo(1m));
+            Assert.That(expectedGoals.ForTeam, Is.EqualTo(1m));
+            Assert.That(expectedGoals.ForOpponent, Is.EqualTo(1m));
         }
 
         [Test]
@@ -76,8 +76,8 @@ namespace AlgorithmFinder.Tests
             var results = new Results(new List<Fixture> { WiganWolves(_threeTwo) });
             var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            Assert.That(expectedGoals.Team, Is.EqualTo(2.88m));
-            Assert.That(expectedGoals.Opponent, Is.EqualTo(1.92m));
+            Assert.That(expectedGoals.ForTeam, Is.EqualTo(2.88m));
+            Assert.That(expectedGoals.ForOpponent, Is.EqualTo(1.92m));
         }
 
         [Test]
@@ -91,8 +91,8 @@ namespace AlgorithmFinder.Tests
 
             var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            Assert.That(expectedGoals.Team, Is.EqualTo(1.95m).Within(0.01m));
-            Assert.That(expectedGoals.Opponent, Is.EqualTo(1.46m).Within(0.01m));
+            Assert.That(expectedGoals.ForTeam, Is.EqualTo(1.95m).Within(0.01m));
+            Assert.That(expectedGoals.ForOpponent, Is.EqualTo(1.46m).Within(0.01m));
         }
 
         [Test]
@@ -108,8 +108,8 @@ namespace AlgorithmFinder.Tests
 
             var expectedGoals = results.ExpectedGoalsFor(_wigan, _wolvesWigan);
 
-            Assert.That(expectedGoals.Team, Is.EqualTo(2.28m).Within(0.01m));
-            Assert.That(expectedGoals.Opponent, Is.EqualTo(1.30m).Within(0.01m));
+            Assert.That(expectedGoals.ForTeam, Is.EqualTo(2.28m).Within(0.01m));
+            Assert.That(expectedGoals.ForOpponent, Is.EqualTo(1.30m).Within(0.01m));
         }
 
         private Fixture VillaWigan(Score score)

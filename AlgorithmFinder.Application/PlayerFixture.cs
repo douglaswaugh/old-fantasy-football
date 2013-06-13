@@ -8,17 +8,9 @@
         private readonly int _assists;
         private readonly int _yellowCards;
         private readonly int _redCards;
+        private readonly int _minutesPlayed;
 
-        public PlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards)
-        {
-            _saves = saves;
-            _bonus = bonus;
-            _goals = goals;
-            _assists = assists;
-            _yellowCards = yellowCards;
-        }
-
-        public PlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards, int redCards)
+        public PlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards, int redCards, int minutesPlayed)
         {
             _saves = saves;
             _bonus = bonus;
@@ -26,6 +18,7 @@
             _assists = assists;
             _yellowCards = yellowCards;
             _redCards = redCards;
+            _minutesPlayed = minutesPlayed;
         }
 
         public int Saves

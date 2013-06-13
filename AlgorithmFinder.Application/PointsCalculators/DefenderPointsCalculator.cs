@@ -2,21 +2,14 @@
 {
     public class DefenderPointsCalculator : PointsCalculator
     {
-        public decimal CalculatePoints(Player player, DefencePointsMultiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
+        public decimal DefencePoints(PoissonDefencePointsMultiplier defenceMultiplier)
         {
-            var defencePoints = (defenceMultiplier.CleanSheet * 4) + (defenceMultiplier.ConcedeTwoOrThree * -1) + (defenceMultiplier.ConcedeFourOrFive * -2);
+            return (defenceMultiplier.CleanSheet * 4) + (defenceMultiplier.ConcedeTwoOrThree * -1) + (defenceMultiplier.ConcedeFourOrFive * -2);
+        }
 
-            var bonusPoints = player.Bonus;
-
-            var goalPoints = team.GoalsRatioFor(player) * 6m * expectedGoals.Team;
-
-            var assistPoints = team.AssistsRatioFor(player) * 3m * expectedGoals.Team;
-
-            var yellowCards = player.YellowCards;
-
-            var redCards = player.RedCards * 3;
-
-            return defencePoints + bonusPoints + goalPoints + assistPoints - yellowCards - redCards;
+        public decimal GoalPoints(decimal goalsRatio, decimal expectedGoals)
+        {
+            return goalsRatio * 6m * expectedGoals;
         }
     }
 }

@@ -30,14 +30,14 @@ namespace AlgorithmFinder.Application
             return _players[id];
         }
 
-        public decimal GoalsRatioFor(Player player)
+        public decimal GoalsRatioFor(decimal playerGoals)
         {
-            if (player.Goals == 0)
+            if (playerGoals == 0)
                 return 0m;
 
             var totalGoals = Convert.ToDecimal(_players.Sum(p => p.Value.Goals));
 
-            return player.Goals / totalGoals;
+            return playerGoals / totalGoals;
         }
 
         public decimal AssistsRatioFor(Player player)

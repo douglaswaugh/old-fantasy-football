@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
 using TechTalk.SpecFlow;
@@ -63,6 +64,35 @@ namespace AlgorithimFinder.Scenarios
             PlayerFileBuilder.WriteKoneFixturesToFile(PlayersDirectoryPath());
         }
 
+        [Given(@"a player has played (.*) minutes in each  of thier last (.*) games")]
+        public void GivenAPlayerHasPlayedSomeMinutesInEachOfThierLastNumberOfGames(int minutes, int numberOfGames)
+        {
+            ScenarioContext.Current["playersDirectoryPath"] = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+            PlayerFileBuilder.WriteFixturesToFileWithMintues(PlayersDirectoryPath(), 90);
+        }
+        
+        [When(@"I ask for the points prediction for the player")]
+        public void WhenIAskForThePointsPredictionForThePlayer()
+        {
+            (ResultsContent()).Add(ResultsFileBuilder.SingleResult("Wigan", "Wolves", "11-Oct-2011", 3, 2));
+
+            ResultsFileBuilder.CreateResultsFile();
+
+            FixtureFileBuilder.WriteFixtureToFile("Wolves", "Wigan", "15-Nov-2011");
+
+            ApplicationRunner.RunApplicationWithParameters(new[]
+                {
+                    ResultsFilePath(),
+                    "13-Nov-2011",
+                    "Al Habsi", 
+                    "Wigan", 
+                    PlayersDirectoryPath(), 
+                    PlayerData.Ids["Al Habsi"].ToString(),
+                    FixturesFilePath()
+                });
+        }
+
         [When(@"I ask for a prediction for matches after ""(.*)""")]
         public void WhenIAskForAPredictionForMatchesAfterADate(string date)
         {
@@ -92,24 +122,56 @@ namespace AlgorithimFinder.Scenarios
                 });
         }
 
-        private string FixturesFilePath()
-        {
-            if (ScenarioContext.Current.ContainsKey("fixturesFilePath"))
-                return (string)ScenarioContext.Current["fixturesFilePath"];
-
-            return ResultsFilePath();
-        }
-
         [Then(@"I should be told (.*) correct scores were predicted")]
         public void ThenIShouldBeToldANumberOfCorrectScoresWerePredicted(int correctScores)
         {
-            Assert.That(ConsoleOutput(), Is.StringContaining("Correct scores: " + correctScores));
+            Assert.That(Convert.ToInt32(ConsoleOutput()), Is.EqualTo(correctScores));
         }
 
         [Then(@"I should be told ""(.*)"" will get ""(.*)"" points")]
         public void ThenIShouldBeToldThePlayerWillGetANumberOfPoints(string player, decimal points)
         {
-            Assert.That(ConsoleOutput(), Is.StringContaining(string.Format("{0}\t{1}", player, points)));
+            Assert.That(Convert.ToDecimal(ConsoleOutput()), Is.EqualTo(points).Within(0.01m));
+        }
+
+        [Then(@"the player should not be given any points for playing")]
+        public void ThenThePlayerShouldNotBeGivenAnyPointsForPlaying()
+        {
+            // then assert that the player has a certain number of points
+            // I suppose for zero minutes played there's going to be no difference
+            // but when I get to the other scenarios it will be more interesting
+            // at that point I can get two points predictions and compare them
+
+            // what can I do for it shouldn't add any points?  I can't think of a 
+            // test I can do, so perhaps I should just go straight for a more interesting 
+            // test.  isn't it implied that no points will be added for 0 minutes played,
+            // if all other scenarios add points?
+            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"the player should be predicted (.*) extra points")]
+        public void ThenThePlayerShouldBePredictedExtraNumberOfPoints(int points)
+        {
+            var extraPoints = Convert.ToDecimal(ConsoleOutput());
+
+            ScenarioContext.Current["playersDirectoryPath"] = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+            PlayerFileBuilder.WriteFixturesToFileWithMintues(PlayersDirectoryPath(), 0);
+
+            ApplicationRunner.RunApplicationWithParameters(new[]
+                {
+                    ResultsFilePath(),
+                    "13-Nov-2011",
+                    "Al Habsi", 
+                    "Wigan", 
+                    PlayersDirectoryPath(), 
+                    PlayerData.Ids["Al Habsi"].ToString(),
+                    FixturesFilePath()
+                });
+
+            var normalPoints = Convert.ToDecimal(ConsoleOutput());
+
+            Assert.That(extraPoints - normalPoints, Is.EqualTo(2m));
         }
 
         [AfterScenario]
@@ -122,6 +184,14 @@ namespace AlgorithimFinder.Scenarios
             if (ScenarioContext.Current.ContainsKey("playersDirectoryPath"))
                 if (Directory.Exists(PlayersDirectoryPath()))
                     Directory.Delete(PlayersDirectoryPath(), true);
+        }
+
+        private string FixturesFilePath()
+        {
+            if (ScenarioContext.Current.ContainsKey("fixturesFilePath"))
+                return (string)ScenarioContext.Current["fixturesFilePath"];
+
+            return ResultsFilePath();
         }
 
         private static string ResultsFilePath()

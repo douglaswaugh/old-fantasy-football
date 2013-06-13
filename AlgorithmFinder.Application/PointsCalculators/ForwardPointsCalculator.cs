@@ -2,20 +2,14 @@
 {
     public class ForwardPointsCalculator : PointsCalculator
     {
-        public decimal CalculatePoints(Player player, DefencePointsMultiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals,
-                                       Fixture fixture)
+        public decimal DefencePoints(PoissonDefencePointsMultiplier defenceMultiplier)
         {
-            var bonusPoints = player.Bonus;
+            return 0m;
+        }
 
-            var goalPoints = team.GoalsRatioFor(player) * 4m * expectedGoals.Team;
-
-            var assistPoints = team.AssistsRatioFor(player) * 3m * expectedGoals.Team;
-
-            var yellowCards = player.YellowCards;
-
-            var redCards = player.RedCards * 3;
-
-            return bonusPoints + goalPoints + assistPoints - yellowCards - redCards;
+        public decimal GoalPoints(decimal goalsRatio, decimal expectedGoals)
+        {
+            return goalsRatio * 4m * expectedGoals;
         }
     }
 }

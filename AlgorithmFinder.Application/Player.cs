@@ -49,11 +49,6 @@ namespace AlgorithmFinder.Application
             get { return _fixtureHistory.Assists; }
         }
 
-        public Team Team
-        {
-            get { return _team; }
-        }
-
         public decimal YellowCards
         {
             get { return _fixtureHistory.YellowCards; }
@@ -64,9 +59,30 @@ namespace AlgorithmFinder.Application
             get { return _fixtureHistory.RedCards; }
         }
 
-        public decimal ExpectedPoints(DefencePointsMultiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals, Fixture fixture)
+        public Team Team
         {
-            return _pointsCalculator.CalculatePoints(this, defenceMultiplier, team, expectedGoals, fixture);
+            get { return _team; }
+        }
+
+        public decimal ExpectedPoints(Fixture fixture, ExpectedGoalsCalculator expectedGoalsCalculator)
+        {
+            var redCardPoints = _fixtureHistory.RedCards * 3m;
+
+            var yellowCardPoints = _fixtureHistory.YellowCards;
+
+            var assistPoints = _fixtureHistory.Assists * 3m;
+
+            var bonusPoints = _fixtureHistory.Bonus;
+
+            var expectedGoals = expectedGoalsCalculator.ExpectedGoalsFor(Team, fixture);
+
+            var defenceMultiplier = new PoissonDefencePointsMultiplier(expectedGoals.ForOpponent);
+
+            var defencePoints = _pointsCalculator.DefencePoints(defenceMultiplier);
+
+            var goalPoints = _pointsCalculator.GoalPoints(Team.GoalsRatioFor(_fixtureHistory.Goals), expectedGoals.ForTeam);
+
+            return defencePoints + bonusPoints + goalPoints + assistPoints - yellowCardPoints - redCardPoints;
         }
 
         #region Equality

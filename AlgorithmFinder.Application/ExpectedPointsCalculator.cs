@@ -1,4 +1,6 @@
-﻿namespace AlgorithmFinder.Application
+﻿using System;
+
+namespace AlgorithmFinder.Application
 {
     public class ExpectedPointsCalculator
     {
@@ -13,7 +15,9 @@
         {
             var expectedGoals = _expectedGoalsCalculator.ExpectedGoalsFor(player.Team, fixture);
 
-            return player.ExpectedPoints(new PoissonDefencePointsMultiplier(expectedGoals.Opponent), player.Team, expectedGoals, fixture);
+            throw new NotImplementedException();
+
+            /*return player.ExpectedPoints(new PoissonDefencePointsMultiplier(expectedGoals.ForOpponent), player.Team, expectedGoals, fixture);*/
         } 
     }
 }

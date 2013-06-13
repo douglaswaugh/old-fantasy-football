@@ -42,7 +42,7 @@ namespace AlgorithmFinder.Data.PlayerProviders
                 var yellowCards = int.Parse(fplFixture[11]);
                 var redCards = int.Parse(fplFixture[12]);
 
-                var fixture = new PlayerFixture(saves, bonus, goals, assists, yellowCards, redCards);
+                var fixture = new PlayerFixture(saves, bonus, goals, assists, yellowCards, redCards, 0);
 
                 fixtures.Add(fixture);
             }

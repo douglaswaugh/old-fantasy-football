@@ -40,7 +40,6 @@ namespace AlgorithmFinder.Data.TeamProviders
                 }
                 catch (FileNotFoundException)
                 {
-                    Console.WriteLine("File {0}.json could not be found", id);
                 }
             }
 

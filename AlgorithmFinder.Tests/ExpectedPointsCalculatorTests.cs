@@ -64,9 +64,9 @@ namespace AlgorithmFinder.Tests
             return new Fixture(_wolves, _wigan, new DateTime(2011, 11, 13));
         }
 
-        private PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards, int redCards = 0)
+        private PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists, int yellowCards, int redCards = 0, int minutesPlayed = 0)
         {
-            return new PlayerFixture(saves, bonus, goals, assists, yellowCards, redCards);
+            return new PlayerFixture(saves, bonus, goals, assists, yellowCards, redCards, minutesPlayed);
         }
     }
 }

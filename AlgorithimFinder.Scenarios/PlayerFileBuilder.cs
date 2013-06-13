@@ -114,6 +114,20 @@ namespace AlgorithimFinder.Scenarios
 
             AddFixturesToPlayerFile(playersDirectoryPath, "Al Habsi", alHabsiFixtures);
         }
+
+        public static void WriteFixturesToFileWithMintues(string playersDirectoryPath, int minutes)
+        {
+            var alHabsiFixtures = new List<string>
+                {
+	                string.Format(@"[""19 Aug 13:30"", 1, ""CHE(H) 0-2"", {0}, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1, 0, 1]", minutes.ToString()),
+	                string.Format(@"[""25 Aug 15:00"", 2, ""SOU(A) 2-0"", {0}, 0, 0, 1, 0, 0, 0, 0, 0, 0, 6, 2, 10]", minutes.ToString()),
+	                string.Format(@"[""01 Sep 15:00"", 3, ""STK(H) 2-2"", {0}, 0, 0, 0, 2, 0, 0, 0, 0, 0, 5, 0, 2]", minutes.ToString()),
+	                string.Format(@"[""15 Sep 15:00"", 4, ""MUN(A) 0-4"", {0}, 0, 0, 0, 4, 0, 1, 0, 0, 0, 0, 0, 5]", minutes.ToString()),
+	                string.Format(@"[""22 Sep 15:00"", 5, ""FUL(H) 1-2"", {0}, 0, 0, 0, 2, 0, 0, 0, 0, 0, 6, 0, 3]", minutes.ToString())
+                };
+
+            AddFixturesToPlayerFile(playersDirectoryPath, "Al Habsi", alHabsiFixtures);
+        }
     }
 }
 

@@ -26,7 +26,7 @@ namespace AlgorithmFinder.ConsoleUI
             
             var predictionResult = predictionMeasurer.MeasureAccuracy(new DateParser().Parse(predictAfterDate));
             
-            Console.WriteLine("Correct scores: {0}", predictionResult.CorrectScoreCount);
+            Console.Write("{0}", predictionResult.CorrectScoreCount);
 
             if (args.Length == 7)
             {
@@ -49,7 +49,7 @@ namespace AlgorithmFinder.ConsoleUI
 
                 var expectedPoints = pointsPredictor.GetPointsFor(team, new DateParser().Parse(predictAfterDate), int.Parse(playerId));
 
-                Console.WriteLine("{0}\t{1}", playerName, expectedPoints.ToString("#.##"));
+                Console.Write("{0}", expectedPoints.ToString());
             }
         } 
     }

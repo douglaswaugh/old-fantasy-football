@@ -1,8 +1,11 @@
 Points for playing
-
 Points for playing 60 mins
+Take percentage chance of playing in to account (perhaps this is only defensive points after all, as the number of goals a player scores is proportional to the time they've spend on the pitch any way.)
 
-Take percentage chance of playing in to account (really defensive points only, I think) - have to get points for multiple games
+created weighted points - start with 50% last year's points and 50% last six games
+	have to run the points prediction twice (once for each of last year's fixtures, and last six fixtures)
+	only have to predict the up-coming scores once using the last year's fixtures
+	could write tests using last five fixtures and last two fixtures and make the split configurable
 
 Adjust goal and assist ratios when a previous team mate has left (calculate goals and assists from results, not team player fixture histories)
 

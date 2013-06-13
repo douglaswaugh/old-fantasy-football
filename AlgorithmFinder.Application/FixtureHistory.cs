@@ -13,6 +13,11 @@ namespace AlgorithmFinder.Application
             _playerFixtures = playerFixtures;
         }
 
+        public void Add(PlayerFixture playerFixture)
+        {
+            _playerFixtures.Add(playerFixture);
+        }
+
         public decimal Saves
         {
             get { return Convert.ToDecimal(_playerFixtures.Average(f => f.Saves)); }
@@ -36,11 +41,6 @@ namespace AlgorithmFinder.Application
         public decimal YellowCards
         {
             get { return Convert.ToDecimal(_playerFixtures.Average(f => f.YellowCards)); }
-        }
-
-        public void Add(PlayerFixture playerFixture)
-        {
-            _playerFixtures.Add(playerFixture);
         }
 
         public decimal RedCards

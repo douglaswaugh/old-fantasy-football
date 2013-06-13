@@ -23,8 +23,9 @@ namespace AlgorithmFinder.Application
             var populatedTeam = _teamProvider.PopulateTeam(team);
             var player = populatedTeam.GetPlayer(playerId);
             
-            var expectedPointsCalculator = new ExpectedPointsCalculator(results);
-            var expectedPoints = expectedPointsCalculator.GetPointsFor(player, fixtures.First());
+            // var expectedPointsCalculator = new ExpectedPointsCalculator(results);
+            var expectedPoints = player.ExpectedPoints(fixtures.First(), results);
+            // var expectedPoints = expectedPointsCalculator.GetPointsFor(player, fixtures.First());
 
             return expectedPoints;
         }

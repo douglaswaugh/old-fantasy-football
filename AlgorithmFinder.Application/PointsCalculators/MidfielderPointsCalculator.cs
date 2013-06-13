@@ -2,22 +2,14 @@
 {
     public class MidfielderPointsCalculator : PointsCalculator
     {
-        public decimal CalculatePoints(Player player, DefencePointsMultiplier defenceMultiplier, Team team, ExpectedGoals expectedGoals,
-                                       Fixture fixture)
+        public decimal DefencePoints(PoissonDefencePointsMultiplier defenceMultiplier)
         {
-            var defencePoints = defenceMultiplier.CleanSheet;
+            return  defenceMultiplier.CleanSheet;
+        }
 
-            var bonusPoints = player.Bonus;
-
-            var goalPoints = team.GoalsRatioFor(player) * 5m * expectedGoals.Team;
-
-            var assistPoints = team.AssistsRatioFor(player) * 3m * expectedGoals.Team;
-
-            var yellowCards = player.YellowCards;
-
-            var redCards = player.RedCards * 3;
-
-            return defencePoints + bonusPoints + goalPoints + assistPoints - yellowCards - redCards;
+        public decimal GoalPoints(decimal goalsRatio, decimal expectedGoals)
+        {
+            return goalsRatio * 5m * expectedGoals;
         }
     }
 }

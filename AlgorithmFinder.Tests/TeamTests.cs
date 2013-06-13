@@ -17,16 +17,16 @@ namespace AlgorithmFinder.Tests
         [SetUp]
         public void SetUp()
         {
-            _scoredNone = NewPlayerFixture(0, 0, 0, 0);
-            _scoredOne = NewPlayerFixture(0, 0, 1, 0);
-            _assistedNone = NewPlayerFixture(0, 0, 0, 0);
-            _assistedOne = NewPlayerFixture(0, 0, 0, 1);
+            _scoredNone = NewPlayerFixture(0, 0);
+            _scoredOne = NewPlayerFixture(1, 0);
+            _assistedNone = NewPlayerFixture(0, 0);
+            _assistedOne = NewPlayerFixture(0, 1);
             _wigan = new Team("Wigan");
         }
 
-        private static PlayerFixture NewPlayerFixture(int saves, int bonus, int goals, int assists)
+        private static PlayerFixture NewPlayerFixture(int goals, int assists)
         {
-            return new PlayerFixture(saves, bonus, goals, assists, 0, 0);
+            return new PlayerFixture(0, 0, goals, assists, 0, 0, 0);
         }
 
         [Test]
@@ -36,7 +36,7 @@ namespace AlgorithmFinder.Tests
 
             _wigan.AddPlayer(figueroa);
 
-            var goalsRatio = _wigan.GoalsRatioFor(figueroa);
+            var goalsRatio = _wigan.GoalsRatioFor(figueroa.Goals);
 
             Assert.That(goalsRatio, Is.EqualTo(0));
         }
@@ -48,7 +48,7 @@ namespace AlgorithmFinder.Tests
 
             _wigan.AddPlayer(figueroa);
 
-            var goalsRatio = _wigan.GoalsRatioFor(figueroa);
+            var goalsRatio = _wigan.GoalsRatioFor(figueroa.Goals);
 
             Assert.That(goalsRatio, Is.EqualTo(1));
         }
@@ -62,7 +62,7 @@ namespace AlgorithmFinder.Tests
 
             _wigan.AddPlayer(figueroa);
 
-            var goalsRatio = _wigan.GoalsRatioFor(figueroa);
+            var goalsRatio = _wigan.GoalsRatioFor(figueroa.Goals);
 
             Assert.That(goalsRatio, Is.EqualTo(0.5m));
         }

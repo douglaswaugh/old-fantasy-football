@@ -56,7 +56,7 @@ namespace DW.FantasyFootball.Console
 
         private static void DownloadPlayerStats()
         {
-            var directory = Directory.CreateDirectory(string.Format(@"c:\apps\DW.FantasyFootball\data\playerStats\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            var directory = Directory.CreateDirectory(string.Format(@"c:\Repos\fantasy-football.data\data\playerStats\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
 
             for (int i = 1; i < 700; i++)
             {
@@ -74,8 +74,9 @@ namespace DW.FantasyFootball.Console
                         }
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
+                    System.Console.WriteLine(ex.Message);
                     System.Console.WriteLine("No player found with id {0}", i);
                 }
             }
@@ -99,7 +100,7 @@ namespace DW.FantasyFootball.Console
             request.Host = "fantasy.premierleague.com";
             request.Headers.Add("X-Requested-With: XMLHttpRequest");
             request.UserAgent = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.46 Safari/535.11";
-            request.Accept = "tetxt/html";
+            request.Accept = "application/json";
             request.Referer = "http://fantasy.premierleague.com/fixtures/";
             request.Headers.Add("Accept-Language: en-GB,en-US;q=0.8,en;q=0.6");
             request.Headers.Add("Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.3");

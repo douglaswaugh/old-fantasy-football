@@ -79,7 +79,7 @@ namespace DW.FantasyFootball.Domain
                 Started = gamesweek.Started
             });
             
-            var directory = Directory.CreateDirectory(String.Format(@"c:\apps\DW.FantasyFootball\data\fixtures\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
+            var directory = Directory.CreateDirectory(String.Format(@"c:\repos\fantasy-football.data\data\fixtures\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
 
             var i = 1;
 

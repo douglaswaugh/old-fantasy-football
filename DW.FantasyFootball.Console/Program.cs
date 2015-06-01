@@ -58,7 +58,7 @@ namespace DW.FantasyFootball.Console
         {
             var directory = Directory.CreateDirectory(string.Format(@"c:\Repos\fantasy-football.data\data\playerStats\{0}", DateTime.Now.ToString("yyyyMMddHHmmss")));
 
-            for (int i = 1; i < 700; i++)
+            for (int i = 1; i < 800; i++)
             {
                 var request = BuildPlayerRequest(i);
 
